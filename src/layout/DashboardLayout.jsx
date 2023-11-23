@@ -74,7 +74,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Button from '@mui/material/Button';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import MenuItems from '../components/Dashboard/MenuItems/MenuItems';
 import DashboardHeader from '../components/Dashboard/DashboardHeader/DashboardHeader';
 
@@ -82,6 +82,7 @@ import DashboardHeader from '../components/Dashboard/DashboardHeader/DashboardHe
 const drawerWidth = 240;
 const DashboardLayout = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const handleDrawerToggle = () => {
@@ -105,7 +106,7 @@ const DashboardLayout = () => {
             
             <List>
                 <Divider />
-                <ListItem onClick={() => navigate('/dashboard/profile') } disablePadding>
+                <ListItem onClick={() => navigate('/dashboard/profile') } disablePadding selected={location.pathname == '/dashboard/profile'}>
                     <ListItemButton>
                         <ListItemIcon>
                             <AccountBoxIcon />

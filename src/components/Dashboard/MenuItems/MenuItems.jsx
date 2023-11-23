@@ -9,16 +9,18 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DiscountIcon from '@mui/icons-material/Discount';
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MenuItems = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location);
 
     return (
         <>
             {/* normaluser routes */}
-            <ListItem onClick={() => navigate('/dashboard/add-product')} disablePadding>
+            <ListItem onClick={() => navigate('/dashboard/add-product')} disablePadding selected={location.pathname == '/dashboard/add-product'}>
                 <ListItemButton>
                     <ListItemIcon>
                         <LibraryAddIcon />
@@ -26,7 +28,7 @@ const MenuItems = () => {
                     <ListItemText primary="Add Poduct" />
                 </ListItemButton>
             </ListItem>
-            <ListItem onClick={() => navigate('/dashboard/manage-products')} disablePadding>
+            <ListItem onClick={() => navigate('/dashboard/manage-products')} disablePadding selected={location.pathname == '/dashboard/manage-products'}>
                 <ListItemButton>
                     <ListItemIcon>
                         <ManageHistoryIcon />
@@ -36,7 +38,7 @@ const MenuItems = () => {
             </ListItem>
 
             {/* moderator routes */}
-            <ListItem onClick={() => navigate('/dashboard/review-products')} disablePadding>
+            <ListItem onClick={() => navigate('/dashboard/review-products')} disablePadding selected={location.pathname == '/dashboard/review-products'}>
                 <ListItemButton>
                     <ListItemIcon>
                         <RateReviewIcon />
@@ -44,7 +46,7 @@ const MenuItems = () => {
                     <ListItemText primary="Review Products" />
                 </ListItemButton>
             </ListItem>
-            <ListItem onClick={() => navigate('/dashboard/reported-content')} disablePadding>
+            <ListItem onClick={() => navigate('/dashboard/reported-content')} disablePadding selected={location.pathname == '/dashboard/reported-content'}>
                 <ListItemButton>
                     <ListItemIcon>
                         <FlagIcon />
@@ -54,7 +56,7 @@ const MenuItems = () => {
             </ListItem>
 
             {/* admin routes */}
-            <ListItem onClick={() => navigate('/dashboard/statistics')} disablePadding selected={true}>
+            <ListItem onClick={() => navigate('/dashboard/statistics')} disablePadding selected={location.pathname == '/dashboard/statistics'}>
                 <ListItemButton>
                     <ListItemIcon>
                         <AutoGraphIcon />
@@ -62,7 +64,7 @@ const MenuItems = () => {
                     <ListItemText primary="Statistics" />
                 </ListItemButton>
             </ListItem>
-            <ListItem onClick={() => navigate('/dashboard/manage-users')} disablePadding>
+            <ListItem onClick={() => navigate('/dashboard/manage-users')} disablePadding selected={location.pathname == '/dashboard/manage-users'}>
                 <ListItemButton>
                     <ListItemIcon>
                         <ManageAccountsIcon />
@@ -70,7 +72,7 @@ const MenuItems = () => {
                     <ListItemText primary="Manager Users" />
                 </ListItemButton>
             </ListItem>
-            <ListItem onClick={() => navigate('/dashboard/manage-coupons')} disablePadding>
+            <ListItem onClick={() => navigate('/dashboard/manage-coupons')} disablePadding selected={location.pathname == '/dashboard/manage-coupons'}>
                 <ListItemButton>
                     <ListItemIcon>
                         <DiscountIcon />
