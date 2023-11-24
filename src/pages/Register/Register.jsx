@@ -14,7 +14,7 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { toast } from 'react-hot-toast';
 import { updateProfile } from "firebase/auth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
     const { registerUser, user } = useAuth();
@@ -25,7 +25,7 @@ const Register = () => {
     const [userPassword, setUserPassword] = useState(null);
     const [userPhoto, setUserPhoto] = useState(null);
     const from = location?.state?.from?.pathname || '/';
-    const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
 
     if (user) {
         return <Navigate to={from} />
@@ -33,7 +33,10 @@ const Register = () => {
 
     const handleRegister = () => {
         console.log('clicked handleregiter');
-        const userData = { userName, userEmail, userPassword, userPhoto };
+        const userData = {
+            userName, userEmail, userPassword, userPhoto, userRole: 'normal',
+            status: 'Unverified'
+        };
         registerUser(userEmail, userPassword)
             .then(res => {
                 console.log('inside register.jsx inside handeRegister', res);
@@ -47,7 +50,7 @@ const Register = () => {
                     }
                 })
                 // saveUserData on database if user created on firebase successfully
-                axiosSecure.post('/users', userData)
+                axiosPublic.post('/users', userData)
                     .then(res => {
                         console.log(res, 'inside handle register, /users put req');
                     })
@@ -62,7 +65,6 @@ const Register = () => {
                 toast.error("Email already exist");
             })
     }
-
 
     return (
         <div>

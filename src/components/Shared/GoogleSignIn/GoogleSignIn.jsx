@@ -5,29 +5,48 @@ import useAuth from '../../../hooks/useAuth';
 import auth from '../../../config/firebase.config';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const GoogleSignIn = () => {
-
     const { googleSignIn } = useAuth();
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const handleGoogleSignIn = () => {
         googleSignIn(auth)
-        .then(res => {
-            console.log('inside handleGoogleSignin', res);
-            navigate('/')
-            toast.success("Google Sign In Successful")
-            // save user data on database if data does not exist
-        })
-        .catch(err => {
-            console.log('inside handleGoogleSignin', err);
-            toast.success(err.message)
-        })
+            .then(res => {
+                console.log('inside handleGoogleSignin', res);
+                // save user data on database if data does not exist
+                const user = res.user;
+                const userData = {
+                    name: user?.displayName,
+                    email: user?.email,
+                    userPhoto: user?.photoURL,
+                    userRole: 'normal',
+                    status: 'Unverified'
+                };
+                console.log(userData, 'userdata googlesignin.jsx', user);
+                // saveUserData on database if user created on firebase successfully
+                axiosPublic.post('/users', userData)
+                    .then(res => {
+                        console.log(res, 'inside handle register, /users put req');
+                    })
+                    .catch(err => {
+                        console.log(err, 'inside handle register, /users put req');
+                    })
+                navigate('/')
+                toast.success("Google Sign In Successful")
+
+            })
+            .catch(err => {
+                console.log('inside handleGoogleSignin', err);
+                toast.success(err.message)
+            })
     }
 
     return (
         <Stack direction="row" spacing={10}>
-            <Button onClick={handleGoogleSignIn} sx={{borderRadius: '50px', minWidth: '300px', padding: '8px'}} variant="outlined" startIcon={<FcGoogle className="text-5xl"></FcGoogle>}>
+            <Button onClick={handleGoogleSignIn} sx={{ borderRadius: '50px', minWidth: '300px', padding: '8px' }} variant="outlined" startIcon={<FcGoogle className="text-5xl"></FcGoogle>}>
                 Sign In with Google
             </Button>
         </Stack>
