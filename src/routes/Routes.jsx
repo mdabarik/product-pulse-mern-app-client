@@ -13,9 +13,11 @@ import PrivateRoute from "./PrivateRoute";
 import NormalRoute from "./NormalRoute";
 import ModeratorRoute from "./ModeratorRoute";
 import AdminRoute from "./AdminRoute";
-import Users from "../pages/Dashboard/Admin/ManageUsers/Users";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import Profile from "../pages/Dashboard/Profile/Profile";
+import ManageCoupons from "../pages/Dashboard/Admin/ManageCoupons/ManageCoupons";
+import CouponDetails from "../pages/Dashboard/Admin/ManageCoupons/CouponDetails";
+import EditCoupon from "../pages/Dashboard/Admin/ManageCoupons/EditCoupon";
 
 const routes = createBrowserRouter([
     {
@@ -96,7 +98,19 @@ const routes = createBrowserRouter([
             {
                 path: 'manage-coupons',
                 element: <AdminRoute>
-                    <h1>Manage coupons</h1>
+                    <ManageCoupons></ManageCoupons>
+                </AdminRoute>
+            },
+            {
+                path: '/dashboard/manage-coupons/view/:id',
+                element: <AdminRoute>
+                    <CouponDetails />
+                </AdminRoute>
+            },
+            {
+                path: '/dashboard/manage-coupons/edit/:id',
+                element: <AdminRoute>
+                    <EditCoupon />
                 </AdminRoute>
             }
         ]
