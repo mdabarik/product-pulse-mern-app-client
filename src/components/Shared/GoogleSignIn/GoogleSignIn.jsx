@@ -8,7 +8,7 @@ import { toast } from 'react-hot-toast';
 
 const GoogleSignIn = () => {
 
-    const { user, loading, googleSignIn } = useAuth();
+    const { googleSignIn } = useAuth();
     const navigate = useNavigate();
 
     const handleGoogleSignIn = () => {
@@ -16,7 +16,7 @@ const GoogleSignIn = () => {
         .then(res => {
             console.log('inside handleGoogleSignin', res);
             navigate('/')
-            toast.success("Google Sign In Successfull")
+            toast.success("Google Sign In Successful")
         })
         .catch(err => {
             console.log('inside handleGoogleSignin', err);

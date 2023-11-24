@@ -10,10 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import LoginIcon from '@mui/icons-material/Login';
 import Button from '@mui/material/Button';
 import './Menus.css';
+import useAuth from "../../../hooks/useAuth";
 
 const Menus = () => {
     const navigate = useNavigate();
-    const user = false;
+    const { user, logOut } = useAuth();
     const location = useLocation();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenUserMenu = (event) => {
@@ -24,8 +25,14 @@ const Menus = () => {
     };
     const handleLogout = () => {
         console.log('logout clicked');
+        logOut()
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
-
     return (
         <>
             <li className={`${location.pathname == '/' ? 'selected' : ''}`}>
@@ -44,15 +51,12 @@ const Menus = () => {
                 </div> :
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open Options">
-                            <IconButton onClick={() => {
-                                handleOpenUserMenu()
-                            }
-                            } sx={{ p: 0 }}>
-                                <Avatar alt="Profile" src="https://images.unsplash.com/photo-1682687220161-e3e7388e4fad?w=1400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHx8" />
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt="Profile" src={user?.photoURL} />
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{ mt: '45px' }}
+                            sx={{ mt: '45px', textAlign: 'center' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
@@ -68,7 +72,9 @@ const Menus = () => {
                             onClose={handleCloseUserMenu}
                         >
                             {/* <MenuItem onClick={handleCloseUserMenu}> */}
-                            <Typography textAlign="center">User Name</Typography>
+                            <Typography textAlign="center" sx={{ backgroundColor: '#edf7ed', padding: '5px', fontSize: '14px', color: '#1d4620', fontWeight: 'bold' }}>
+                                {user?.displayName}
+                            </Typography>
                             {/* </MenuItem> */}
                             <MenuItem onClick={() => {
                                 handleCloseUserMenu()

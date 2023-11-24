@@ -1,8 +1,10 @@
 import Menus from "./Menus";
 import brandLogo from "../../../assets/brand-logo-filled.png";
+import { Link } from "react-router-dom";
 
 
 const Navbar = () => {
+
     return (
         <div className="drawer">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -15,8 +17,8 @@ const Navbar = () => {
                         </label>
                     </div>
                     <div className="flex-1 flex items-center justify-start">
-                        <img className="w-[32px] mr-4" src={brandLogo} alt="Logo"/>
-                        <h2 className="text-2xl font-bold">Product <span className="text-blue-600 font-extrabold">Pulse</span></h2>
+                        <Link to="/"><img className="w-[32px] mr-4" src={brandLogo} alt="Logo"/></Link>
+                        <Link to="/"><h2 className="text-2xl font-bold">Product <span className="text-blue-600 font-extrabold">Pulse</span></h2></Link>
                     </div>
                     <div className="flex-none hidden mx-0 px-0 lg:block">
                         <ul className="menu menu-horizontal text-lg">
