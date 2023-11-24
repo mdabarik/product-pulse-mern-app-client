@@ -10,6 +10,9 @@ import Products from "../pages/Products/Products";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
+import NormalRoute from "./NormalRoute";
+import ModeratorRoute from "./ModeratorRoute";
+import AdminRoute from "./AdminRoute";
 
 const routes = createBrowserRouter([
     {
@@ -51,33 +54,47 @@ const routes = createBrowserRouter([
             // normaluser routes
             {
                 path: 'add-product',
-                element: <h1>Add Product</h1>
+                element: <NormalRoute>
+                    <h2>Add Product</h2>
+                </NormalRoute>
             },
             {
                 path: 'manage-products',
-                element: <h1>Manage Products</h1>
+                element: <NormalRoute>
+                    <h1>Manage Products</h1>
+                </NormalRoute>
             },
             // moderator routes
             {
                 path: 'review-products',
-                element: <h1>Review products</h1>
+                element: <ModeratorRoute>
+                    <h1>Review products</h1>
+                </ModeratorRoute>
             },
             {
                 path: 'reported-content',
-                element: <h1>Reported content</h1>
+                element: <ModeratorRoute>
+                    <h1>Reported content</h1>
+                </ModeratorRoute>
             },
             // admin routes
             {
                 path: 'statistics',
-                element: <h1>Statistics</h1>
+                element: <AdminRoute>
+                    <h1>Statistics</h1>
+                </AdminRoute>
             },
             {
                 path: 'manage-users',
-                element: <h1>Manage users</h1>
+                element: <AdminRoute>
+                    <h1>Manage users</h1>
+                </AdminRoute>
             },
             {
                 path: 'manage-coupons',
-                element: <h1>Manage coupons</h1>
+                element: <AdminRoute>
+                    <h1>Manage coupons</h1>
+                </AdminRoute>
             }
         ]
     }

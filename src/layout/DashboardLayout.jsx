@@ -18,6 +18,7 @@ import MenuItems from '../components/Dashboard/MenuItems/MenuItems';
 import DashboardHeader from '../components/Dashboard/DashboardHeader/DashboardHeader';
 import useAuth from '../hooks/useAuth';
 import { toast } from 'react-hot-toast';
+import useRole from '../hooks/useRole';
 
 
 const drawerWidth = 240;
@@ -27,20 +28,23 @@ const DashboardLayout = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const { logOut } = useAuth();
 
+    const [role, isLoading] = useRole();
+    // console.log('role inside dashlayout', role);
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
     const handleLogout = () => {
         logOut()
-        .then(res => {
-            console.log('handle logout, dashbaord', res);
-            toast.success("Logout successful");
-        })
-        .catch(err =>   {
-            console.log('handle logout, dashbaord', err);
-            toast.error("Something went wrong");
-        })
+            .then(res => {
+                console.log('handle logout, dashbaord', res);
+                toast.success("Logout successful");
+            })
+            .catch(err => {
+                console.log('handle logout, dashbaord', err);
+                toast.error("Something went wrong");
+            })
     }
 
     const drawer = (
@@ -53,7 +57,10 @@ const DashboardLayout = () => {
                 </div>
                 {/* <Divider /> */}
                 <List>
-                    <MenuItems></MenuItems>
+                    <MenuItems
+                        role={role}
+                        isLoading={isLoading}
+                    ></MenuItems>
                 </List>
             </div>
 

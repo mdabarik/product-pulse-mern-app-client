@@ -62,7 +62,7 @@ const Register = () => {
             })
             .catch(err => {
                 console.log('inside register.jsx inside handeRegister', err.message);
-                toast.error("Email already exist");
+                toast.error(err.message);
             })
     }
 
