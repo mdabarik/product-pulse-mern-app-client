@@ -1,64 +1,3 @@
-// import { Outlet } from 'react-router-dom';
-
-// const DashboardLayout = () => {
-//     return (
-//         <div>
-//             <Outlet></Outlet>
-//         </div>
-//     );
-// };
-
-// export default DashboardLayout;
-
-
-// const drawer = (
-//     <div>
-//         <Toolbar />
-//         <Divider />
-//         <List>
-//             <ListItem disablePadding selected="true">
-//                 <ListItemButton>
-//                     <ListItemIcon>
-//                         <MailIcon />
-//                     </ListItemIcon>
-//                     <ListItemText primary="Home" />
-//                 </ListItemButton>
-//             </ListItem>
-//             <ListItem disablePadding>
-//                 <ListItemButton>
-//                     <ListItemIcon>
-//                         <MailIcon />
-//                     </ListItemIcon>
-//                     <ListItemText primary="Booking" />
-//                 </ListItemButton>
-//             </ListItem>
-//         </List>
-
-
-//         <Divider />
-//         <List>
-//             <ListItem disablePadding>
-//                 <ListItemButton>
-//                     <ListItemIcon>
-//                        <AccountBoxIcon />
-//                     </ListItemIcon>
-//                     <ListItemText primary="Profile" />
-//                 </ListItemButton>
-//             </ListItem>
-//             <ListItem disablePadding>
-//                 <ListItemButton>
-//                     <ListItemIcon>
-//                         <ExitToAppIcon />
-//                     </ListItemIcon>
-//                     <ListItemText primary="Logout" />
-//                 </ListItemButton>
-//             </ListItem>
-//         </List>
-
-//     </div>
-// );
-
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -77,6 +16,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import MenuItems from '../components/Dashboard/MenuItems/MenuItems';
 import DashboardHeader from '../components/Dashboard/DashboardHeader/DashboardHeader';
+import useAuth from '../hooks/useAuth';
+import { toast } from 'react-hot-toast';
 
 
 const drawerWidth = 240;
@@ -84,10 +25,23 @@ const DashboardLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { logOut } = useAuth();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    const handleLogout = () => {
+        logOut()
+        .then(res => {
+            console.log('handle logout, dashbaord', res);
+            toast.success("Logout successful");
+        })
+        .catch(err =>   {
+            console.log('handle logout, dashbaord', err);
+            toast.error("Something went wrong");
+        })
+    }
 
     const drawer = (
         <div className='flex flex-col justify-between h-[100%]'>
@@ -103,10 +57,10 @@ const DashboardLayout = () => {
                 </List>
             </div>
 
-            
+
             <List>
                 <Divider />
-                <ListItem onClick={() => navigate('/dashboard/profile') } disablePadding selected={location.pathname == '/dashboard/profile'}>
+                <ListItem onClick={() => navigate('/dashboard/profile')} disablePadding selected={location.pathname == '/dashboard/profile'}>
                     <ListItemButton>
                         <ListItemIcon>
                             <AccountBoxIcon />
@@ -115,7 +69,7 @@ const DashboardLayout = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton onClick={handleLogout}>
                         <ListItemIcon>
                             <ExitToAppIcon />
                         </ListItemIcon>
