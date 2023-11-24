@@ -1,8 +1,8 @@
 
 const Footer = () => {
     return (
-        <footer className="p-10 bg-base-200 flex flex-col">
-            <div className="flex justify-evenly">
+        <footer className="p-10 drop-shadow bg-base-100 flex flex-col w-full">
+            <div className="flex justify-between w-[1280px] mx-auto">
                 <div>
                     <p>Logo</p>
                     <p>Product Pulse</p>

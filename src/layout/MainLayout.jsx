@@ -7,10 +7,12 @@ const MainLayout = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <Container>
-                <Outlet></Outlet>
-                <Footer></Footer>
-            </Container>
+            <div className='bg-[#f8f8ff]'>
+                <Container>
+                    <Outlet></Outlet>
+                </Container>
+            </div>
+            <Footer></Footer>
         </div>
     );
 };

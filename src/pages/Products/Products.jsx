@@ -2,7 +2,15 @@
 const Products = () => {
     return (
         <div>
-            Product page
+            <div>
+                All Products
+            </div>
+            <div>
+                Search products by tags
+            </div>
+            <div>
+                display products
+            </div>
         </div>
     );
 };
