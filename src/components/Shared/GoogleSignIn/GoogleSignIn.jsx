@@ -17,6 +17,7 @@ const GoogleSignIn = () => {
             console.log('inside handleGoogleSignin', res);
             navigate('/')
             toast.success("Google Sign In Successful")
+            // save user data on database if data does not exist
         })
         .catch(err => {
             console.log('inside handleGoogleSignin', err);

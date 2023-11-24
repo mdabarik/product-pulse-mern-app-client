@@ -9,6 +9,7 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Products from "../pages/Products/Products";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
     {
@@ -36,7 +37,7 @@ const routes = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute> <DashboardLayout></DashboardLayout></PrivateRoute>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
