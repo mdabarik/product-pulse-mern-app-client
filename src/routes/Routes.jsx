@@ -13,6 +13,8 @@ import PrivateRoute from "./PrivateRoute";
 import NormalRoute from "./NormalRoute";
 import ModeratorRoute from "./ModeratorRoute";
 import AdminRoute from "./AdminRoute";
+import Users from "../pages/Dashboard/Admin/ManageUsers/Users";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 
 const routes = createBrowserRouter([
     {
@@ -87,7 +89,7 @@ const routes = createBrowserRouter([
             {
                 path: 'manage-users',
                 element: <AdminRoute>
-                    <h1>Manage users</h1>
+                    <ManageUsers></ManageUsers>
                 </AdminRoute>
             },
             {

@@ -4,7 +4,7 @@ import useAuth from './useAuth';
 import useAxiosSecure from './useAxiosSecure';
 
 const useRole = () => {
-    const { user, loading, refetch } = useAuth();
+    const { user, refetch } = useAuth();
     const axiosSecure = useAxiosSecure();
 
     const { data: role, isLoading } = useQuery({
