@@ -47,7 +47,7 @@ const DashboardLayout = () => {
         <div className='flex flex-col justify-between h-[100%]'>
             {/* <Toolbar /> */}
             <div>
-                <div className='px-4 py-[10px] bg-blue-600 text-white'>
+                <div className='px-4 py-[10px] bg-[#1876d2] text-white'>
                     <DashboardIcon></DashboardIcon>
                     <Button sx={{ fontSize: '16px', color: 'white', fontWeight: 'bold', padding: '8px' }} size="large">Dashboard</Button>
                 </div>
