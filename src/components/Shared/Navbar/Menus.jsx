@@ -14,7 +14,7 @@ import useAuth from "../../../hooks/useAuth";
 
 const Menus = () => {
     const navigate = useNavigate();
-    const { user, logOut } = useAuth();
+    const { user, logOut, loading } = useAuth();
     const location = useLocation();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenUserMenu = (event) => {
@@ -43,10 +43,13 @@ const Menus = () => {
             </li>
             {
                 !user ? <div>
-                    <Button onClick={() => navigate('/login')} variant="contained" size="large">
+                    {
+                        loading ? <span className="loading loading-spinner text-info loading-lg"></span>
+                        : <Button onClick={() => navigate('/login')} variant="contained" size="large">
                         <LoginIcon></LoginIcon>
                         <span className="ml-1 font-bold">Login</span>
                     </Button>
+                    }
 
                 </div> :
                     <Box sx={{ flexGrow: 0 }}>
