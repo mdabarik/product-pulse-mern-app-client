@@ -36,7 +36,7 @@ const Menus = () => {
             </li>
             {
                 !user ? <div>
-                    <Button variant="contained" size="large">
+                    <Button onClick={() => navigate('/login')} variant="contained" size="large">
                         <LoginIcon></LoginIcon>
                         <span className="ml-1 font-bold">Login</span>
                     </Button>
@@ -44,7 +44,10 @@ const Menus = () => {
                 </div> :
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open Options">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <IconButton onClick={() => {
+                                handleOpenUserMenu()
+                            }
+                            } sx={{ p: 0 }}>
                                 <Avatar alt="Profile" src="https://images.unsplash.com/photo-1682687220161-e3e7388e4fad?w=1400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHx8" />
                             </IconButton>
                         </Tooltip>
