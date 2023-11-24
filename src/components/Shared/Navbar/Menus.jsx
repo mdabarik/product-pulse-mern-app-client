@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -7,10 +7,14 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import LoginIcon from '@mui/icons-material/Login';
+import Button from '@mui/material/Button';
+import './Menus.css';
 
 const Menus = () => {
     const navigate = useNavigate();
-    const user = true;
+    const user = false;
+    const location = useLocation();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -24,15 +28,19 @@ const Menus = () => {
 
     return (
         <>
-            <li>
-                <NavLink to="/">Home</NavLink>
+            <li className={`${location.pathname == '/' ? 'selected' : ''}`}>
+                <Link to="/">Home</Link>
             </li>
-            <li>
-                <NavLink to="/all-products">Products</NavLink>
+            <li className={`${location.pathname == '/all-products' ? 'selected' : ''}`}>
+                <Link to="/all-products">Products</Link>
             </li>
             {
                 !user ? <div>
-                    <button className="btn btn-secondary">Login</button>
+                    <Button variant="contained" size="large">
+                        <LoginIcon></LoginIcon>
+                        <span className="ml-1 font-bold">Login</span>
+                    </Button>
+
                 </div> :
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open Options">
