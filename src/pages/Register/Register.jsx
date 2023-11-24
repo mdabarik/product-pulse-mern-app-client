@@ -14,6 +14,7 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { toast } from 'react-hot-toast';
 import { updateProfile } from "firebase/auth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
     const { registerUser, user } = useAuth();
@@ -24,11 +25,11 @@ const Register = () => {
     const [userPassword, setUserPassword] = useState(null);
     const [userPhoto, setUserPhoto] = useState(null);
     const from = location?.state?.from?.pathname || '/';
+    const axiosSecure = useAxiosSecure();
 
     if (user) {
         return <Navigate to={from} />
     }
-
 
     const handleRegister = () => {
         console.log('clicked handleregiter');
@@ -46,6 +47,13 @@ const Register = () => {
                     }
                 })
                 // saveUserData on database if user created on firebase successfully
+                axiosSecure.post('/users', userData)
+                    .then(res => {
+                        console.log(res, 'inside handle register, /users put req');
+                    })
+                    .catch(err => {
+                        console.log(err, 'inside handle register, /users put req');
+                    })
                 // on succesfull registration redirect to home
                 navigate(from, { replace: true });
             })

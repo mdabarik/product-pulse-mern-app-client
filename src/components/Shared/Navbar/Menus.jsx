@@ -72,7 +72,7 @@ const Menus = () => {
                             onClose={handleCloseUserMenu}
                         >
                             {/* <MenuItem onClick={handleCloseUserMenu}> */}
-                            <Typography textAlign="center" sx={{ backgroundColor: '#edf7ed', padding: '5px', fontSize: '14px', color: '#1d4620', fontWeight: 'bold' }}>
+                            <Typography textAlign="center" sx={{ backgroundColor: '#edf7ed', padding: '5px', fontSize: '14px', color: '#1d4620', fontWeight: 'bold', paddingX: '16px', textTransform: 'uppercase' }}>
                                 {user?.displayName}
                             </Typography>
                             {/* </MenuItem> */}

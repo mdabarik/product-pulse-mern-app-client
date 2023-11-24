@@ -3,14 +3,16 @@ import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged,
 import firebaseAuth from "../config/firebase.config";
 import { useState } from "react";
 import { useEffect } from "react";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const provider = new GoogleAuthProvider();
 
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const axiosPublic = useAxiosPublic();
 
     const googleSignIn = () => {
         setLoading(true);
@@ -47,46 +49,33 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(firebaseAuth, currUser => {
             setUser(currUser);
-            setLoading(false);
             console.log("inside onauthstatechanged", currUser);
-
             /*---------JWT TOKEN----------*/
             if (currUser) {
-                // const jwtData = {
-                //     email: currUser.email,
-                //     name: currUser.displayName
-                // }
-                // fetch('https://crud-jwt-server.vercel.app/jwt', {
-                //     method: 'POST',
-                //     headers: {
-                //         'content-type': 'application/json'
-                //     },
-                //     body: JSON.stringify(jwtData),
-                //     credentials: 'include'
-                // })
-                //     .then(res => res.json())
-            } else {
-                // logout fetch request
-                // fetch('https://crud-jwt-server.vercel.app/logout', {
-                //     method: 'POST',
-                //     headers: {
-                //         'content-type': 'application/json'
-                //     },
-                //     body: JSON.stringify({}),
-                //     credentials: 'include'
-                // })
-                // .then(res => {
-                //     console.log(res.data);
-                // })
+                console.log(import.meta.env.VITE_SERVER_URL, 'url');
+                // get token and store client
+                const userInfo = { email: currUser.email };
+                axiosPublic.post('/jwt', userInfo)
+                    .then(res => {
+                        console.log(res);
+                        if (res?.data?.token) {
+                            localStorage.setItem('access-token', res?.data?.token);
+                            setLoading(false);
+                        }
+                    })
+            }
+            else {
+                // TODO: remove access-token
+                localStorage.removeItem('access-token');
+                setLoading(false);
             }
             /*---------JWT TOKEN----------*/
-
-        })
+        });
 
         return () => {
             return unsubscribe();
         }
-    }, [])
+    }, [axiosPublic])
 
     return (
         <AuthContext.Provider value={info}>
