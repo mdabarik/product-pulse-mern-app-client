@@ -10,10 +10,9 @@ import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import { toast } from 'react-hot-toast';
-import UpdateModal from '../../../../components/Dashboard/UpdateModal/UpdateModal';
 import { useState } from 'react';
 
-const Users = () => {
+const ManageCoupons = () => {
   const [users, isLoading, refetch] = useAllUsers()
   const axiosSecure = useAxiosSecure();
 
@@ -140,4 +139,4 @@ const Users = () => {
   );
 }
 
-export default Users;
+export default ManageCoupons;

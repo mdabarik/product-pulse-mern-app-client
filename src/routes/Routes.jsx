@@ -15,6 +15,7 @@ import ModeratorRoute from "./ModeratorRoute";
 import AdminRoute from "./AdminRoute";
 import Users from "../pages/Dashboard/Admin/ManageUsers/Users";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
+import Profile from "../pages/Dashboard/Profile/Profile";
 
 const routes = createBrowserRouter([
     {
@@ -51,7 +52,7 @@ const routes = createBrowserRouter([
             },
             {
                 path: 'profile',
-                element: <h1>Profile</h1>
+                element: <Profile></Profile>
             },
             // normaluser routes
             {
