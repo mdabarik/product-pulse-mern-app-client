@@ -35,7 +35,7 @@ const Register = () => {
         console.log('clicked handleregiter');
         const userData = {
             userName, userEmail, userPassword, userPhoto, userRole: 'normal',
-            status: 'Unverified'
+            status: 'Unverified', isSubscribed: 'no'
         };
         registerUser(userEmail, userPassword)
             .then(res => {

@@ -23,7 +23,8 @@ const GoogleSignIn = () => {
                     userEmail: user?.email,
                     userPhoto: user?.photoURL,
                     userRole: 'normal',
-                    status: 'Unverified'
+                    status: 'Unverified',
+                    isSubscribed: 'no'
                 };
                 console.log(userData, 'userdata googlesignin.jsx', user);
                 // saveUserData on database if user created on firebase successfully
