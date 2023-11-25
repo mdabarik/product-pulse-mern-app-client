@@ -19,6 +19,8 @@ import ManageCoupons from "../pages/Dashboard/Admin/ManageCoupons/ManageCoupons"
 import CouponDetails from "../pages/Dashboard/Admin/ManageCoupons/CouponDetails";
 import EditCoupon from "../pages/Dashboard/Admin/ManageCoupons/EditCoupon";
 import AddNewProduct from "../pages/Dashboard/Normal/AddNewProduct";
+import ManageProducts from "../pages/Dashboard/Normal/ManageProducts";
+import EditProduct from "../pages/Dashboard/Normal/EditProduct";
 
 const routes = createBrowserRouter([
     {
@@ -67,7 +69,13 @@ const routes = createBrowserRouter([
             {
                 path: 'manage-products',
                 element: <NormalRoute>
-                    <h1>Manage Products</h1>
+                    <ManageProducts></ManageProducts>
+                </NormalRoute>
+            },
+            {
+                path: 'edit-product/:id',
+                element: <NormalRoute>
+                    <EditProduct></EditProduct>
                 </NormalRoute>
             },
             // moderator routes

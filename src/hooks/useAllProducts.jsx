@@ -8,9 +8,9 @@ const useAllProducts = () => {
     const axiosSecure = useAxiosSecure();
     const { data: products, isLoading, refetch } = useQuery({
         queryKey: ['products'],
-        queryFn: async() => {
-            const {data} = await axiosSecure.get(`/all-products/${user?.email}`);
-            // console.log(res);
+        queryFn: async () => {
+            const { data } = await axiosSecure.get(`/all-products/${user?.email}`);
+            // console.log(data, 'inside use all product');
             return data;
         }
     })
