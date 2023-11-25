@@ -18,6 +18,7 @@ import Profile from "../pages/Dashboard/Profile/Profile";
 import ManageCoupons from "../pages/Dashboard/Admin/ManageCoupons/ManageCoupons";
 import CouponDetails from "../pages/Dashboard/Admin/ManageCoupons/CouponDetails";
 import EditCoupon from "../pages/Dashboard/Admin/ManageCoupons/EditCoupon";
+import AddNewProduct from "../pages/Dashboard/Normal/AddNewProduct";
 
 const routes = createBrowserRouter([
     {
@@ -60,7 +61,7 @@ const routes = createBrowserRouter([
             {
                 path: 'add-product',
                 element: <NormalRoute>
-                    <h2>Add Product</h2>
+                    <AddNewProduct></AddNewProduct>
                 </NormalRoute>
             },
             {
