@@ -6,7 +6,6 @@ import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home";
 import DashboardLayout from "../layout/DashboardLayout";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
-import Products from "../pages/Products/Products";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
@@ -23,6 +22,8 @@ import ManageProducts from "../pages/Dashboard/Normal/ManageProducts";
 import EditProduct from "../pages/Dashboard/Normal/EditProduct";
 import ReviewProducts from "../pages/Dashboard/Moderator/ReviewProducts";
 import ReportedProducts from "../pages/Dashboard/Moderator/ReportedProducts";
+import AllProducts from "../pages/AllProducts/AllProducts";
+import ProductDetails from "../pages/ProductDetails/ProductDetails";
 
 const routes = createBrowserRouter([
     {
@@ -36,7 +37,11 @@ const routes = createBrowserRouter([
             },
             {
                 path: '/all-products',
-                element: <Products></Products>
+                element: <AllProducts></AllProducts>
+            },
+            {
+                path: '/all-products/:id',
+                element: <ProductDetails></ProductDetails>
             },
             {
                 path: '/login',
