@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
 import { toast } from 'react-hot-toast';
+import Rating from '@mui/material/Rating';
 
 
 const ProductCard = ({ product }) => {
@@ -40,6 +41,15 @@ const ProductCard = ({ product }) => {
         }
     })
 
+    const { data: rating, isLoading: loading3 } = useQuery({
+        queryKey: ['reviewsallsingle'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/all-reviews/${_id}`);
+            console.log(res.data, 'all reviews');
+            return res.data;
+        }
+    })
+
     console.log(voteCount, 'voteCount');
 
 
@@ -53,13 +63,35 @@ const ProductCard = ({ product }) => {
             types: 'upvote'
         }
         console.log(votes);
-        axiosPublic.post('/votes', votes)
+        axiosPublic.put('/votes', votes)
             .then(res => {
                 console.log(res);
-                if (res.data.insertedId) {
+                if (res.data.insertedId || res.data.modifiedCount > 0) {
                     toast.success("Upvoted succesfully");
                     refetch()
                 }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+
+    const handleDownVote = async () => {
+        const prodId = _id;
+        const votes = {
+            userEmail: user?.email,
+            prodId: prodId,
+            types: 'downvote'
+        }
+        console.log(votes);
+        axiosPublic.put('/votes', votes)
+            .then(res => {
+                console.log(res);
+                if (res.data.modifiedCount) {
+                    toast.success("Downvoted succesfully");
+                }
+                refetch()
             })
             .catch(err => {
                 console.log(err);
@@ -83,8 +115,10 @@ const ProductCard = ({ product }) => {
                 </div>
                 <div className="flex items-center">
                     {/* rating */}
-                    <p>******</p>
-                    ({0} <span className="ml-2">reviews</span>)
+                    <Stack spacing={1}>
+                        <Rating name="read-only" precision={0.5} value={Math.round((rating?.averageRating * 2)) / 2} readOnly />
+                    </Stack>
+                    ({rating?.numRating} <span className="ml-2">reviews</span>)
                 </div>
                 <div className="flex justify-evenly mt-4">
                     <Stack direction="row" spacing={2}>
@@ -95,23 +129,23 @@ const ProductCard = ({ product }) => {
                                     <Button disabled size="small" sx={{ borderRadius: '10000px' }} variant="contained" startIcon={<ArrowUpwardIcon />}>
                                         ({voteCount?.length})
                                     </Button>
-                                    <Button disabled size="small" sx={{ borderRadius: '10000px' }} variant="outlined" startIcon={<ArrowDownwardIcon />}>
-                                        (0)
-                                    </Button>
+                                    {/* <Button disabled size="small" sx={{ borderRadius: '10000px' }} variant="outlined" startIcon={<ArrowDownwardIcon />}>
+                                        ({voteCount?.length})
+                                    </Button> */}
                                 </Stack>
                                 :
                                 <Stack direction="row" spacing={2}>
                                     {
                                         // console.log(votes, 'invalid')
                                         votes?.length > 0 ? <>
-                                            <Button disabled onClick={() => handleUpvote()} size="small" sx={{ borderRadius: '10000px' }} variant="contained" startIcon={<ArrowUpwardIcon />}>
-                                                ({voteCount?.length})
+                                            <Button onClick={() => handleDownVote()} size="small" sx={{ borderRadius: '10000px' }} variant="contained" startIcon={<ArrowDownwardIcon />}>
+                                                ({voteCount?.length}) downvote
                                             </Button></>
                                             : <>
                                                 {
                                                     !loading1 && !loading2 ? <>
                                                         <Button onClick={() => handleUpvote()} size="small" sx={{ borderRadius: '10000px' }} variant="contained" startIcon={<ArrowUpwardIcon />}>
-                                                            ({voteCount?.length})
+                                                            ({voteCount?.length}) upvote
                                                         </Button>
                                                     </> : <>
                                                         <span className="loading loading-spinner text-accent"></span>
@@ -120,9 +154,9 @@ const ProductCard = ({ product }) => {
                                             </>
 
                                     }
-                                    <Button size="small" sx={{ borderRadius: '10000px' }} variant="outlined" startIcon={<ArrowDownwardIcon />}>
+                                    {/* <Button size="small" sx={{ borderRadius: '10000px' }} variant="outlined" startIcon={<ArrowDownwardIcon />}>
                                         (0)
-                                    </Button>
+                                    </Button> */}
                                 </Stack>
                         }
 
