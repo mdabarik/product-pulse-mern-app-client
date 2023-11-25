@@ -129,6 +129,7 @@ const ReviewProducts = () => {
                                     </TableCell>
                                     <TableCell align="left">
                                         {
+                                            product?.prodStatus == 'accepted' ?
                                             product?.prodIsFeatured == 'no' ?
                                                 <Button onClick={() => handleFeature('yes', product?._id)} variant="outlined" size="small">
                                                     Make Featured
@@ -137,6 +138,7 @@ const ReviewProducts = () => {
                                                 <Button onClick={() => handleFeature('no', product?._id)} variant="outlined" size="small">
                                                     Make Unfeatured
                                                 </Button>
+                                            : <p title="must be accepted to set it as featured">Disabled</p>
                                         }
 
                                     </TableCell>
@@ -146,9 +148,12 @@ const ReviewProducts = () => {
                                         </Button>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Button onClick={() => handleStatus('rejected', product?._id)} variant="outlined" size="small">
+                                        {
+                                            product?.prodIsFeatured == 'no' ? <Button onClick={() => handleStatus('Rejected', product?._id)} variant="outlined" size="small">
                                             Reject
-                                        </Button>
+                                        </Button> :
+                                        <p title="remove from featured to reject">Disabled</p>
+                                        }
                                     </TableCell>
 
                                 </TableRow>)

@@ -5,7 +5,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useProducts = () => {
     const axiosSecure = useAxiosSecure();
     const { data: products, isLoading, refetch } = useQuery({
-        queryKey: ['products'],
+        queryKey: ['productsall'],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/get-all-products`);
             console.log(data, 'inside useproduct');

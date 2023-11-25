@@ -19,8 +19,8 @@ const GoogleSignIn = () => {
                 // save user data on database if data does not exist
                 const user = res.user;
                 const userData = {
-                    name: user?.displayName,
-                    email: user?.email,
+                    userName: user?.displayName,
+                    userEmail: user?.email,
                     userPhoto: user?.photoURL,
                     userRole: 'normal',
                     status: 'Unverified'

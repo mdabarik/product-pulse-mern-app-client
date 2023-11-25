@@ -8,6 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import Payment from '../../../pages/Dashboard/Normal/Payment/Payment';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -46,6 +47,7 @@ const PaymentModal = ({open, setOpen, handleClickOpen, handleClose}) => {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
+                    <Payment></Payment>
                     <Typography gutterBottom>
                         Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
                         dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
