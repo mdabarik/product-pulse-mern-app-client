@@ -52,7 +52,8 @@ const AddNewProduct = () => {
             },
             prodStatus: 'pending',
             prodUpvotes: 0,
-            prodDownvotes: 0
+            prodDownvotes: 0,
+            prodIsFeatured: 'no'
         }
         console.log(newProduct);
         axiosSecure.post('/products', newProduct)

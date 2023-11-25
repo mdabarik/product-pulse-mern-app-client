@@ -21,6 +21,8 @@ import EditCoupon from "../pages/Dashboard/Admin/ManageCoupons/EditCoupon";
 import AddNewProduct from "../pages/Dashboard/Normal/AddNewProduct";
 import ManageProducts from "../pages/Dashboard/Normal/ManageProducts";
 import EditProduct from "../pages/Dashboard/Normal/EditProduct";
+import ReviewProducts from "../pages/Dashboard/Moderator/ReviewProducts";
+import ReportedProducts from "../pages/Dashboard/Moderator/ReportedProducts";
 
 const routes = createBrowserRouter([
     {
@@ -82,13 +84,13 @@ const routes = createBrowserRouter([
             {
                 path: 'review-products',
                 element: <ModeratorRoute>
-                    <h1>Review products</h1>
+                    <ReviewProducts></ReviewProducts>
                 </ModeratorRoute>
             },
             {
                 path: 'reported-content',
                 element: <ModeratorRoute>
-                    <h1>Reported content</h1>
+                    <ReportedProducts></ReportedProducts>
                 </ModeratorRoute>
             },
             // admin routes

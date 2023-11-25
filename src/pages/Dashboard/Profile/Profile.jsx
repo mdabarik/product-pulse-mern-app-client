@@ -33,7 +33,7 @@ const Profile = () => {
                     <h3 className='font-bold text-center text-xl'>Name: {user?.displayName}</h3>
                     <p>Email: {user?.email} </p>
                     <p>Status: Unverified</p>
-                    <p>Role: Normal Static</p>
+                    <p>Your Role: {role}</p>
                     {
                         role == 'normal' ?
                             <Button onClick={() => handlePayment(user?.email)} sx={{ padding: '10px', paddingX: '20px', borderRadius: '50px' }} variant="contained" endIcon={<CreditCardIcon />}>
