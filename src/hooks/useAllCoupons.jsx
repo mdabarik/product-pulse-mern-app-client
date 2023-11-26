@@ -4,10 +4,10 @@ import useAxiosSecure from "./useAxiosSecure";
 
 
 const useAllCoupons = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const axiosSecure = useAxiosSecure();
     const { data: coupons, isLoading, refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users', user, loading],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/all-coupons/${user?.email}`);
             // console.log(res);

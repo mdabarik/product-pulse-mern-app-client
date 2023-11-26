@@ -11,6 +11,7 @@ import useAuth from '../../hooks/useAuth';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useRole from '../../hooks/useRole';
 import Skeleton from '@mui/material/Skeleton';
+import Loader from '../../components/Shared/Loader/Loader';
 
 
 
@@ -20,11 +21,11 @@ const Voting = ({ product }) => {
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
 
-    console.log(product);
+    // console.log(product);
 
     /*--- get total downvote & upvote of curr product---*/
     const { data: votes, isLoading, refetch } = useQuery({
-        queryKey: ['query-for-votes', loading, product],
+        queryKey: ['query-for-votes', loading, product, user],
         queryFn: async () => {
             // return {upvotes: n, downvotes: n}
             const res = await axiosPublic.get(`/get-votes?id=${product?._id}`);
@@ -34,7 +35,7 @@ const Voting = ({ product }) => {
 
     /*--- get downvote & upvote of currUser +&+ currProd---*/
     const { data: currUserVotes, isLoading: isLoading1, refetch: refetch1 } = useQuery({
-        queryKey: ['query-for-user-votes', loading, product],
+        queryKey: ['query-for-user-votes', loading, product, user],
         queryFn: async () => {
             // return {upvotes: n, downvotes: n}
             const res = await axiosPublic.get(`/get-user-votes?id=${product?._id}&email=${user?.email}`);
@@ -42,21 +43,23 @@ const Voting = ({ product }) => {
             return res.data;
         }
     })
+    // console.log(currUserVotes, 'votes ucr user');
 
-    console.log(currUserVotes, 'votes ucr user');
+    // if (loading) return <Loader></Loader>
 
     const handleVote = (vote) => {
-        console.log(product.prodOwnerInfo);
-        console.log(product?.prodOwnerInfo?.email, user?.email);
+        // console.log(product.prodOwnerInfo);
+        // console.log(product?.prodOwnerInfo?.email, user?.email);
         /*product user can't upvote*/
         if (product?.prodOwnerInfo?.email == user?.email) {
             toast.error(`You can't ${vote} your own product.`);
             return;
         }
         /*redirect to login page if user not logged in*/
-        if (!user && !loading) {
+        if (!loading && !user) {
             toast.success(`Please login to ${vote}`);
             navigate('/login');
+            return;
         }
         /*admin or moderator user can't upvote*/
         if (role == 'admin' || role == 'moderator') {
@@ -83,21 +86,23 @@ const Voting = ({ product }) => {
             types: vote
         }
 
-        axiosPublic.put('/add-or-update', updatedDoc)
-            .then(res => {
-                console.log(res);
-                if (res.data.modifiedCount > 0 || res.data.upsertedId) {
-                    toast.success(`${vote}d successfully`);
-                    refetch();
-                    refetch1();
-                }
-            })
-            .catch(err => {
-                console.log(err, 'inside handle vote');
-            })
+        if (user) {
+            axiosPublic.put('/add-or-update', updatedDoc)
+                .then(res => {
+                    // console.log(res);
+                    if (res.data.modifiedCount > 0 || res.data.upsertedId) {
+                        toast.success(`${vote}d successfully`);
+                        refetch();
+                        refetch1();
+                    }
+                })
+                .catch(err => {
+                    console.log(err, 'inside handle vote');
+                })
+        }
 
 
-        console.log(updatedDoc, 'voting status');
+        // console.log(updatedDoc, 'voting status');
     }
 
     // console.log(product, 'recieved product on voting.jsx');

@@ -1,23 +1,23 @@
-import Loader from "../../components/Shared/Loader/Loader";
-import useProducts from "../../hooks/useProducts";
 import ProductCard from "./ProductCard";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
-import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import useAcceptedProds from "../../hooks/useAcceptedProds";
 import Skeleton from '@mui/material/Skeleton';
+import useVerifiedProds from "../../hooks/useVerifiedProds";
 
 
 
 const AllProducts = () => {
-    const [products] = useAcceptedProds();
+    const [products] = useVerifiedProds();
+    console.log(products, 'allprod');
+
+
     const axiosPublic = useAxiosPublic();
     const [search, setSearch] = useState(null);
     // console.log(search);
@@ -60,7 +60,9 @@ const AllProducts = () => {
         <div>
             {/* page title */}
             <div>
-                <h3 className="text-xl font-bold py-4">All Products: {count?.count}</h3>
+                <h3 className="text-xl font-bold py-4">
+                    All Products: {products?.length}
+                </h3>
             </div>
             {/* Search Functionality */}
             <div>
@@ -133,13 +135,20 @@ const AllProducts = () => {
                         }
                     </div>
             }
+
             {/* pagination */}
-            <div className="flex items-center justify-center pb-10 ">
-                <Stack spacing={2}>
-                    <Typography>Page: {page}</Typography>
-                    <Pagination color="primary" count={totalPage || 1} page={page} onChange={handleChange} />
-                </Stack>
-            </div>
+            {
+                count?.count != 0
+                    ?
+                    <div className="flex items-center justify-center pb-10 ">
+                        <Stack spacing={2}>
+                            {/* <Typography>Page: {page}</Typography> */}
+                            <Pagination color="primary" count={totalPage || 1} page={page} onChange={handleChange} />
+                        </Stack>
+                    </div>
+                    :
+                    ''
+            }
 
         </div>
     );
