@@ -35,12 +35,7 @@ const Footer = () => {
                         <img src={Logo} alt="image" />
                     </div>
                     <p className="font-bold text-2xl">Product <span className="text-[blue]">Pulse</span></p>
-                    <div>
-                        <div className="text-center text-sm">
-                            <p>Location: 123 Main Street, Cityville, State 12345</p>
-                            <p>USA, United State of America</p>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div className="flex items-center justify-center gap-4 mt-3 link">
@@ -48,6 +43,12 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center justify-center gap-4 mt-3 link">
                     {socialLinks}
+                </div>
+                <div>
+                    <div className="text-center text-[10px]">
+                        <p>Location: 123 Main Street, Cityville, State 12345</p>
+                        <p>USA, United State of America</p>
+                    </div>
                 </div>
 
             </div>

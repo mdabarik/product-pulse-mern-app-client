@@ -29,8 +29,6 @@ const Login = () => {
         return <Navigate to={from} />
     }
 
-   
-
     const handleLogin = () => {
         loginUser(userEmail, userPassword)
             .then(res => {

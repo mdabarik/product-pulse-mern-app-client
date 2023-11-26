@@ -15,6 +15,8 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from 'react-hot-toast';
 import { updateProfile } from "firebase/auth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { imageUpload } from "../../api/utils";
 
 const Register = () => {
     const { registerUser, user, setLoading } = useAuth();
@@ -24,6 +26,8 @@ const Register = () => {
     const [userEmail, setUserEmail] = useState(null);
     const [userPassword, setUserPassword] = useState(null);
     const [userPhoto, setUserPhoto] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
+
     const from = location?.state?.from?.pathname || '/';
     const axiosPublic = useAxiosPublic();
 
@@ -31,10 +35,14 @@ const Register = () => {
         return <Navigate to={from} />
     }
 
-    const handleRegister = () => {
+    const handleRegister = async() => {
         console.log('clicked handleregiter');
+        const imageData = await imageUpload(imageFile);
+        const photoURL = imageData?.data?.display_url;
+        console.log(photoURL);
+
         const userData = {
-            userName, userEmail, userPassword, userPhoto, userRole: 'normal',
+            userName, userEmail, userPassword, photoURL, userRole: 'normal',
             status: 'Unverified', isSubscribed: 'no'
         };
         registerUser(userEmail, userPassword)
@@ -44,9 +52,9 @@ const Register = () => {
                 // update user info in firebase
                 updateProfile(res.user, {
                     displayName: userName,
-                    photoURL: userPhoto,
+                    photoURL: photoURL,
                     reloadUserInfo: {
-                        photoUrl: userPhoto
+                        photoUrl: photoURL
                     }
                 })
                 // saveUserData on database if user created on firebase successfully
@@ -104,13 +112,24 @@ const Register = () => {
                         placeholder="Enter password"
                         type="file"
                     ></Input> */}
-                    <Input
+                    {/* <Input
                         onChange={e => setUserPhoto(e.target.value)}
                         sx={{ padding: '10px' }}
                         startDecorator={<LinkIcon />}
                         placeholder="Enter photoURL"
                         type="text"
-                    ></Input>
+                    ></Input> */}
+                    {/* photo upload to imgbb */}
+                    <div className="border-2 rounded-md p-2 flex justify-start">
+                        <CloudUploadIcon />
+                        <input
+                            onChange={e => setImageFile(e.target.files[0])}
+                            className="ml-3"
+                            type="file"
+                            accept='image/*'
+                        />
+                    </div>
+
                     <Button onClick={handleRegister} variant="contained" size="large" sx={{ width: '100%' }}>
                         <AppRegistrationIcon></AppRegistrationIcon>
                         <span className="ml-1 font-bold">Register Now</span>
