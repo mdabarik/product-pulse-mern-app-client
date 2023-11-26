@@ -9,7 +9,7 @@ const ModeratorRoute = ({children}) => {
     if (isLoading) return <Loader></Loader>
     if (role == 'moderator') return children;
 
-    return <Navigate to="/dashboard" replace={true}/>
+    return <Navigate to="/dashboard/moderator-statistics" replace={true}/>
 };
 
 export default ModeratorRoute;

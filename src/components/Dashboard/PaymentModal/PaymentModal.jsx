@@ -29,9 +29,13 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
     const [price, setPrice] = useState(500);
 
 
-
     const handleCoupon = (coupon) => {
+
         console.log(coupon, 'coupon');
+
+        
+
+
         if (coupon == 'SAVE50NEW') {
             setPrice(price - 50)
             toast.success('Coupon applied successfully');

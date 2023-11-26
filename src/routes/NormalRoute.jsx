@@ -9,7 +9,7 @@ const NormalRoute = ({children}) => {
     if (isLoading) return <Loader></Loader>
     if (role == 'normal') return children;
 
-    return <Navigate to="/dashboard" replace={true}/>
+    return <Navigate to="/dashboard/user-statistics" replace={true}/>
 };
 
 export default NormalRoute;

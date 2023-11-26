@@ -22,6 +22,14 @@ const MenuItems = ({ role, isLoading }) => {
             {/* normaluser routes */}
             {
                 role == 'normal' ? <>
+                    <ListItem onClick={() => navigate('/dashboard/normal-statistics')} disablePadding selected={location.pathname == '/dashboard/normal-statistics'}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <AutoGraphIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="User Statistics" />
+                        </ListItemButton>
+                    </ListItem>
                     <ListItem onClick={() => navigate('/dashboard/add-product')} disablePadding selected={location.pathname == '/dashboard/add-product'}>
                         <ListItemButton>
                             <ListItemIcon>
@@ -44,6 +52,14 @@ const MenuItems = ({ role, isLoading }) => {
             {/* moderator routes */}
             {
                 role == 'moderator' ? <>
+                    <ListItem onClick={() => navigate('/dashboard/moderator-statistics')} disablePadding selected={location.pathname == '/dashboard/moderator-statistics'}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <AutoGraphIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Moderator Statistics" />
+                        </ListItemButton>
+                    </ListItem>
                     <ListItem onClick={() => navigate('/dashboard/review-products')} disablePadding selected={location.pathname == '/dashboard/review-products'}>
                         <ListItemButton>
                             <ListItemIcon>
@@ -66,12 +82,12 @@ const MenuItems = ({ role, isLoading }) => {
             {/* admin routes */}
             {
                 role == 'admin' ? <>
-                    <ListItem onClick={() => navigate('/dashboard/statistics')} disablePadding selected={location.pathname == '/dashboard/statistics'}>
+                    <ListItem onClick={() => navigate('/dashboard/admin-statistics')} disablePadding selected={location.pathname == '/dashboard/admin-statistics'}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <AutoGraphIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Statistics" />
+                            <ListItemText primary="Admin Statistics" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem onClick={() => navigate('/dashboard/manage-users')} disablePadding selected={location.pathname == '/dashboard/manage-users'}>

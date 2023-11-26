@@ -24,6 +24,10 @@ import ReviewProducts from "../pages/Dashboard/Moderator/ReviewProducts";
 import ReportedProducts from "../pages/Dashboard/Moderator/ReportedProducts";
 import AllProducts from "../pages/AllProducts/AllProducts";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import Statistics from "../pages/Dashboard/Admin/Statistics/AdminStatistics";
+import AdminStatistics from "../pages/Dashboard/Admin/Statistics/AdminStatistics";
+import ModeratorStatistics from "../pages/Dashboard/Moderator/Statistics/ModeratorStatistics";
+import NormalStatistics from "../pages/Dashboard/Normal/Statistics/NormalStatistics";
 
 const routes = createBrowserRouter([
     {
@@ -85,6 +89,12 @@ const routes = createBrowserRouter([
                     <EditProduct></EditProduct>
                 </NormalRoute>
             },
+            {
+                path: 'normal-statistics',
+                element: <NormalRoute>
+                    <NormalStatistics></NormalStatistics>
+                </NormalRoute>
+            },
             // moderator routes
             {
                 path: 'review-products',
@@ -98,11 +108,17 @@ const routes = createBrowserRouter([
                     <ReportedProducts></ReportedProducts>
                 </ModeratorRoute>
             },
+            {
+                path: 'moderator-statistics',
+                element: <ModeratorRoute>
+                    <ModeratorStatistics></ModeratorStatistics>
+                </ModeratorRoute>
+            },
             // admin routes
             {
-                path: 'statistics',
+                path: 'admin-statistics',
                 element: <AdminRoute>
-                    <h1>Statistics</h1>
+                    <AdminStatistics></AdminStatistics>
                 </AdminRoute>
             },
             {
