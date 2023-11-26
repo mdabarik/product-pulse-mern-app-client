@@ -1,0 +1,76 @@
+.coupon-offer {
+    background-color: #4CAF50;  /* Green background color */
+    color: #ffffff;  /* White text color */
+    padding: 10px;   /* Adjust padding as needed for spacing around the text */
+    font-size: 16px; /* Adjust font size as needed */
+    border-radius: 5px;  /* Optional: Add rounded corners for a softer look */
+}
+
+
+.coupon-code {
+    background: linear-gradient(135deg, #238be6, #1857a3);  /* Gradient background using primary color */
+    color: #fff;  /* Text color */
+    padding: 10px;   /* Adjust padding as needed for spacing around the text */
+    padding-left: 25px;
+    padding-right: 25px;
+    text-align: center;  /* Center the text */
+    font-size: 20px; /* Adjust font size for the coupon code */
+    font-weight: bold;  /* Make the coupon code bold for emphasis */
+    border-radius: 0px;  /* Optional: Add rounded corners for a softer look */
+    animation: glow 2s infinite alternate;  /* Add a subtle glowing effect */
+}
+
+.discount-info {
+    color: #238be6;  /* Text color */
+    font-size: 18px; /* Adjust font size for the discount information */
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px rgba(35, 139, 230, 0.8);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(35, 139, 230, 0.9);
+    }
+}
+
+
+.discount-info {
+    color: #238be6;  /* Text color */
+    font-size: 18px; /* Adjust font size for the discount information */
+}
+
+.copy-button {
+    background: linear-gradient(135deg, #238be6, #1857a3);  /* Gradient background using primary color */
+    color: #fff;  /* Text color */
+    padding: 10px 20px;   /* Adjust padding as needed */
+    border: none;  /* Remove border */
+    border-radius: 5px;  /* Add rounded corners for a softer look */
+    cursor: pointer;  /* Add a pointer cursor for interaction */
+    font-size: 16px; /* Adjust font size for the copy button */
+    transition: background 0.3s ease;  /* Add a smooth transition for hover effect */
+}
+
+.copy-button:hover {
+    background: linear-gradient(135deg, #1857a3, #238be6);  /* Adjust gradient for hover effect */
+}
+
+
+.expired-date {
+    color: #999;  /* Gray color for expired date */
+    font-size: 14px; /* Adjust font size as needed */
+    font-style: italic;  /* Italics for a subtle style */
+}
+.coupon-description {
+    color: #999;  /* Text color matching the primary color */
+    font-size: 16px; /* Adjust font size for the description */
+    line-height: 1.4;  /* Adjust line height for better readability */
+    background-color: rgba(0, 0, 0, 0.8);  /* 80% opacity black background */
+    padding: 15px;  /* Adjust padding as needed for spacing around the text */
+    border-radius: 8px;  /* Optional: Add rounded corners for a softer look */
+    margin-top: 10px;  /* Adjust top margin as needed */
+}
+
+.coupon-description strong {
+    color: #fff;  /* Text color for strong elements, white for contrast */
+}

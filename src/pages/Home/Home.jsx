@@ -1,10 +1,12 @@
+import CouponSliders from "./CouponCarousel/CouponSliders";
+import Sliders from "./Sliders/Sliders";
 
 const Home = () => {
     return (
         <div>
             <div>
-                {/* banner section */}
-                Banner Section
+                {/* banner/sliders section */}
+                <Sliders></Sliders>
             </div>
             <div>
                 {/* featured products */}
@@ -15,8 +17,8 @@ const Home = () => {
                 Trending products
             </div>
             <div>
-                {/* coupon codes */}
-                Coupon codes carousel
+                {/* coupon codes sliders/carousel */}
+                <CouponSliders></CouponSliders>
             </div>
         </div>
     );

@@ -20,6 +20,7 @@
     "@mui/x-date-pickers": "^6.18.2",
     "@stripe/react-stripe-js": "^2.4.0",
     "@tanstack/react-query": "^5.8.6",
+    "aos": "^2.3.4",
     "axios": "^1.6.2",
     "dayjs": "^1.11.10",
     "draggable": "^4.2.0",
@@ -28,6 +29,7 @@
     "match-sorter": "^6.3.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
     "react-helmet-async": "^2.0.1",
@@ -38,7 +40,8 @@
     "react-tag-input-component": "^2.0.2",
     "sort-by": "^1.2.0",
     "styled-components": "^6.1.1",
-    "sweetalert2": "^11.10.1"
+    "sweetalert2": "^11.10.1",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
