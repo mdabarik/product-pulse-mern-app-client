@@ -10,6 +10,8 @@ import 'aos/dist/aos.css';
 import AOS from "aos";
 import CouponSlider from './CouponSlider';
 import "./CouponSliders";
+import { useQuery } from '@tanstack/react-query';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const CouponSliders = () => {
 
@@ -17,17 +19,29 @@ const CouponSliders = () => {
         AOS.init()
     }, [])
 
-    const [testimonials, setTestimonials] = useState([]);
-    useEffect(() => {
-        fetch("https://crud-jwt-server.vercel.app/api/v1/reviews", { credentials: 'include' })
-            .then(res => res.json())
-            .then(data => {
-                setTestimonials(data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, []);
+    const axiosPublic = useAxiosPublic();
+
+    // get-active-token
+    const { data: coupons, isLoading, refetch } = useQuery({
+        queryKey: ['coupons-active'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/get-active-token`);
+            console.log(res, 'inside usequery prod details');
+            return res.data;
+        }
+    })
+
+    // const [testimonials, setTestimonials] = useState([]);
+    // useEffect(() => {
+    //     fetch("https://crud-jwt-server.vercel.app/api/v1/reviews", { credentials: 'include' })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setTestimonials(data);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // }, []);
 
     return (
         <div className="my-10 mx-auto" data-aos="zoom-in">
@@ -60,9 +74,9 @@ const CouponSliders = () => {
                         }}
                     >
                         {
-                            testimonials?.map(testitmonial => {
-                                return <SwiperSlide key={testitmonial._id}>
-                                    <CouponSlider testitmonial={testitmonial}></CouponSlider>
+                            coupons?.map(coupon => {
+                                return <SwiperSlide key={coupon._id}>
+                                    <CouponSlider coupon={coupon}></CouponSlider>
                                 </SwiperSlide>
                             })
                         }
