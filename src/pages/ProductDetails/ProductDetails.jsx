@@ -25,16 +25,15 @@ const ProductDetails = () => {
 
     if (isLoading) return <Loader></Loader>
 
-    // console.log(id);
-
     const handleReport = () => {
         axiosSecure.patch(`/report-prod/${id}`)
             .then(res => {
                 console.log(res, 'patch report');
-                if (res.data.modifiedCount > 0) {
+                if (res.data.upsertedId || res.data.upsertedCount) {
                     toast.success("Reported successfully.");
-                } else {
-                    toast.error("You already reported this product");
+                }
+                if (res.data.matchedCount > 0) { // matchedCount, modifiedCount, upsertedCount, upsertedId
+                    toast.success("Reported Successfully");
                 }
             })
             .catch(err => {
@@ -49,7 +48,7 @@ const ProductDetails = () => {
             </div>
             <div className="flex flex-col md:flex-row gap-6">
                 <div>
-                    <img src={product?.prodImg} alt="image" />
+                    <img className="h-[550px]" src={product?.prodImg} alt="image" />
                 </div>
                 <div className="space-y-6">
                     <h2 className="font-bold text-xl">Product Name: {product?.prodName}</h2>
@@ -57,9 +56,9 @@ const ProductDetails = () => {
                     <div className="flex gap-2">
                         <p>Tags: </p>
                         <div className="flex gap-1 items-center flex-wrap overflow-hidden">
-                        {
-                            product?.prodTags.map((tag, index) => <p className="bg-[#e5f6fd] text-[12px] text-[#014361] px-2 py-1" key={index}>{tag}</p>)
-                        }
+                            {
+                                product?.prodTags.map((tag, index) => <p className="bg-[#e5f6fd] text-[12px] text-[#014361] px-2 py-1" key={index}>{tag}</p>)
+                            }
                         </div>
                     </div>
                     <div>
