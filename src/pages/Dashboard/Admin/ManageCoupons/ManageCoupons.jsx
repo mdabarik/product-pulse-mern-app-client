@@ -21,6 +21,16 @@ import Textarea from '@mui/joy/Textarea';
 import useAuth from '../../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
+import moment from 'moment';
+function isDateExpired(inputDate) {
+    // Convert the input date string to a Moment.js object
+    var inputMoment = moment(inputDate, 'YYYY-MM-DD');
+    // Get the current date with Moment.js
+    var currentMoment = moment().subtract(1, 'days');
+    // Compare the input date with the current date
+    return inputMoment.isBefore(currentMoment);
+}
+
 const ManageCoupons = () => {
     const [coupons, isLoading, refetch] = useAllCoupons()
     const { user } = useAuth();
@@ -121,10 +131,10 @@ const ManageCoupons = () => {
                                 >
                                     <TableCell component="th" scope="row">#{index + 1}</TableCell>
                                     <TableCell align="left">{coupon?.couponCode}</TableCell>
-                                    <TableCell component="th" scope="row">{coupon?.expireDate}</TableCell>
+                                    <TableCell component="th" scope="row">{moment(coupon?.expireDate).format('ll')}</TableCell>
                                     <TableCell align="left">{coupon?.couponDesc?.substring(0, 40)}</TableCell>
                                     <TableCell align="left">{coupon?.discAmount}</TableCell>
-                                    <TableCell align="left">{"active"}</TableCell>
+                                    <TableCell align="left">{isDateExpired(coupon?.expireDate) ? 'expired' : 'active'}</TableCell>
                                     <TableCell
                                         align="left">
                                         <Button onClick={() => navigate(`/dashboard/manage-coupons/view/${coupon._id}`)} variant="outlined" size="small">

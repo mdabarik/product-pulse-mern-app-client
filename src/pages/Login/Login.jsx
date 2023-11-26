@@ -5,7 +5,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import LoginIcon from '@mui/icons-material/Login';
 import Button from '@mui/material/Button';
 import Typography from '@mui/joy/Typography';
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import GoogleSignIn from "../../components/Shared/GoogleSignIn/GoogleSignIn";
 import useAuth from "../../hooks/useAuth";
 import { toast } from 'react-hot-toast';
@@ -15,21 +15,30 @@ import { setLogLevel } from "firebase/app";
 
 const Login = () => {
     const navigate = useNavigate();
-    const { loginUser, user, setLoading } = useAuth();
     const location = useLocation();
+    const { loginUser, user, setLoading } = useAuth();
     const [userEmail, setUserEmail] = useState(null);
     const [userPassword, setUserPassword] = useState(null);
     const from = location?.state?.from?.pathname || '/';
+    console.log(location, 'location', from);
 
     if (user) {
+        if (from == '/dashboard') {
+            return <Navigate to="/" />
+        }
         return <Navigate to={from} />
     }
+
+   
 
     const handleLogin = () => {
         loginUser(userEmail, userPassword)
             .then(res => {
                 console.log('inside handle login', res);
                 toast.success('Login successful')
+                if (from == '/dashboard') {
+                    return navigate('/')
+                }
                 navigate(from);
             })
             .catch(err => {

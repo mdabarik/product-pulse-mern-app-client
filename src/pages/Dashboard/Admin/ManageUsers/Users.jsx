@@ -12,10 +12,12 @@ import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import { toast } from 'react-hot-toast';
 import UpdateModal from '../../../../components/Dashboard/UpdateModal/UpdateModal';
 import { useState } from 'react';
+import useAuth from '../../../../hooks/useAuth';
 
 const Users = () => {
   const [users, isLoading, refetch] = useAllUsers()
   const axiosSecure = useAxiosSecure();
+  const { user: loggedUser } = useAuth();
 
   const [open, setOpen] = useState(false);
 
@@ -115,18 +117,26 @@ const Users = () => {
                   <TableCell align="left">{user?.status}</TableCell>
                   <TableCell align="left">{user?.userRole}</TableCell>
                   <TableCell align="left">
-                    <Button onClick={() => {
-                      handleMakeModerator(user?.userEmail, user?.userName)
-                    }} variant="outlined" size="small">
-                      Make Moderator
-                    </Button>
+                    {
+                      user?.userEmail == loggedUser?.email ? "It is you" :
+                        <Button onClick={() => {
+                          handleMakeModerator(user?.userEmail, user?.userName)
+                        }} variant="outlined" size="small">
+                          Make Moderator
+                        </Button>
+                    }
+
                   </TableCell>
                   <TableCell align="left">
-                    <Button onClick={() => {
-                      handleMakeAdmin(user?.userEmail, user?.userName)
-                    }} variant="outlined" size="small">
-                      Make Admin
-                    </Button>
+                    {
+                      user?.userEmail == loggedUser?.email ? "It is you" :
+                        <Button onClick={() => {
+                          handleMakeAdmin(user?.userEmail, user?.userName)
+                        }} variant="outlined" size="small">
+                          Make Admin
+                        </Button>
+                    }
+
                   </TableCell>
 
                 </TableRow>)

@@ -9,9 +9,10 @@ const useAllCoupons = () => {
     const { data: coupons, isLoading, refetch } = useQuery({
         queryKey: ['users', user, loading],
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/all-coupons/${user?.email}`);
+            const res = await axiosSecure.get(`/all-coupons/${user?.email}`);
+            const sortedInDescIso = res?.data?.sort((a, b) => new Date(b.expireDate) - new Date(a.expireDate));
             // console.log(res);
-            return data;
+            return sortedInDescIso;
         }
     })
     return [coupons, isLoading, refetch];
