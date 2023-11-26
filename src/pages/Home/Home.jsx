@@ -1,3 +1,5 @@
+import FeaturedProducts from "../FeaturedProducts/FeaturedProducts";
+import TrendingProducts from "../TrendingProducts/TrendingProducts";
 import CouponSliders from "./CouponCarousel/CouponSliders";
 import Sliders from "./Sliders/Sliders";
 
@@ -10,11 +12,11 @@ const Home = () => {
             </div>
             <div>
                 {/* featured products */}
-                Featured products
+                <FeaturedProducts></FeaturedProducts>
             </div>
             <div>
                 {/* trending products */}
-                Trending products
+                <TrendingProducts></TrendingProducts>
             </div>
             <div>
                 {/* coupon codes sliders/carousel */}
