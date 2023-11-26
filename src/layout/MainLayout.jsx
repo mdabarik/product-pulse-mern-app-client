@@ -12,7 +12,9 @@ const MainLayout = () => {
                     <Outlet></Outlet>
                 </Container>
             </div>
-            <Footer></Footer>
+            <div className='w-[100vw] overflow-hidden'>
+                <Footer></Footer>
+            </div>
         </div>
     );
 };
