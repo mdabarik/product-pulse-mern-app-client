@@ -8,7 +8,7 @@ import { toast } from 'react-hot-toast';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const GoogleSignIn = () => {
-    const { googleSignIn } = useAuth();
+    const { googleSignIn, setLoading } = useAuth();
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
 
@@ -43,6 +43,7 @@ const GoogleSignIn = () => {
                 console.log('inside handleGoogleSignin', err);
                 toast.success(err.message)
             })
+            setLoading(false)
     }
 
     return (

@@ -45,13 +45,13 @@ const Reviews = () => {
         queryKey: ['reviewsa', loading],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/review?email=${user?.email}&id=${id}`);
-            console.log(data, 'inside review usequery');
+            // console.log(data, 'inside review usequery');
             return data;
         }
     })
 
     const handleReview = () => {
-        console.log('review');
+        // console.log('review');
         const updatedReview = {
             userName: user?.displayName,
             userEmail: user?.email,
@@ -60,10 +60,10 @@ const Reviews = () => {
             userComment: comment || review?.userComment,
             productId: id
         }
-        console.log(updatedReview);
+        // console.log(updatedReview);
         axiosSecure.put(`/add-review`, updatedReview)
             .then(res => {
-                console.log(res, 'handleReview');
+                // console.log(res, 'handleReview');
                 if (res?.data?.upsertedId) {
                     toast.success("Review Added Successfully.");
                 }
@@ -73,7 +73,7 @@ const Reviews = () => {
                 refetch();
             })
             .catch(err => {
-                console.log(err, 'inside handlereview');
+                // console.log(err, 'inside handlereview');
             })
 
     }

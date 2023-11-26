@@ -10,6 +10,7 @@ import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
 import { toast } from 'react-hot-toast';
 import Rating from '@mui/material/Rating';
+import Voting from "./Voting";
 
 
 const ProductCard = ({ product }) => {
@@ -27,7 +28,7 @@ const ProductCard = ({ product }) => {
         queryKey: ['upvotes', loading],
         queryFn: async () => {
             const res = await axiosPublic.get(`/votes?id=${_id}&email=${user?.email}`);
-            console.log(res, 'inside usequery prodcard');
+            // console.log(res, 'inside usequery prodcard');
             return res.data;
         }
     })
@@ -36,7 +37,7 @@ const ProductCard = ({ product }) => {
         queryKey: ['upvotescount', votes],
         queryFn: async () => {
             const res = await axiosPublic.get(`/count-votes/${_id}`);
-            console.log(res.data, 'vote count usequery prodcard');
+            // console.log(res.data, 'vote count usequery prodcard');
             return res.data;
         }
     })
@@ -50,7 +51,7 @@ const ProductCard = ({ product }) => {
         }
     })
 
-    console.log(voteCount, 'voteCount');
+    // console.log(voteCount, 'voteCount');
 
 
     const handleUpvote = async () => {
@@ -62,17 +63,17 @@ const ProductCard = ({ product }) => {
             prodId: prodId,
             types: 'upvote'
         }
-        console.log(votes);
+        // console.log(votes);
         axiosPublic.put('/votes', votes)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.insertedId || res.data.modifiedCount > 0) {
                     toast.success("Upvoted succesfully");
                     refetch()
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
             })
     }
 
@@ -84,17 +85,17 @@ const ProductCard = ({ product }) => {
             prodId: prodId,
             types: 'downvote'
         }
-        console.log(votes);
+        // console.log(votes);
         axiosPublic.put('/votes', votes)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.modifiedCount) {
                     toast.success("Downvoted succesfully");
                 }
                 refetch()
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
             })
     }
 
@@ -104,12 +105,12 @@ const ProductCard = ({ product }) => {
                 <img className="w-full rounded-t-lg h-[200px] object-cover" src={prodImg} alt="room image" />
             </div>
             <div className="w-full min-h-[200px] bg-white rounded-b-lg p-4 drop-shadow-md flex flex-col justify-between gap-x-4 space-y-2" >
-                <h2 className="font-bold">Product: {prodName}</h2>
+                <h2 className="font-bold h-[38px]">Product: {prodName}</h2>
                 <div className="flex gap-2">
                     <p>Tags:</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-1 items-center flex-wrap overflow-hidden">
                         {
-                            prodTags?.slice(0, 5).map((tag, index) => <p key={index}>{tag}</p>)
+                            prodTags?.slice(0, 5).map((tag, index) => <p className="bg-[#e5f6fd] text-[11px] text-[#014361] px-2 py-1" key={index}>{tag}</p>)
                         }
                     </div>
                 </div>
@@ -120,49 +121,12 @@ const ProductCard = ({ product }) => {
                     </Stack>
                     ({rating?.numRating} <span className="ml-2">reviews</span>)
                 </div>
-                <div className="flex justify-evenly mt-4">
-                    <Stack direction="row" spacing={2}>
-                        {
-                            // if prodowner === user: disable
-                            user && prodOwnerInfo?.email == user?.email || !user ?
-                                <Stack direction="row" spacing={2}>
-                                    <Button disabled size="small" sx={{ borderRadius: '10000px' }} variant="contained" startIcon={<ArrowUpwardIcon />}>
-                                        ({voteCount?.length})
-                                    </Button>
-                                    {/* <Button disabled size="small" sx={{ borderRadius: '10000px' }} variant="outlined" startIcon={<ArrowDownwardIcon />}>
-                                        ({voteCount?.length})
-                                    </Button> */}
-                                </Stack>
-                                :
-                                <Stack direction="row" spacing={2}>
-                                    {
-                                        // console.log(votes, 'invalid')
-                                        votes?.length > 0 ? <>
-                                            <Button onClick={() => handleDownVote()} size="small" sx={{ borderRadius: '10000px' }} variant="contained" startIcon={<ArrowDownwardIcon />}>
-                                                ({voteCount?.length}) downvote
-                                            </Button></>
-                                            : <>
-                                                {
-                                                    !loading1 && !loading2 ? <>
-                                                        <Button onClick={() => handleUpvote()} size="small" sx={{ borderRadius: '10000px' }} variant="contained" startIcon={<ArrowUpwardIcon />}>
-                                                            ({voteCount?.length}) upvote
-                                                        </Button>
-                                                    </> : <>
-                                                        <span className="loading loading-spinner text-accent"></span>
-                                                    </>
-                                                }
-                                            </>
 
-                                    }
-                                    {/* <Button size="small" sx={{ borderRadius: '10000px' }} variant="outlined" startIcon={<ArrowDownwardIcon />}>
-                                        (0)
-                                    </Button> */}
-                                </Stack>
-                        }
-
-                        {/* if user do not exist on click redirect to login page */}
-                    </Stack>
+                {/* new updated voting system */}
+                <div>
+                    <Voting key={`${product?._id}+'abcd'`} product={product}></Voting>
                 </div>
+
                 <div className="flex items-center justify-center mt-4">
                     <Button
                         onClick={() => navigate(`/all-products/${_id}`)}

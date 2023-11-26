@@ -10,11 +10,12 @@ import GoogleSignIn from "../../components/Shared/GoogleSignIn/GoogleSignIn";
 import useAuth from "../../hooks/useAuth";
 import { toast } from 'react-hot-toast';
 import { useState } from "react";
+import { setLogLevel } from "firebase/app";
 
 
 const Login = () => {
     const navigate = useNavigate();
-    const { loginUser, user } = useAuth();
+    const { loginUser, user, setLoading } = useAuth();
     const location = useLocation();
     const [userEmail, setUserEmail] = useState(null);
     const [userPassword, setUserPassword] = useState(null);
@@ -34,6 +35,7 @@ const Login = () => {
             .catch(err => {
                 console.log('inside handle login', err);
                 toast.error('Wrong email/password')
+                setLoading(false);
             })
     }
 

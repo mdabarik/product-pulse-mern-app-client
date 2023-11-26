@@ -32,7 +32,7 @@ const AllProducts = () => {
     })
 
     /*-----pagination-----*/
-    const [perPage, setPerPage] = useState(1);
+    const [perPage, setPerPage] = useState(4);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
     const handleChange = (event, value) => {

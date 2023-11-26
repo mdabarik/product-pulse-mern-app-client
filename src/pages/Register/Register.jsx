@@ -17,7 +17,7 @@ import { updateProfile } from "firebase/auth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
-    const { registerUser, user } = useAuth();
+    const { registerUser, user, setLoading } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const [userName, setUserName] = useState(null);
@@ -63,6 +63,7 @@ const Register = () => {
             .catch(err => {
                 console.log('inside register.jsx inside handeRegister', err.message);
                 toast.error(err.message);
+                setLoading(false)
             })
     }
 
