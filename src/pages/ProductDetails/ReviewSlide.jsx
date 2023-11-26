@@ -10,8 +10,8 @@ const ReviewSlide = ({ review }) => {
 
     return (
         <div>
-            <div className="text-white h-[400px] md:h-[450px] flex flex-col items-center justify-center rounded-lg relative">
-                <img className='object-cover w-full h-[400px] md:h-[450px]' src={ReviewBannerImg} alt="banner bg" />
+            <div className="text-white h-[350px] md:h-[350px] flex flex-col items-center justify-center rounded-lg relative">
+                <img className='object-cover w-full h-[350px] md:h-[350px]' src={ReviewBannerImg} alt="banner bg" />
                 <div className="absolute top-0 left-0 bg-[#00000099] w-full h-full rounded-lg"></div>
                 <div className="absolute top-0 left-0 h-full flex flex-col items-center justify-center px-8 w-full">
                     <img className='w-[75px] md:w-[100px] h-[75px] mb-2 md:h-[100px] object-cover rounded-full z-50' src={userPhoto} alt={name} />
@@ -19,7 +19,7 @@ const ReviewSlide = ({ review }) => {
                         {userName}
                     </h1>
                     <div className=' w-4/6'>
-                        <p className="text-center text-[10px] md:text-sm">{userComment}</p>
+                        <p className="text-center text-[10px] md:text-sm">{userComment.substring(0,80)}</p>
                     </div>
                     <div className="mt-4">
                         <Stack spacing={1}>

@@ -76,7 +76,6 @@ const Reviews = () => {
             .catch(err => {
                 // console.log(err, 'inside handlereview');
             })
-
     }
 
     if (isLoading) return <Loader></Loader>
@@ -105,35 +104,39 @@ const Reviews = () => {
                         defaultValue={user?.email}
                         disabled
                     ></Input>
+                    <div className='flex gap-x-4'>
+                        <p className='font-bold'>Select rating:</p>
+                        <Box
+                            sx={{
+                                width: 200,
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Rating
+                                defaultValue={2}
+                                name="hover-feedback"
+                                value={value || review?.userRating}
+                                precision={0.5}
+                                getLabelText={getLabelText}
+                                onChange={(event, newValue) => {
+                                    setValue(newValue);
+                                }}
+                                onChangeActive={(event, newHover) => {
+                                    setHover(newHover);
+                                }}
+                                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                            />
+                            {value !== null && (
+                                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+                            )}
+                        </Box>
+                    </div>
                     <div className="flex items-center">
-                        <img className="w-[200px] object-cover rounded-full drop-shadow" src={user?.photoURL} alt="iamge" />
+                        {/* <img className="w-[200px] object-cover rounded-full drop-shadow" src={user?.photoURL} alt="iamge" /> */}
                     </div>
                     {/* rating */}
-                    <Box
-                        sx={{
-                            width: 200,
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Rating
-                            defaultValue={2}
-                            name="hover-feedback"
-                            value={value || review?.userRating}
-                            precision={0.5}
-                            getLabelText={getLabelText}
-                            onChange={(event, newValue) => {
-                                setValue(newValue);
-                            }}
-                            onChangeActive={(event, newHover) => {
-                                setHover(newHover);
-                            }}
-                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                        />
-                        {value !== null && (
-                            <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                        )}
-                    </Box>
+
                     {/* <Box
                         sx={{
                             '& > legend': { mt: 2 },
@@ -151,7 +154,7 @@ const Reviews = () => {
 
                     <Textarea
                         onChange={e => setComment(e.target.value)}
-                        sx={{ padding: '10px', marginY: '14px' }}
+                        sx={{ padding: '10px' }}
                         defaultValue={review?.userComment || ''}
                         placeholder="Product description" minRows={4} />
                     <Button onClick={handleReview} variant="contained" size="large" sx={{ width: '100%' }}>
