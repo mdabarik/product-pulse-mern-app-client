@@ -54,6 +54,14 @@ const ProductDetails = () => {
                 <div className="space-y-6">
                     <h2 className="font-bold text-xl">Product Name: {product?.prodName}</h2>
                     <p>Description: {product?.prodDesc}</p>
+                    <div className="flex gap-2">
+                        <p>Tags: </p>
+                        <div className="flex gap-1 items-center flex-wrap overflow-hidden">
+                        {
+                            product?.prodTags.map((tag, index) => <p className="bg-[#e5f6fd] text-[12px] text-[#014361] px-2 py-1" key={index}>{tag}</p>)
+                        }
+                        </div>
+                    </div>
                     <div>
                         <ProductRating _id={id} />
                     </div>
