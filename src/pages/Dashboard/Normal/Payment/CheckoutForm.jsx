@@ -8,7 +8,7 @@ import useSingleUser from "../../../../hooks/useSingleUser";
 import { toast } from 'react-hot-toast';
 
 
-const CheckoutForm = () => {
+const CheckoutForm = ({price}) => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
@@ -20,19 +20,18 @@ const CheckoutForm = () => {
     const navigate = useNavigate();
     const [currUser, isLoding, refetch] = useSingleUser();
 
-
-    const totalPrice = 100;
+    console.log('price to pay', price);
 
     useEffect(() => {
-        if (totalPrice > 0) {
-            axiosSecure.post('/create-payment-intent', { price: totalPrice })
+        if (price > 0) {
+            axiosSecure.post('/create-payment-intent', { price: price })
                 .then(res => {
                     console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
 
-    }, [axiosSecure, totalPrice])
+    }, [axiosSecure, price])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -84,7 +83,7 @@ const CheckoutForm = () => {
                 // now save the payment in the database
                 const payment = {
                     email: user?.email,
-                    price: totalPrice,
+                    price: price,
                     transactionId: paymentIntent.id,
                     date: new Date(), // utc date convert. use moment js to 
                     // cartIds: cart.map(item => item._id),

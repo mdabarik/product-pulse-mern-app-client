@@ -9,6 +9,10 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Payment from '../../../pages/Dashboard/Normal/Payment/Payment';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -19,8 +23,24 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-const PaymentModal = ({open, setOpen, handleClickOpen, handleClose}) => {
-    
+const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
+
+    const [coupon, setCoupon] = useState('')
+    const [price, setPrice] = useState(500);
+
+
+
+    const handleCoupon = (coupon) => {
+        console.log(coupon, 'coupon');
+        if (coupon == 'SAVE50NEW') {
+            setPrice(price - 50)
+            toast.success('Coupon applied successfully');
+        }
+    }
+
+
+
+
     return (
         <React.Fragment>
             {/* <Button variant="outlined" onClick={handleClickOpen}>
@@ -32,7 +52,18 @@ const PaymentModal = ({open, setOpen, handleClickOpen, handleClose}) => {
                 open={open}
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Modal title
+                    <div className='flex'>
+                    <h2 className='text-xl font-bold mr-4'>Total Amount You Will Pay:</h2>
+                    {
+                        price == 500 ? '$500' : <>
+                            <div className='flex gap-4'>
+                            <strike>${'500'}</strike>
+                            <span>{price}</span>
+                            </div>
+                        </>
+
+                    }
+                    </div>
                 </DialogTitle>
                 <IconButton
                     aria-label="close"
@@ -47,21 +78,44 @@ const PaymentModal = ({open, setOpen, handleClickOpen, handleClose}) => {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <Payment></Payment>
+
+                    {/* stripe payment start */}
+                    <Payment price={price}></Payment>
+                    {/* stripe payment start */}
+
                     <Typography gutterBottom>
                         Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
                         dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
                         consectetur ac, vestibulum at eros.
                     </Typography>
-                    <Typography gutterBottom>
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-                    </Typography>
-                    <Typography gutterBottom>
-                        Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-                        magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-                        ullamcorper nulla non metus auctor fringilla.
-                    </Typography>
+
+
+
+                    {/* apply coupon */}
+                    <div>
+                        <p className="font-normal my-2">Enter your valid coupon code</p>
+                        <Box
+                            sx={{
+                                width: 500,
+                                maxWidth: '100%',
+                                display: 'flex'
+                            }}
+                        >
+                            <TextField
+                                fullWidth
+                                placeholder="Enter your cuopon code"
+                                onChange={(e) => setCoupon(e.target.value.trim())}
+                                id="fullWidth" />
+
+                            <Button
+                                onClick={() => handleCoupon(coupon)}
+                                sx={{ borderRadius: '0px', padding: '8px', paddingX: '20px', width: '40px', marginLeft: '-60px' }}
+                                // startIcon={<SearchIcon />} 
+                                variant="contained">Apply Coupon</Button>
+                        </Box>
+                    </div>
+
+
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleClose}>
