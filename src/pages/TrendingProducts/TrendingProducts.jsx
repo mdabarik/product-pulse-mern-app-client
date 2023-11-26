@@ -8,10 +8,10 @@ import Stack from '@mui/material/Stack';
 
 const TrendingProducts = () => {
     const axiosPublic = useAxiosPublic();
-    const { user, loading } = useAuth();
+    const { user, loading, resolver } = useAuth();
 
     const { data: products, isLoading, refetch } = useQuery({
-        queryKey: ['trending-products'],
+        queryKey: ['trending-products', resolver],
         queryFn: async () => {
             const res = await axiosPublic.get(`/get-trending-products`);
             console.log(res, 'aggregated challenge');
@@ -67,11 +67,11 @@ const TrendingProducts = () => {
                 </div> : ''
             }
 
-
             {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 py-8">
                     {
                         products?.map(product => <ProductCard
+                            refetch={refetch}
                             product={product}
                             key={product?._id}></ProductCard>)
                     }

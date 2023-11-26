@@ -15,11 +15,13 @@ import Loader from '../../components/Shared/Loader/Loader';
 
 
 
-const Voting = ({ product }) => {
+const Voting = ({ product, refetch: refetch2 }) => {
     const [role] = useRole();
-    const { user, loading } = useAuth();
+    const { user, loading, setResolver, resolver } = useAuth();
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
+
+    // console.log(resolver, 'relsover observe');
 
     // console.log(product);
 
@@ -94,6 +96,10 @@ const Voting = ({ product }) => {
                         toast.success(`${vote}d successfully`);
                         refetch();
                         refetch1();
+                        if (refetch2) {
+                            refetch2();
+                        }
+                        setResolver(!resolver);
                     }
                 })
                 .catch(err => {

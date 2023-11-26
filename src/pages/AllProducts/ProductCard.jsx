@@ -9,7 +9,7 @@ import ProductRating from "./ProductRating";
 
 
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, refetch }) => {
     const navigate = useNavigate();
     const { _id, prodName, prodImg, prodExtLink, prodTags } = product;
 
@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
 
                 {/* dynamic voting system */}
                 <div>
-                    <Voting key={`${product?._id}+'abcd'`} product={product}></Voting>
+                    <Voting refetch={refetch} key={`${product?._id}+'abcd'`} product={product}></Voting>
                 </div>
 
                 <div className="flex items-center justify-center mt-4">
