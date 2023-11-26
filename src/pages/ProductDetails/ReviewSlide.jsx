@@ -1,12 +1,11 @@
 
-import Skeleton from '@mui/material/Skeleton';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import ReviewBannerImg from './../../assets/review-banner-bg.jpg'
 import StarIcon from '@mui/icons-material/Star';
 
 
-const ReviewSlide = ({ review, isLoading }) => {
+const ReviewSlide = ({ review }) => {
     const { userName, userPhoto, userRating, userComment } = review;
 
     return (
