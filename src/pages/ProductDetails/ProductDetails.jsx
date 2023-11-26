@@ -5,6 +5,8 @@ import Loader from "../../components/Shared/Loader/Loader";
 import Reviews from "./Reviews";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from 'react-hot-toast';
+import ProductRating from "../AllProducts/ProductRating";
+import Voting from "../AllProducts/Voting";
 
 
 const ProductDetails = () => {
@@ -45,15 +47,22 @@ const ProductDetails = () => {
             <div>
                 <h2 className="text-lg font-bold py-4">Product Details Page</h2>
             </div>
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col md:flex-row gap-6">
                 <div>
                     <img src={product?.prodImg} alt="image" />
                 </div>
-                <div>
-                    <h2 className="fontbold">Product Name: {product?.prodName}</h2>
+                <div className="space-y-6">
+                    <h2 className="font-bold text-xl">Product Name: {product?.prodName}</h2>
                     <p>Description: {product?.prodDesc}</p>
-                    <button onClick={handleReport} className="btn btn-secondary">Report Product</button>
+                    <div>
+                        <ProductRating _id={id} />
+                    </div>
+                    <div className="border-2 flex">
+                        <Voting product={product} />
+                    </div>
                 </div>
+                <button onClick={handleReport} className="btn btn-secondary">Report Product</button>
+
             </div>
             <div className="py-14">
                 <Reviews />

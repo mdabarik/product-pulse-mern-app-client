@@ -39,7 +39,7 @@ const Voting = ({ product }) => {
         queryFn: async () => {
             // return {upvotes: n, downvotes: n}
             const res = await axiosPublic.get(`/get-user-votes?id=${product?._id}&email=${user?.email}`);
-            console.log(res, 'curUservote');
+            // console.log(res, 'curUservote');
             return res.data;
         }
     })

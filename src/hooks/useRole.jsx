@@ -10,7 +10,7 @@ const useRole = () => {
     // if (loading) return "loading..."
 
     const { data: role, isLoading, refetch } = useQuery({
-        queryKey: ['role'],
+        queryKey: ['role', loading],
         // enabled: !loading || !!user?.email,
         // enabled: !loading && !!user?.email,
         queryFn: async () => {

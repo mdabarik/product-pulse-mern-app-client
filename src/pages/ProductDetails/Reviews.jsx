@@ -14,6 +14,7 @@ import { toast } from 'react-hot-toast';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../../components/Shared/Loader/Loader';
+import ReviewDetails from './ReviewDetails';
 
 const labels = {
     0.5: 'Useless',
@@ -82,7 +83,9 @@ const Reviews = () => {
 
     return (
         <div>
-            <h2>Reviews: 0</h2>
+            <div>
+                <ReviewDetails></ReviewDetails>
+            </div>
             <div>
                 <h1 className='text-xl font-bold my-4'>{review?.userEmail ? 'Edit Your Review' : 'Add Your Review'}</h1>
                 <div className='flex flex-col space-y-5'>

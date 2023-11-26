@@ -26,7 +26,7 @@ const CouponSlider = ({ coupon }) => {
                     {couponCode}
                 </h2>
                 <div className='w-5/6 h-[60px] flex items-center justify-center text-center overflow-hidden'>
-                    <p className="coupon-description">{couponDesc.substring(0, 50)}</p>
+                    <p className="coupon-description">{couponDesc?.substring(0, 50)}</p>
                 </div>
                 <div>
                     <CopyToClipboard text={couponCode}
