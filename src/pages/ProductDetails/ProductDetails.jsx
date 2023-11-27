@@ -7,6 +7,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from 'react-hot-toast';
 import ProductRating from "../AllProducts/ProductRating";
 import Voting from "../AllProducts/Voting";
+import Report from "./Report";
 
 
 const ProductDetails = () => {
@@ -68,7 +69,12 @@ const ProductDetails = () => {
                         <Voting product={product} />
                     </div>
                 </div>
-                <button onClick={handleReport} className="btn btn-secondary">Report Product</button>
+                {/* <button onClick={handleReport} className="btn btn-secondary">Report Product</button> */}
+                
+                {/* report */}
+                <div>
+                    <Report></Report>
+                </div>
 
             </div>
             <div className="py-14">

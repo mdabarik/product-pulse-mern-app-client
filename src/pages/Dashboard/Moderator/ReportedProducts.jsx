@@ -17,11 +17,24 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useReportedProducts from "../../../hooks/useReportedProducts";
+import useAuth from "../../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const ReportedProducts = () => {
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
-    const [products, isLoading, refetch] = useReportedProducts();
+    // const [products, isLoading, refetch] = useReportedProducts();
+    const {user, loading} = useAuth();
+
+
+    const { data: products, isLoading, refetch } = useQuery({
+        queryKey: ['report-reported-contente', loading, user],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/reported-products`)
+            console.log('is reported', res.data);
+            return res.data;
+        }
+    })
 
     /* ------- Delete product using modal confirmation----- */
     const [delProdId, setDelProdId] = React.useState('');
@@ -49,6 +62,13 @@ const ReportedProducts = () => {
                 toast.error(err.message);
             })
     }
+
+    // open in new tab on click view
+    const handleViewClick = (id) => {
+        const url = `/all-products/${id}`;
+        window.open(url, '_blank');
+      };
+    
 
     if (isLoading) return <Loader></Loader>
 
@@ -120,7 +140,7 @@ const ReportedProducts = () => {
                                     <TableCell align="left">{product?.prodOwnerInfo?.name}</TableCell>                                    
                                     <TableCell
                                         align="left">
-                                        <Button onClick={() => navigate(`/dashboard`)} variant="outlined" size="small">
+                                        <Button onClick={() => handleViewClick(product?._id)} variant="outlined" size="small">
                                             View
                                         </Button>
                                     </TableCell>
