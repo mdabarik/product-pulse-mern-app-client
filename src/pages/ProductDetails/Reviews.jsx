@@ -141,7 +141,7 @@ const Reviews = () => {
                     {
                         submitting
                             ?
-                            <Button variant="contained" size="large" sx={{ width: '100%', marginTop: '5px' }}>
+                            <Button disabled variant="contained" size="large" sx={{ width: '100%', marginTop: '5px' }}>
                                 <span className="loading loading-bars loading-md text-acent"></span>
                                 <span className="ml-1 font-bold">Submitting</span>
                             </Button>

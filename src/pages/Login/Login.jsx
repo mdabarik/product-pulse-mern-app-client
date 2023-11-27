@@ -5,12 +5,12 @@ import LockIcon from '@mui/icons-material/Lock';
 import LoginIcon from '@mui/icons-material/Login';
 import Button from '@mui/material/Button';
 import Typography from '@mui/joy/Typography';
-import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import GoogleSignIn from "../../components/Shared/GoogleSignIn/GoogleSignIn";
 import useAuth from "../../hooks/useAuth";
 import { toast } from 'react-hot-toast';
 import { useState } from "react";
-import { setLogLevel } from "firebase/app";
+import InvalidFormMsg from "../../components/Shared/InvalidFormMsg/InvalidFormMsg";
 
 
 const Login = () => {
@@ -19,6 +19,8 @@ const Login = () => {
     const { loginUser, user, setLoading } = useAuth();
     const [userEmail, setUserEmail] = useState(null);
     const [userPassword, setUserPassword] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
     const from = location?.state?.from?.pathname || '/';
     console.log(location, 'location', from);
 
@@ -30,8 +32,21 @@ const Login = () => {
     }
 
     const handleLogin = () => {
+
+        if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(userEmail)) {
+            setErrorMsg("Please enter a valid email address");
+            return;
+        }
+        if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,64}$/.test(userPassword)) {
+            setErrorMsg("Password must contains 1 lowercase, 1 uppercase, 1 special chars, range 6-64");
+            return;
+        }
+
+
+        setSubmitting(true)
         loginUser(userEmail, userPassword)
             .then(res => {
+                setSubmitting(false)
                 console.log('inside handle login', res);
                 toast.success('Login successful')
                 if (from == '/dashboard') {
@@ -43,6 +58,7 @@ const Login = () => {
                 console.log('inside handle login', err);
                 toast.error('Wrong email/password')
                 setLoading(false);
+                setSubmitting(false)
             })
     }
 
@@ -70,10 +86,33 @@ const Login = () => {
                         placeholder="Enter password"
                         type="password"
                     ></Input>
-                    <Button onClick={handleLogin} variant="contained" size="large" sx={{ width: '100%' }}>
-                        <LoginIcon></LoginIcon>
-                        <span className="ml-1 font-bold">Login</span>
-                    </Button>
+
+                    {
+                        submitting ?
+                            <Button disabled variant="contained" size="large" sx={{ width: '100%' }}>
+                                <span className="loading loading-bars loading-md text-acent"></span>
+                                <span className="ml-1 font-bold">Validating</span>
+                            </Button>
+                            :
+                            <Button onClick={handleLogin} variant="contained" size="large" sx={{ width: '100%' }}>
+                                <LoginIcon></LoginIcon>
+                                <span className="ml-1 font-bold">Login</span>
+                            </Button>
+                    }
+
+
+                    {/* error message */}
+                    <>
+                        {
+                            errorMsg ?
+                                <InvalidFormMsg>
+                                    {errorMsg}
+                                </InvalidFormMsg>
+                                :
+                                ""
+                        }
+                    </>
+
                     <div className="text-center text-blue-600 underline">
                         <Link to="/register">{"Don't have an account? Register"}</Link>
                     </div>
