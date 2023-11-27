@@ -28,6 +28,7 @@ import Statistics from "../pages/Dashboard/Admin/Statistics/AdminStatistics";
 import AdminStatistics from "../pages/Dashboard/Admin/Statistics/AdminStatistics";
 import ModeratorStatistics from "../pages/Dashboard/Moderator/Statistics/ModeratorStatistics";
 import NormalStatistics from "../pages/Dashboard/Normal/Statistics/NormalStatistics";
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 
 const routes = createBrowserRouter([
     {
@@ -64,7 +65,7 @@ const routes = createBrowserRouter([
         children: [
             {
                 path: '',
-                element: <h1>Dashboard Home</h1>
+                element: <DashboardHome></DashboardHome>
             },
             {
                 path: 'profile',

@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast';
 import ProductRating from "../AllProducts/ProductRating";
 import Voting from "../AllProducts/Voting";
 import Report from "./Report";
+import { Helmet } from "react-helmet-async";
 
 
 const ProductDetails = () => {
@@ -44,8 +45,11 @@ const ProductDetails = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>{product?.prodName} | Product Pulse</title>
+            </Helmet>
             <div>
-                <h2 className="text-lg font-bold py-4">Product Details Page</h2>
+                <h2 className="text-xl font-bold py-4">Product Details Page</h2>
             </div>
             <div className="flex flex-col md:flex-row gap-6">
                 <div>

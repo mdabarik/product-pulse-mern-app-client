@@ -17,6 +17,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const ManageProducts = () => {
     const navigate = useNavigate();
@@ -49,11 +50,19 @@ const ManageProducts = () => {
         })
     }
 
+    const handleViewClick = (id) => {
+        const url = `/all-products/${id}`;
+        window.open(url, '_blank');
+    };
+
 
     if (isLoading) return <Loader></Loader>
     
     return (
         <div>
+            <Helmet>
+                <title>Manage Products | Dashboard</title>
+            </Helmet>
             <div className='flex items-center justify-between'>
                 <h2 className='text-xl my-3'>My Products: {products?.length || 0}</h2>
                 <Button variant='contained' onClick={() => {
@@ -94,7 +103,7 @@ const ManageProducts = () => {
                                     <TableCell component="th" scope="row">{product?.prodStatus}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <Button onClick={() => navigate(`/dashboard`)} variant="outlined" size="small">
+                                        <Button onClick={() => handleViewClick(product?._id)} variant="outlined" size="small">
                                             View
                                         </Button>
                                     </TableCell>

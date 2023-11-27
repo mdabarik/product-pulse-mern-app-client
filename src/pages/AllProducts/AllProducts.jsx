@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Skeleton from '@mui/material/Skeleton';
 import useVerifiedProds from "../../hooks/useVerifiedProds";
-
+import { Helmet } from "react-helmet-async";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
@@ -58,6 +58,9 @@ const AllProducts = () => {
 
     return (
     <div>
+        <Helmet>
+            <title>All Products | Product Pulse</title>
+        </Helmet>
         {/* page title */}
         <div>
             <h3 className="text-xl font-bold py-4">

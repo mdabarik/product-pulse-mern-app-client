@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Loader from "../../../../components/Shared/Loader/Loader";
 import NormalCharts from "./NormalCharts";
+import { Helmet } from "react-helmet-async";
 
 
 const NormalStatistics = () => {
@@ -39,6 +40,9 @@ const NormalStatistics = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>My Statistics | Dashboard</title>
+            </Helmet>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="w-full rounded-lg h-[180px] bg-[#1e88e5] flex flex-col gap-1 items-center justify-center">
                     <FaUsers className="text-white text-5xl"></FaUsers>

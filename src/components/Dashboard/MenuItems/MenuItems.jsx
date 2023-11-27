@@ -27,7 +27,7 @@ const MenuItems = ({ role, isLoading }) => {
                             <ListItemIcon>
                                 <AutoGraphIcon />
                             </ListItemIcon>
-                            <ListItemText primary="User Statistics" />
+                            <ListItemText primary="My Statistics" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem onClick={() => navigate('/dashboard/add-product')} disablePadding selected={location.pathname == '/dashboard/add-product'}>
@@ -35,7 +35,7 @@ const MenuItems = ({ role, isLoading }) => {
                             <ListItemIcon>
                                 <LibraryAddIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Add Poduct" />
+                            <ListItemText primary="Add New Poduct" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem onClick={() => navigate('/dashboard/manage-products')} disablePadding selected={location.pathname == '/dashboard/manage-products'}>
@@ -73,7 +73,7 @@ const MenuItems = ({ role, isLoading }) => {
                             <ListItemIcon>
                                 <FlagIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Reported Content" />
+                            <ListItemText primary="Reported Contents" />
                         </ListItemButton>
                     </ListItem>
                 </> : ''

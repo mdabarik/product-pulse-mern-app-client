@@ -6,6 +6,7 @@ import PaymentModal from '../../../components/Dashboard/PaymentModal/PaymentModa
 import useRole from '../../../hooks/useRole';
 import useSingleUser from '../../../hooks/useSingleUser';
 import Loader from '../../../components/Shared/Loader/Loader';
+import { Helmet } from 'react-helmet-async';
 
 const Profile = () => {
     const { user } = useAuth();
@@ -30,6 +31,9 @@ const Profile = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Profile | Dashboard</title>
+            </Helmet>
             <h2 className='text-xl font-bold mb-6'>My Profile</h2>
 
             {

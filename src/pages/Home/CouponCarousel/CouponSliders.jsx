@@ -16,16 +16,24 @@ import moment from 'moment';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 
+// function isDateExpired(inputDate) {
+//     // Convert the input date string to a Moment.js object
+//     var inputMoment = moment(inputDate, 'YYYY-MM-DD');
+  
+//     // Get the current date with Moment.js
+//     var currentMoment = moment();
+  
+//     // Compare the input date with the current date
+//     return inputMoment.isBefore(currentMoment);
+//   }
 function isDateExpired(inputDate) {
     // Convert the input date string to a Moment.js object
     var inputMoment = moment(inputDate, 'YYYY-MM-DD');
-  
     // Get the current date with Moment.js
-    var currentMoment = moment();
-  
+    var currentMoment = moment().subtract(1, 'days');
     // Compare the input date with the current date
     return inputMoment.isBefore(currentMoment);
-  }
+}
   
 
 const CouponSliders = () => {

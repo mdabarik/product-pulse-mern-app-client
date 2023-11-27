@@ -14,6 +14,7 @@ import { imageUpload } from "../../../api/utils";
 import Textarea from '@mui/joy/Textarea';
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -73,6 +74,9 @@ const AddNewProduct = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Add New Product | Dashboard</title>
+            </Helmet>
             <h2 className="text-xl font-bold mb-4">Add New Product</h2>
             {/* input: product name
             input: image

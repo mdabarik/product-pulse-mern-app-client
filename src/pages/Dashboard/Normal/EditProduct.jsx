@@ -16,6 +16,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../../components/Shared/Loader/Loader";
+import { Helmet } from "react-helmet-async";
 
 const EditProduct = () => {
     const { user } = useAuth();
@@ -112,6 +113,9 @@ const EditProduct = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Edit {product?.prodName} | Dashboard</title>
+            </Helmet>
             <h2 className="text-xl font-bold mb-4">Edit Product</h2>
             <div className="flex flex-col gap-y-6">
                 <Input

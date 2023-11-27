@@ -17,6 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useProducts from "../../../hooks/useProducts";
+import { Helmet } from "react-helmet-async";
 
 const ReviewProducts = () => {
     const navigate = useNavigate();
@@ -48,6 +49,11 @@ const ReviewProducts = () => {
                 toast.error(err.message);
             })
     }
+
+    const handleViewClick = (id) => {
+        const url = `/all-products/${id}`;
+        window.open(url, '_blank');
+    };
 
     if (isLoading) return <Loader></Loader>
 
@@ -87,6 +93,9 @@ const ReviewProducts = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Review Products | Dashboard</title>
+            </Helmet>
             <div className='flex items-center justify-between'>
                 <h2 className='text-xl my-3'>Review Products: {products?.length || 0}</h2>
             </div>
@@ -123,7 +132,7 @@ const ReviewProducts = () => {
                                     <TableCell align="left">{product?.prodIsFeatured || 'no'}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <Button onClick={() => navigate(`/dashboard`)} variant="outlined" size="small">
+                                        <Button onClick={() => handleViewClick(product?._id)} variant="outlined" size="small">
                                             View
                                         </Button>
                                     </TableCell>

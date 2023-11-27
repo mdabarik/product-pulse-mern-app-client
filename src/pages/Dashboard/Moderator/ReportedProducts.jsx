@@ -19,12 +19,13 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useReportedProducts from "../../../hooks/useReportedProducts";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 const ReportedProducts = () => {
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
     // const [products, isLoading, refetch] = useReportedProducts();
-    const {user, loading} = useAuth();
+    const { user, loading } = useAuth();
 
 
     const { data: products, isLoading, refetch } = useQuery({
@@ -67,8 +68,8 @@ const ReportedProducts = () => {
     const handleViewClick = (id) => {
         const url = `/all-products/${id}`;
         window.open(url, '_blank');
-      };
-    
+    };
+
 
     if (isLoading) return <Loader></Loader>
 
@@ -108,6 +109,9 @@ const ReportedProducts = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Reported Contents | Dashboard</title>
+            </Helmet>
             <div className='flex items-center justify-between'>
                 <h2 className='text-xl my-3'>Review Products: {products?.length || 0}</h2>
             </div>
@@ -136,8 +140,8 @@ const ReportedProducts = () => {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">#{index + 1}</TableCell>
-                                    <TableCell align="left">{product?.prodName}</TableCell>                                    
-                                    <TableCell align="left">{product?.prodOwnerInfo?.name}</TableCell>                                    
+                                    <TableCell align="left">{product?.prodName}</TableCell>
+                                    <TableCell align="left">{product?.prodOwnerInfo?.name}</TableCell>
                                     <TableCell
                                         align="left">
                                         <Button onClick={() => handleViewClick(product?._id)} variant="outlined" size="small">
