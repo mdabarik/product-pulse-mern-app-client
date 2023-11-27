@@ -139,9 +139,28 @@ const ReviewProducts = () => {
                                     <TableCell align="left">{product?.prodIsFeatured || 'no'}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <button onClick={() => handleViewClick(product?._id)} >
+
+
+                                        {/* <button onClick={() => handleViewClick(product?._id)} >
                                             <ViewBtn></ViewBtn>
-                                        </button>
+                                        </button> */}
+
+                                        {
+                                            product?.prodStatus != 'accepted'
+                                                ?
+                                                <button onClick={() => {
+                                                    toast.error(`${product?.prodStatus} product can't view on product deatails page`)
+                                                }}>
+                                                    {/* <ViewBtn></ViewBtn> */}
+                                                    <DisableBtn></DisableBtn>
+                                                </button>
+                                                :
+                                                <button onClick={() => handleViewClick(product?._id)}>
+                                                    <ViewBtn></ViewBtn>
+                                                </button>
+                                        }
+
+
                                     </TableCell>
                                     <TableCell align="left">
                                         {

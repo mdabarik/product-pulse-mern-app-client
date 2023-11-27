@@ -12,6 +12,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Button from '@mui/material/Button';
+import InvalidFormMsg from "../../../../components/Shared/InvalidFormMsg/InvalidFormMsg";
 
 const EditCoupon = () => {
     const axiosSecure = useAxiosSecure();
@@ -19,6 +20,9 @@ const EditCoupon = () => {
     const [date, setDate] = useState(null);
     const [disc, setDisc] = useState(null);
     const [desc, setDesc] = useState(null);
+    const [errorMsg, setErrorMsg] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+
 
     const { id } = useParams();
     const { data, isLoading, refetch } = useQuery({
@@ -35,25 +39,43 @@ const EditCoupon = () => {
 
 
     const handleEditCoupon = () => {
+
+        if (couponCode && !/^[A-Z0-9]{6,64}$/.test(couponCode)) {
+            setErrorMsg("Coupon codes must consist of uppercase letters and numbers only, with a length between 6 and 64 characters.");
+            return;
+        }
+        if (discAmount && parseInt(discAmount) <= 0 || parseInt(discAmount) > 500) {
+            setErrorMsg("Discount amount must be greater than 0 and in between 1-500");
+            return;
+        }
+        if (couponDesc && !/^.{20,88}$/.test(couponDesc)) {
+            setErrorMsg("The coupon description must be between 20 and 88 characters long.");
+            return;
+        }
+
+        setSubmitting(true);
         console.log('clicked hndledtcoupon');
         const updatedCoupon = {
             couponCode: code || couponCode, expireDate: date?.format('YYYY-MM-DD') || expireDate, couponDesc: desc || couponDesc, discAmount: disc || discAmount
         }
-        console.log(updatedCoupon);
+        // console.log(updatedCoupon);
         axiosSecure.patch(`/coupons/${id}`, updatedCoupon)
-        .then(res => {
-            console.log(res);
-            if (res?.data?.modifiedCount > 0) {
-                toast.success("Coupon updated successfully");
-            } else {
-                toast.error("Please edit then submit.")
-            }
-            refetch();
-        })
-        .catch(err => {
-            console.log(err);
-            toast.error(err.message);
-        })
+            .then(res => {
+                console.log(res);
+                if (res?.data?.modifiedCount > 0) {
+                    toast.success("Coupon updated successfully");
+                    setSubmitting(false);
+                } else {
+                    toast.error("Please edit then submit.")
+                    setSubmitting(false);
+                }
+                refetch();
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error(err.message);
+                setSubmitting(false);
+            })
     }
 
     return (
@@ -91,9 +113,36 @@ const EditCoupon = () => {
             ></Input>
 
             <Textarea defaultValue={couponDesc} onChange={e => setDesc(e.target.value)} sx={{ padding: '10px', marginY: '14px' }} placeholder="Coupon description" minRows={4} />
-            <Button onClick={handleEditCoupon} variant='contained' autoFocus>
+            {/* <Button onClick={handleEditCoupon} variant='contained' autoFocus>
                 Update coupon
-            </Button>
+            </Button> */}
+
+            {/* error message */}
+            <>
+                {
+                    errorMsg ?
+                        <div className="text-center">
+                            <InvalidFormMsg>
+                                {errorMsg}
+                            </InvalidFormMsg>
+                        </div>
+                        :
+                        ""
+                }
+            </>
+
+            {
+                submitting
+                    ?
+                    <Button disabled variant="contained">
+                        <span className="loading loading-bars loading-md text-acent"></span>
+                        <span className="ml-1 font-bold">Updating</span>
+                    </Button>
+                    :
+                    <Button onClick={handleEditCoupon} variant='contained' autoFocus>
+                        Update coupon
+                    </Button>
+            }
         </div>
     );
 };

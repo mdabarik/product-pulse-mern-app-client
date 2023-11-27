@@ -25,6 +25,8 @@ import moment from 'moment';
 import DeleteIcon from '../../../../components/Shared/DeleteIcon/DeleteIcon';
 import EditBtn from '../../../../components/Button/EditBtn';
 import ViewBtn from '../../../../components/Shared/ViewBtn/ViewBtn';
+import InvalidFormMsg from '../../../../components/Shared/InvalidFormMsg/InvalidFormMsg';
+import { Helmet } from 'react-helmet-async';
 // function isDateExpired(inputDate) {
 //     // Convert the input date string to a Moment.js object
 //     var inputMoment = moment(inputDate, 'YYYY-MM-DD');
@@ -47,11 +49,15 @@ const ManageCoupons = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     /*-- states for coupon edit and modal --*/
-    const [couponId, setCouponId] = useState(null);
-    const [couponCode, setCouponCode] = useState(null);
-    const [expireDate, setExpireDate] = useState(null);
-    const [discAmount, setDiscAmount] = useState(null);
-    const [couponDesc, setCouponDesc] = useState(null);
+    const [couponId, setCouponId] = useState('');
+    const [couponCode, setCouponCode] = useState('');
+    const [expireDate, setExpireDate] = useState('');
+    const [discAmount, setDiscAmount] = useState(0);
+    const [couponDesc, setCouponDesc] = useState();
+    const [errorMsg, setErrorMsg] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+
+
     const navigate = useNavigate();
 
     /*----- first modal for creating new coupon--------*/
@@ -61,6 +67,22 @@ const ManageCoupons = () => {
     };
 
     const handleCreate = () => {
+
+        if (!/^[A-Z0-9]{6,64}$/.test(couponCode)) {
+            setErrorMsg("Coupon codes must consist of uppercase letters and numbers only, with a length between 6 and 64 characters.");
+            return;
+        }
+        if (parseInt(discAmount) <= 0 || parseInt(discAmount) > 500) {
+            setErrorMsg("Discount amount must be greater than 0 and in between 1-500");
+            return;
+        }
+        if (!/^.{20,88}$/.test(couponDesc)) {
+            setErrorMsg("The coupon description must be between 20 and 88 characters long.");
+            return;
+        }
+
+
+        setSubmitting(true)
         const coupon = {
             couponCode, expireDate, discAmount, couponDesc
         }
@@ -70,12 +92,14 @@ const ManageCoupons = () => {
                     toast.success('Coupn created successfully');
                     refetch();
                     console.log(res, 'handle create copn');
+                    setSubmitting(false)
+                    setOpen(false)
                 }
             })
             .catch(err => {
-                console.log(res, 'handle create copn');
+                console.log(err, 'handle create copn');
                 toast.success(err.message);
-
+                setSubmitting(false)
             })
     }
     /*----- first modal for creating new coupon--------*/
@@ -106,6 +130,9 @@ const ManageCoupons = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Manage Coupon | Dashboard</title>
+            </Helmet>
             <div className='flex items-center justify-between'>
                 <h2 className='text-xl my-3'>All Coupons: {coupons?.length || 0}</h2>
                 <Button variant='contained' onClick={() => {
@@ -183,30 +210,76 @@ const ManageCoupons = () => {
                         <Input
                             onChange={e => setCouponCode(e.target.value)}
                             sx={{ padding: '10px', marginY: '14px' }}
-                            placeholder="Enter Coupon Code (6-15 chars)"
+                            placeholder="Enter Coupon Code (6-64 only uppercase & numbers allowed)"
                             type="text"
                         ></Input>
-                        <Input
-                            onChange={e => setExpireDate(e.target.value)}
+                        {/* <Input
+                            onChange={(e) => setExpireDate(e.target.value)}
                             sx={{ padding: '10px', marginY: '14px' }}
                             type="date"
-                        ></Input>
+                            min={new Date().toISOString().split('T')[0]}
+                        /> */}
+
+                        <div className='border-2 w-full rounded-lg py-2 px-3'>
+                            <input
+                                onChange={(e) => setExpireDate(e.target.value)}
+                                type="date"
+                                min={new Date().toISOString().split('T')[0]}
+                                value={expireDate}
+                            />
+
+                        </div>
+
                         <Input
                             onChange={e => setDiscAmount(e.target.value)}
                             sx={{ padding: '10px', marginY: '14px' }}
                             type="number"
-                            placeholder="Discount amount $"
+                            placeholder="Discount amount must be greater than 0"
                         ></Input>
 
                         <Textarea onChange={e => setCouponDesc(e.target.value)} sx={{ padding: '10px', marginY: '14px' }} placeholder="Coupon description" minRows={4} />
-
+                        {/* error message */}
+                        <>
+                            {
+                                errorMsg ?
+                                    <div className="text-center">
+                                        <InvalidFormMsg>
+                                            {errorMsg}
+                                        </InvalidFormMsg>
+                                    </div>
+                                    :
+                                    ""
+                            }
+                        </>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>
-                        <Button variant='contained' onClick={() => {
-                            handleClose()
+
+
+                        {/* <Button variant='contained' onClick={() => {
+                            // handleClose()
                             handleCreate()
-                        }}>Create Coupon</Button>
+                        }}>Create Coupon</Button> */}
+
+                        {
+                            submitting
+                                ?
+                                <Button disabled variant="contained">
+                                    <span className="loading loading-bars loading-md text-acent"></span>
+                                    <span className="ml-1 font-bold">Creating</span>
+                                </Button>
+                                :
+                                <Button variant='contained' onClick={() => {
+                                    // handleClose()
+                                    handleCreate()
+                                }}>Create Coupon</Button>
+                        }
+
+
+
+
+
+
                     </DialogActions>
                 </Dialog>
             </React.Fragment>
