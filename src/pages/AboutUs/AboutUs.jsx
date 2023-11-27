@@ -3,8 +3,8 @@ const AboutUs = () => {
     return (
         <div className="py-10">
             <div className="flex items-center justify-center flex-col">
-                <h1 className="text-2xl text-center font-extrabold uppercase">About Us</h1>
-                <p className="text-center text-sm font-thin">Crafting Digital Experiences, One Query at a Time</p>
+                <h1 className="text-2xl text-center font-extrabold uppercase">About   <span className="text-[#4d4dbe]">us</span></h1>
+                <p className="text-center uppercase text-sm mt-4 text-gray-600">Crafting Digital Experiences, One Query at a Time</p>
             </div>
             <div className="flex flex-col items-center justify-start text-left space-y-5 my-6">
                 <p>

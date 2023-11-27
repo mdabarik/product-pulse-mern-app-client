@@ -6,10 +6,14 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { useEffect, useState } from "react";
 import Slider from "./Slider";
 import "./Sliders.css";
+import { useQuery } from '@tanstack/react-query';
+
 
 /*** AOS Animation ***/
 import 'aos/dist/aos.css';
 import AOS from "aos";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Loader from "../../../components/Shared/Loader/Loader";
 
 const Sliders = () => {
     useEffect(() => {
@@ -21,17 +25,34 @@ const Sliders = () => {
         })
     }, [])
 
-    const [sliders, setSliders] = useState([]);
+    // const [sliders, setSliders] = useState([]);
+    const axiosPublic = useAxiosPublic();
 
-    useEffect(() => {
-        fetch("https://crud-jwt-server.vercel.app/api/v1/sliders", { credentials: 'include' })
-            .then(res => res.json())
-            .then(data => {
-                setSliders(data);
-            })
-            .catch(() => {
-            })
-    }, []);
+    const { data: sliders, isLoading, refetch } = useQuery({
+        queryKey: ['sliders'],
+        // enabled: !loading || !!user?.email,
+        // enabled: !loading && !!user?.email,
+        queryFn: async () => {
+            // console.log(user?.email);
+            const { data } = await axiosPublic.get(`/sliders`)
+            console.log(data, 'sliders');
+            return data;
+        },
+    })
+
+    if (isLoading) {
+        return <Loader></Loader>
+    }
+
+    // useEffect(() => {
+    //     fetch("/sliders", { credentials: 'include' })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setSliders(data);
+    //         })
+    //         .catch(() => {
+    //         })
+    // }, []);
 
     return (
         <div className='w-[100%] lg:w-full h-[500px] relative z-0' data-aos="zoom-in">
