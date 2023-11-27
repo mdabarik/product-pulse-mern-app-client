@@ -7,6 +7,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import ReviewSlide from './ReviewSlide';
 import "./ProductDetails";
 import Skeleton from '@mui/material/Skeleton';
+import useAuth from '../../hooks/useAuth';
 
 
 
@@ -14,12 +15,12 @@ import Skeleton from '@mui/material/Skeleton';
 const ReviewDetails = () => {
     const axiosPublic = useAxiosPublic();
     const { id } = useParams();
+    const {user, observeAddReview} = useAuth();
 
     const { data: reviews, isLoading } = useQuery({
-        queryKey: ['review-details', id],
+        queryKey: ['review-details-slider', id, observeAddReview],
         queryFn: async () => {
             const res = await axiosPublic.get(`/get-all-reviews/${id}`);
-            // console.log(res.data, 'all reviews');
             return res.data;
         }
     })

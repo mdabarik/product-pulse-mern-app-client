@@ -13,11 +13,12 @@ import { Helmet } from "react-helmet-async";
 
 const ProductDetails = () => {
     const { id } = useParams();
-    const { user, loading } = useAuth()
+    const { user, loading, observeAddReview, setObserveAddReview } = useAuth()
     const axiosSecure = useAxiosSecure();
 
+
     const { data: product, isLoading, refetch } = useQuery({
-        queryKey: ['singleproddetails', loading],
+        queryKey: ['singleproddetails', loading, observeAddReview],
         queryFn: async () => {
             const res = await axiosSecure.get(`/single-prod/${id}`);
             console.log(res, 'inside usequery prod details');

@@ -13,6 +13,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [resolver, setResolver] = useState(false);
+    const [observeAddReview, setObserveAddReview] = useState(false);
     const axiosPublic = useAxiosPublic();
 
     const googleSignIn = () => {
@@ -44,7 +45,9 @@ const AuthProvider = ({ children }) => {
         registerUser,
         logOut,
         resolver,
-        setResolver
+        setResolver,
+        observeAddReview,
+        setObserveAddReview
     }
 
 

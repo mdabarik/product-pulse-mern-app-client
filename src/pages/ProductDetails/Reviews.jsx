@@ -37,22 +37,21 @@ function getLabelText(value) {
 const Reviews = () => {
     const [value, setValue] = useState(0);
     const [hover, setHover] = useState(-1);
-    const { user, loading } = useAuth();
+    const { user, loading, observeAddReview, setObserveAddReview } = useAuth();
     const [comment, setComment] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
-
     const { data: review, isLoading, refetch } = useQuery({
         queryKey: ['reviewsa', loading],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/review?email=${user?.email}&id=${id}`);
-            // console.log(data, 'inside review usequery');
             return data;
         }
     })
 
     const handleReview = () => {
-        // console.log('review');
+        setSubmitting(true);
         const updatedReview = {
             userName: user?.displayName,
             userEmail: user?.email,
@@ -61,10 +60,8 @@ const Reviews = () => {
             userComment: comment || review?.userComment,
             productId: id
         }
-        // console.log(updatedReview);
         axiosSecure.put(`/add-review`, updatedReview)
             .then(res => {
-                // console.log(res, 'handleReview');
                 if (res?.data?.upsertedId) {
                     toast.success("Review Added Successfully.");
                 }
@@ -72,9 +69,11 @@ const Reviews = () => {
                     toast.success("Updated successfully")
                 }
                 refetch();
+                setObserveAddReview(!observeAddReview)
+                setSubmitting(false)
             })
-            .catch(err => {
-                // console.log(err, 'inside handlereview');
+            .catch(() => {
+                setSubmitting(false);
             })
     }
 
@@ -132,36 +131,29 @@ const Reviews = () => {
                             )}
                         </Box>
                     </div>
-                    <div className="flex items-center">
-                        {/* <img className="w-[200px] object-cover rounded-full drop-shadow" src={user?.photoURL} alt="iamge" /> */}
-                    </div>
-                    {/* rating */}
-
-                    {/* <Box
-                        sx={{
-                            '& > legend': { mt: 2 },
-                        }}
-                    >
-                        <Rating
-                            name="simple-controlled"
-                            value={review?.userRating || value}
-                            onChange={(event, newValue) => {
-                                setValue(newValue);
-                            }}
-                            precision={0.5}
-                        />
-                    </Box> */}
 
                     <Textarea
                         onChange={e => setComment(e.target.value)}
                         sx={{ padding: '10px' }}
                         defaultValue={review?.userComment || ''}
                         placeholder="Product description" minRows={4} />
-                    <Button onClick={handleReview} variant="contained" size="large" sx={{ width: '100%' }}>
-                        <AppRegistrationIcon></AppRegistrationIcon>
-                        <span className="ml-1 font-bold">{review?.userEmail ? 'Update' : 'Submit'} Now</span>
-                    </Button>
+
+                    {
+                        submitting
+                            ?
+                            <Button variant="contained" size="large" sx={{ width: '100%', marginTop: '5px' }}>
+                                <span className="loading loading-bars loading-md text-acent"></span>
+                                <span className="ml-1 font-bold">Submitting</span>
+                            </Button>
+                            :
+                            <Button onClick={handleReview} variant="contained" size="large" sx={{ width: '100%' }}>
+                                <AppRegistrationIcon></AppRegistrationIcon>
+                                <span className="ml-1 font-bold">{review?.userEmail ? 'Update' : 'Submit'} Now</span>
+                            </Button>
+                    }
                 </div>
+
+
             </div>
         </div>
     );
