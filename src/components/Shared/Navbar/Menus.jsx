@@ -11,6 +11,11 @@ import LoginIcon from '@mui/icons-material/Login';
 import Button from '@mui/material/Button';
 import './Menus.css';
 import useAuth from "../../../hooks/useAuth";
+import { FaHome } from "react-icons/fa";
+import { SiEngadget } from "react-icons/si";
+import { IoIosPeople } from "react-icons/io";
+
+
 
 const Menus = () => {
     const navigate = useNavigate();
@@ -36,19 +41,31 @@ const Menus = () => {
     return (
         <>
             <li className={`${location.pathname == '/' ? 'selected' : ''}`}>
-                <Link to="/">Home</Link>
+                <Link to="/">
+                    <FaHome className="text-lg" />
+                    <span>Home</span>
+                </Link>
             </li>
             <li className={`${location.pathname == '/all-products' ? 'selected' : ''}`}>
-                <Link to="/all-products">Products</Link>
+                <Link to="/all-products">
+                    <SiEngadget className="text-sm" />
+                    <span>All Products</span>
+                </Link>
+            </li>
+            <li className={`${location.pathname == '/about-us' ? 'selected' : ''}`}>
+                <Link to="/about-us">
+                    <IoIosPeople className="text-2xl" />
+                    <span>About Us</span>
+                </Link>
             </li>
             {
                 !user ? <div>
                     {
                         loading ? <span className="loading loading-spinner text-info loading-lg"></span>
-                        : <Button onClick={() => navigate('/login')} variant="contained" size="large">
-                        <LoginIcon></LoginIcon>
-                        <span className="ml-1 font-bold">Login</span>
-                    </Button>
+                            : <Button onClick={() => navigate('/login')} variant="contained" size="large">
+                                <LoginIcon></LoginIcon>
+                                <span className="ml-1 font-bold">Login</span>
+                            </Button>
                     }
 
                 </div> :

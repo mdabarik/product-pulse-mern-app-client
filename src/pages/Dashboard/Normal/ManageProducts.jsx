@@ -15,9 +15,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import useProdsOfCurUser from "../../../hooks/useProdsOfCurUser";
+import useSingleUser from "../../../hooks/useSingleUser";
 
 const ManageProducts = () => {
     const navigate = useNavigate();
@@ -38,16 +40,16 @@ const ManageProducts = () => {
         const prodId = delProdId;
         // console.log(prodId);
         axiosSecure.delete(`/products/${prodId}`)
-        .then(res => {
-            // console.log(res, 'handle delete');
-            if (res.data.deletedCount > 0) {
-                toast.success('Product deleted successfully.');
-                refetch();
-            }
-        })
-        .catch(err => {
-            toast.error(err.message);
-        })
+            .then(res => {
+                // console.log(res, 'handle delete');
+                if (res.data.deletedCount > 0) {
+                    toast.success('Product deleted successfully.');
+                    refetch();
+                }
+            })
+            .catch(err => {
+                toast.error(err.message);
+            })
     }
 
     const handleViewClick = (id) => {
@@ -56,8 +58,22 @@ const ManageProducts = () => {
     };
 
 
+    const [prods] = useProdsOfCurUser();
+    const [currUser] = useSingleUser();
+    // console.log(currUser?.status, 'status');
+    // console.log(prods, 'prods');
+    // if (prods?.counts > 0 && currUser?.status == 'Unverified') {
+    //     return <Navigate to="/dashboard/manage-products"  replace />
+    // }
+
+    const cantAddMoreThanOne = () => {
+        toast.error("To add more than 1 product, please subscribe (To Subscribe Goto Profile).")
+    }
+
+
+
     if (isLoading) return <Loader></Loader>
-    
+
     return (
         <div>
             <Helmet>
@@ -65,11 +81,22 @@ const ManageProducts = () => {
             </Helmet>
             <div className='flex items-center justify-between'>
                 <h2 className='text-xl my-3'>My Products: {products?.length || 0}</h2>
-                <Button variant='contained' onClick={() => {
-                    navigate('/dashboard/add-product')
-                }} autoFocus>
-                    Add Product
-                </Button>
+                {
+                    prods?.counts > 0 && currUser?.status == 'Unverified'
+                        ?
+                        <Button variant='contained' onClick={() => {
+                            cantAddMoreThanOne()
+                        }} autoFocus>
+                            Add Product
+                        </Button>
+                        :
+                        <Button variant='contained' onClick={() => {
+                            navigate('/dashboard/add-product')
+                        }} autoFocus>
+                            Add Product
+                        </Button>
+                }
+
             </div>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 750 }} aria-label="simple table">
@@ -113,7 +140,7 @@ const ManageProducts = () => {
                                         </Button>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Button  onClick={() => handleOpen(product?._id)} variant="outlined" size="small">
+                                        <Button onClick={() => handleOpen(product?._id)} variant="outlined" size="small">
                                             Delete
                                         </Button>
                                     </TableCell>
@@ -125,7 +152,7 @@ const ManageProducts = () => {
             </TableContainer>
 
 
-            
+
 
 
             {/*---------- Delete Modal ---------------*/}

@@ -13,8 +13,12 @@ import { TagsInput } from "react-tag-input-component";
 import { imageUpload } from "../../../api/utils";
 import Textarea from '@mui/joy/Textarea';
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import useProdsOfCurUser from "../../../hooks/useProdsOfCurUser";
+import Loader from "../../../components/Shared/Loader/Loader";
+import useSingleUser from "../../../hooks/useSingleUser";
+import { useEffect } from "react";
 
 
 
@@ -28,7 +32,19 @@ const AddNewProduct = () => {
     const navigate = useNavigate();
 
     const [selected, setSelected] = useState([]);
-    console.log(selected, imageFile);
+    // console.log(selected, imageFile);
+
+    const [ prods, isLoading ] = useProdsOfCurUser();
+    const [currUser] = useSingleUser();
+
+    // console.log(currUser?.status, 'status');
+    // console.log(prods, 'prods');
+    if (isLoading) return <Loader></Loader>
+    if (prods?.counts > 0 && currUser?.status == 'Unverified') {
+        toast.error("To add more than 1 product, please subscribe (To Subscribe Goto Profile).")
+        return <Navigate to="/dashboard/manage-products"  replace />
+    }
+
 
 
 
@@ -59,17 +75,17 @@ const AddNewProduct = () => {
         }
         console.log(newProduct);
         axiosSecure.post('/products', newProduct)
-        .then(res => {
-            console.log(res, 'inside add product handler');
-            if (res.data.insertedId) {
-                toast.success("Product added succesfully");
-                navigate('/dashboard/manage-products');
-            }
-        })
-        .catch(err => {
-            console.log(err, 'inside add product handler');
-            toast.error(err.message);
-        })
+            .then(res => {
+                console.log(res, 'inside add product handler');
+                if (res.data.insertedId) {
+                    toast.success("Product added succesfully");
+                    navigate('/dashboard/manage-products');
+                }
+            })
+            .catch(err => {
+                console.log(err, 'inside add product handler');
+                toast.error(err.message);
+            })
     }
 
     return (
@@ -134,13 +150,13 @@ const AddNewProduct = () => {
                     disabled
                     type="email"
                 ></Input>
-                <Textarea 
-                    onChange={e => setProdDesc(e.target.value)} 
-                    sx={{ padding: '10px', marginY: '14px' }} 
+                <Textarea
+                    onChange={e => setProdDesc(e.target.value)}
+                    sx={{ padding: '10px', marginY: '14px' }}
                     placeholder="Product description" minRows={4} />
 
                 {/* tags */}
-                
+
                 <TagsInput
                     value={selected}
                     onChange={setSelected}

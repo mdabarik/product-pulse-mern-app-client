@@ -29,6 +29,7 @@ import AdminStatistics from "../pages/Dashboard/Admin/Statistics/AdminStatistics
 import ModeratorStatistics from "../pages/Dashboard/Moderator/Statistics/ModeratorStatistics";
 import NormalStatistics from "../pages/Dashboard/Normal/Statistics/NormalStatistics";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const routes = createBrowserRouter([
     {
@@ -55,7 +56,12 @@ const routes = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>
+            },
+            {
+                path: '/about-us',
+                element: <AboutUs></AboutUs>
             }
+
         ],
     },
     {

@@ -9,13 +9,29 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DiscountIcon from '@mui/icons-material/Discount';
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import useProdsOfCurUser from '../../../hooks/useProdsOfCurUser';
+import useSingleUser from '../../../hooks/useSingleUser';
+import toast from 'react-hot-toast';
+import Loader from '../../Shared/Loader/Loader';
 
 const MenuItems = ({ role, isLoading }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
     // console.log(location, 'location locatin');
+
+
+    const [prods] = useProdsOfCurUser();
+    const [currUser] = useSingleUser();
+
+    // console.log(currUser?.status, 'status');
+    // console.log(prods, 'prods');
+    if (isLoading) return <Loader></Loader>
+    if (prods?.counts > 0 && currUser?.status == 'Unverified') {
+        // toast.error("To add more than 1 product, please subscribe (To Subscribe Goto Profile).")
+        // return <Navigate to="/dashboard/manage-products"  replace />
+    }
 
 
 
@@ -32,14 +48,18 @@ const MenuItems = ({ role, isLoading }) => {
                             <ListItemText primary="My Statistics" />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem onClick={() => navigate('/dashboard/add-product')} disablePadding selected={location.pathname == '/dashboard/add-product'}>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <LibraryAddIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Add New Poduct" />
-                        </ListItemButton>
-                    </ListItem>
+
+                    {
+                        prods?.counts > 0 && currUser?.status == 'Unverified' ? '' :
+                            <ListItem onClick={() => navigate('/dashboard/add-product')} disablePadding selected={location.pathname == '/dashboard/add-product'}>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <LibraryAddIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Add New Poduct" />
+                                </ListItemButton>
+                            </ListItem>
+                    }
                     <ListItem onClick={() => navigate('/dashboard/manage-products')} disablePadding selected={location.pathname == '/dashboard/manage-products'}>
                         <ListItemButton>
                             <ListItemIcon>

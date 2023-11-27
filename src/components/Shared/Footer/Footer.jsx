@@ -3,15 +3,23 @@ import Logo from "./../../../assets/brand-logo-filled.png";
 import { FaTwitter } from "react-icons/fa";
 import { BsYoutube } from "react-icons/bs";
 import { BsFacebook } from "react-icons/bs";
+import useAuth from "../../../hooks/useAuth";
 
 const Footer = () => {
 
+    const { user } = useAuth();
+
     const footerLinks = <>
         <Link to="/">Home</Link>
-        <Link to="/rooms">All Products</Link>
+        <Link to="/all-products">All Products</Link>
         <Link to="/about-us">About Us</Link>
-        <Link to="/my-booking">Login</Link>
-        <Link to="/faq">Registration</Link>
+        {
+            user ? "" :
+                <>
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Registration</Link>
+                </>
+        }
     </>
 
     const socialLinks = <>
@@ -28,7 +36,7 @@ const Footer = () => {
 
 
     return (
-        <footer className="p-6 drop-shadow bg-base-100 relative -z-10">
+        <footer className="p-6 drop-shadow bg-base-100 ">
             <div className="flex flex-col items-center justify-between  mx-auto gap-y-2">
                 <div className="flex flex-col items-center justify-center gap-y-2">
                     <div>
@@ -38,7 +46,7 @@ const Footer = () => {
 
                 </div>
 
-                <div className="flex items-center justify-center gap-4 mt-3 link">
+                <div className="flex items-center justify-center gap-4 mt-3 link relative z-50">
                     {footerLinks}
                 </div>
                 <div className="flex items-center justify-center gap-4 mt-3 link">
