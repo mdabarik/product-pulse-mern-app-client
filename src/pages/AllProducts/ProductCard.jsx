@@ -36,7 +36,7 @@ const ProductCard = ({ product, refetch }) => {
                     <p>Tags:</p>
                     <div className="flex gap-1 items-center flex-wrap overflow-hidden">
                         {
-                            prodTags?.slice(0, 5).map((tag, index) => <p className="bg-[#e5f6fd] text-[11px] text-[#014361] px-2 py-1" key={index}>{tag}</p>)
+                            prodTags?.slice(0, 5)?.map((tag, index) => <p className="bg-[#e5f6fd] text-[11px] text-[#014361] px-2 py-1" key={index}>{tag}</p>)
                         }
                     </div>
                 </div>

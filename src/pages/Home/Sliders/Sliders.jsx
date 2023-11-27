@@ -76,7 +76,7 @@ const Sliders = () => {
                 }}
             // navigation={false} 
             >
-                {sliders.map(slider => (
+                {sliders?.map(slider => (
                     <SwiperSlide key={slider._id}>
                         <Slider slider={slider}></Slider>
                     </SwiperSlide>
