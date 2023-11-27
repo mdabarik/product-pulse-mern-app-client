@@ -98,15 +98,11 @@ const EditProduct = () => {
             }
         }
 
-
-
         // let photoURL = null;
         // if (imageFile) {
         //     const imageData = await imageUpload(imageFile);
         //     photoURL = imageData?.data?.display_url;
         // }
-
-
 
         const updatedProduct = {
             prodName: productName || product?.prodName,

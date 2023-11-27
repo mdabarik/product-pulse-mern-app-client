@@ -20,7 +20,7 @@ const GoogleSignIn = () => {
                 const user = res.user;
                 const userData = {
                     userName: user?.displayName,
-                    userEmail: user?.email,
+                    userEmail: user?.email?.toLowerCase(),
                     userPhoto: user?.photoURL,
                     userRole: 'normal',
                     status: 'Unverified',

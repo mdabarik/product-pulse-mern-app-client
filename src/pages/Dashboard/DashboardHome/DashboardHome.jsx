@@ -4,16 +4,17 @@ import useRole from "../../../hooks/useRole";
 
 const DashboardHome = () => {
     const [role, isLoading] = useRole();
+    console.log(role, 'dashboardhome');
 
     if (isLoading) return <Loader />; // Return the Loader component
 
-    if (role === 'admin') {
+    if (role == 'admin') {
         return <Navigate to="/dashboard/admin-statistics" replace />;
     }
-    if (role === 'moderator') {
+    if (role == 'moderator') {
         return <Navigate to="/dashboard/moderator-statistics" replace />;
     }
-    if (role === 'normal') {
+    if (role == 'normal') {
         return <Navigate to="/dashboard/normal-statistics" replace />;
     }
 

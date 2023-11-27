@@ -132,7 +132,7 @@ const Register = () => {
                         type="text"
                     ></Input>
                     <Input
-                        onChange={e => setUserEmail(e.target.value.trim())}
+                        onChange={e => setUserEmail(e.target.value.toLowerCase().trim())}
                         sx={{ padding: '10px' }}
                         startDecorator={<MailIcon />}
                         placeholder="Enter email address"

@@ -9,15 +9,17 @@ const useRole = () => {
 
     // if (loading) return "loading..."
 
+    console.log(user?.email);
+
     const { data: role, isLoading, refetch } = useQuery({
-        queryKey: ['role', loading, user],
+        queryKey: ['role', loading],
         // enabled: !loading || !!user?.email,
-        // enabled: !loading && !!user?.email,
+        enabled: !loading && !!user?.email,
         queryFn: async () => {
             // console.log(user?.email);
             const { data } = await axiosSecure.get(`/users/${user?.email}`)
             // console.log(data, 'data inside userole');
-            return data?.userRole;
+            return data?.userRole || [];
         },
     })
     // console.log(role, 'inside userole jsx');

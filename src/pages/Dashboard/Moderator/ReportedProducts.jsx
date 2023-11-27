@@ -22,6 +22,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import DeleteIcon from "../../../components/Shared/DeleteIcon/DeleteIcon";
 import ViewBtn from "../../../components/Shared/ViewBtn/ViewBtn";
+import DisableBtn from "../../../components/Shared/DisableBtn/DisableBtn";
 
 const ReportedProducts = () => {
     const navigate = useNavigate();
@@ -146,9 +147,23 @@ const ReportedProducts = () => {
                                     <TableCell align="left">{product?.prodOwnerInfo?.name}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <button onClick={() => handleViewClick(product?._id)}>
-                                            <ViewBtn></ViewBtn>
-                                        </button>
+
+                                        {
+                                            product?.prodStatus != 'accepted'
+                                                ?
+                                                <button onClick={() => {
+                                                    toast.error(`${product?.prodStatus} product can't view on product deatails page`)
+                                                }}>
+                                                    {/* <ViewBtn></ViewBtn> */}
+                                                    <DisableBtn></DisableBtn>
+                                                </button>
+                                                :
+                                                <button onClick={() => handleViewClick(product?._id)}>
+                                                    <ViewBtn></ViewBtn>
+                                                </button>
+                                        }
+
+
                                     </TableCell>
                                     <TableCell align="left">
                                         <button onClick={() => handleOpenModal(product?._id)}>
