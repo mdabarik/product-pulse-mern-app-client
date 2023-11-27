@@ -13,6 +13,13 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import DiscountIcon from '@mui/icons-material/Discount';
+import { IoMdCloseCircle } from "react-icons/io";
+import useCoupon from '../../../hooks/useCoupon';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAuth from '../../../hooks/useAuth';
+
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -24,19 +31,22 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
-
+    const axiosSecure = useAxiosSecure();
     const [coupon, setCoupon] = useState('')
     const [price, setPrice] = useState(500);
+    const {user, loading} = useAuth();
 
+    const { data, isLoading } = useQuery({
+        queryKey: ['coupon', coupon, loading, user],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/get-coupon?code=${coupon}`);
+            console.log(res.data);
+            return res.data;
+        }
+    })
 
-    const handleCoupon = (coupon) => {
-
-        console.log(coupon, 'coupon');
-
-        
-
-
-        if (coupon == 'SAVE50NEW') {
+    const handleCoupon = (discount) => {
+        if (discount) {
             setPrice(price - 50)
             toast.success('Coupon applied successfully');
         }
@@ -56,17 +66,8 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
                 open={open}
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    <div className='flex'>
-                    <h2 className='text-xl font-bold mr-4'>Total Amount You Will Pay:</h2>
-                    {
-                        price == 500 ? '$500' : <>
-                            <div className='flex gap-4'>
-                            <strike>${'500'}</strike>
-                            <span>{price}</span>
-                            </div>
-                        </>
-
-                    }
+                    <div className='flex items-center justify-center'>
+                        <h2 className='text-2xl font-bold mr-4 text-center'>Subscribe to Unlock Limit</h2>
                     </div>
                 </DialogTitle>
                 <IconButton
@@ -83,22 +84,30 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
                 </IconButton>
                 <DialogContent dividers>
 
-                    {/* stripe payment start */}
-                    <Payment price={price}></Payment>
-                    {/* stripe payment start */}
+                    <div>
+                        <div className='flex gap-x-3 text-center items-center font-bold justify-center text-xl'>
+                            <h2>Total Amount:</h2>
+                            <strike>${500}</strike>
+                            <h2>${price}</h2>
+                            <h2 className='text-bold'>({`$${500 - price} discount`})</h2>
+                        </div>
+                    </div>
 
-                    <Typography gutterBottom>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.
+                    <Typography gutterBottom sx={{ textAlign: 'center', fontSize: '14px', padding: '10px' }}>
+                        Unlock a lifetime of benefits with our exclusive subscription for just
+                        ${price} - a one-time payment that guarantees you access to add product indefinitely!
+                        Enjoy the freedom to share your thoughts, updates, and experiences with our community.
                     </Typography>
 
-
+                    {/* stripe payment start */}
+                    <div className=''>
+                        <Payment setOpen={setOpen} price={price}></Payment>
+                    </div>
+                    {/* stripe payment start */}
 
                     {/* apply coupon */}
                     <div>
-                        <p className="font-normal my-2">Enter your valid coupon code</p>
-                        <Box
+                        {/* <Box
                             sx={{
                                 width: 500,
                                 maxWidth: '100%',
@@ -111,21 +120,67 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
                                 onChange={(e) => setCoupon(e.target.value.trim())}
                                 id="fullWidth" />
 
-                            <Button
+                            {/* <Button
                                 onClick={() => handleCoupon(coupon)}
                                 sx={{ borderRadius: '0px', padding: '8px', paddingX: '20px', width: '40px', marginLeft: '-60px' }}
                                 // startIcon={<SearchIcon />} 
-                                variant="contained">Apply Coupon</Button>
-                        </Box>
+                                variant="contained">Apply Coupon</Button> 
+                        </Box> */}
+
+                        <div className='flex flex-col justify-center items-center gap-2 mt-4'>
+                            <p className="font-normal text-center">Enter your valid coupon code</p>
+
+
+                            {
+                                price == 500
+                                    ?
+                                    <input onChange={(e) => setCoupon(e.target.value.trim())} className='px-8 py-2 text-center rounded-lg border-2 border-blue-400 w-1/2' type="text" placeholder='Enter coupon' />
+                                    :
+                                    <input disabled value={coupon} className='px-8 py-2 text-center rounded-lg border-2 border-blue-400 w-1/2' type="text" placeholder='Enter coupon' />
+
+                            }
+
+
+                            {
+                                data?.discount > 0
+                                    ?
+
+                                    <>
+
+                                        {
+                                            price == 500 ?
+                                                <Button size="sm" onClick={() => handleCoupon(data?.discount)} sx={{ borderRadius: 'px' }} variant="contained" startIcon={<DiscountIcon />}>
+                                                    Apply Coupon
+                                                </Button>
+                                                :
+                                                <Button size="sm" disabled sx={{ borderRadius: 'px' }} variant="contained" startIcon={<DiscountIcon />}>
+                                                    Already Applied
+                                                </Button>
+                                        }
+
+                                    </>
+
+                                    :
+                                    <Button disabled size="sm" sx={{ borderRadius: 'px' }} variant="contained" startIcon={<DiscountIcon />}>
+                                        Apply Coupon
+                                    </Button>
+                            }
+
+                        </div>
                     </div>
 
 
                 </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Save changes
-                    </Button>
-                </DialogActions>
+                <div className='flex border-2 justify-center items-center'>
+
+                    <DialogActions>
+                        <button onClick={handleClose} className="bg-[#9e1e1e] hover:bg-red-600 text-white px-4 py-2 flex gap-2" type="submit">
+                            <IoMdCloseCircle className="text-xl text-white" />
+                            <span>Close Modal</span>
+                        </button>
+                    </DialogActions>
+                </div>
+
             </BootstrapDialog>
         </React.Fragment>
     );

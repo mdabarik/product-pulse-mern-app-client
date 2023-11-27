@@ -5,8 +5,8 @@ import useRole from "../hooks/useRole";
 const NormalRoute = ({children}) => {
 
     const [role, isLoading] = useRole();
-    const location = useLocation();
-    location.pathname = "/"
+    // const location = useLocation();
+    // location.pathname = "/"
 
     if (isLoading) return <Loader></Loader>
     if (role == 'normal') return children;

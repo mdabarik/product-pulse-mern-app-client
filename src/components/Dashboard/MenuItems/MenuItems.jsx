@@ -15,7 +15,9 @@ const MenuItems = ({ role, isLoading }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    // console.log(location);
+    // console.log(location, 'location locatin');
+
+
 
     return (
         <>

@@ -4,8 +4,8 @@ import useRole from "../hooks/useRole";
 
 const AdminRoute = ({children}) => {
     const [role, isLoading] = useRole();
-    const location = useLocation();
-    location.pathname = "/"
+    // const location = useLocation();
+    // location.pathname = "/"
 
     // console.log(location);
 
