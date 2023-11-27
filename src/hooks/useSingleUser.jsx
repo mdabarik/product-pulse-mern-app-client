@@ -9,8 +9,8 @@ const useSingleUser = () => {
 
     // if (loading) return "loading..."
 
-    const { data: currUser, isLoading, refetch } = useQuery({
-        queryKey: ['currUser'],
+    const { data: currUser, isLoading:isLoading3, refetch: refetch3 } = useQuery({
+        queryKey: ['currUser', loading],
         // enabled: !loading || !!user?.email,
         // enabled: !loading && !!user?.email,
         queryFn: async () => {
@@ -21,7 +21,7 @@ const useSingleUser = () => {
         },
     })
     // console.log(role, 'inside userole jsx');
-    return [currUser, isLoading, refetch]
+    return [currUser, isLoading3, refetch3]
 }
 
 export default useSingleUser;

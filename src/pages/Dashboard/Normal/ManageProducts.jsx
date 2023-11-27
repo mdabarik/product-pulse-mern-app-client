@@ -28,6 +28,8 @@ const ManageProducts = () => {
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
     const [products, isLoading, refetch] = useAllProducts();
+    const [prods, isLoading2, refetch2] = useProdsOfCurUser();
+    const [currUser, isLoading3, refetch3] = useSingleUser();
 
     /* ------- Delete product using modal confirmation----- */
     const [delProdId, setDelProdId] = React.useState('');
@@ -48,6 +50,8 @@ const ManageProducts = () => {
                 if (res.data.deletedCount > 0) {
                     toast.success('Product deleted successfully.');
                     refetch();
+                    refetch2();
+                    refetch3();
                 }
             })
             .catch(err => {
@@ -61,8 +65,7 @@ const ManageProducts = () => {
     };
 
 
-    const [prods] = useProdsOfCurUser();
-    const [currUser] = useSingleUser();
+
     // console.log(currUser?.status, 'status');
     // console.log(prods, 'prods');
     // if (prods?.counts > 0 && currUser?.status == 'Unverified') {
@@ -133,9 +136,22 @@ const ManageProducts = () => {
                                     <TableCell component="th" scope="row">{product?.prodStatus}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <button onClick={() => handleViewClick(product?._id)} >
-                                            <ViewBtn></ViewBtn>
-                                        </button>
+
+                                        {
+                                            product?.prodStatus == 'pending' || product?.prodStatus == 'Rejected' ?
+                                                <button onClick={() => {
+                                                    toast.error(`You can't open ${product?.prodStatus} on page details, see details in edit page. keep patience until reviewed by moderator`)
+                                                    navigate(`/dashboard/edit-product/${product?._id}`)
+                                                }} >
+                                                    <ViewBtn></ViewBtn>
+                                                </button>
+                                                :
+                                                <button onClick={() => handleViewClick(product?._id)} >
+                                                    <ViewBtn></ViewBtn>
+                                                </button>
+                                        }
+
+
                                     </TableCell>
                                     <TableCell align="left">
                                         <button onClick={() => navigate(`/dashboard/edit-product/${product?._id}`)} >

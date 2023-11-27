@@ -38,9 +38,10 @@ const Register = () => {
 
     const handleRegister = async () => {
 
+        // ^[a-zA-Z ]{3,50}$
         /*-------- input validation -----------*/
         setErrorMsg(null)
-        if (!/^[a-zA-Z\\s]+$/.test(userName) || userName?.length < 3 || userName?.length > 50) {
+        if (!/^[a-zA-Z ]{3,50}$/.test(userName)) {
             setErrorMsg("Name: only a-zA-Z and space allowed and contains 3-50 chars");
             return;
         }

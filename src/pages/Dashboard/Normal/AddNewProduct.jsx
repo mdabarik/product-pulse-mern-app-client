@@ -18,23 +18,27 @@ import { Helmet } from "react-helmet-async";
 import useProdsOfCurUser from "../../../hooks/useProdsOfCurUser";
 import Loader from "../../../components/Shared/Loader/Loader";
 import useSingleUser from "../../../hooks/useSingleUser";
-import { useEffect } from "react";
+import InvalidFormMsg from "../../../components/Shared/InvalidFormMsg/InvalidFormMsg";
 
 
 
 const AddNewProduct = () => {
     const { user } = useAuth();
-    const [productName, setProductName] = useState(null);
-    const [imageFile, setImageFile] = useState(null);
-    const [externalLink, setExternalLink] = useState(null);
-    const [prodDesc, setProdDesc] = useState(null);
+    const [productName, setProductName] = useState('');
+    const [imageFile, setImageFile] = useState('');
+    const [externalLink, setExternalLink] = useState('');
+    const [prodDesc, setProdDesc] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+
+
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
 
     const [selected, setSelected] = useState([]);
     // console.log(selected, imageFile);
 
-    const [ prods, isLoading ] = useProdsOfCurUser();
+    const [prods, isLoading] = useProdsOfCurUser();
     const [currUser] = useSingleUser();
 
     // console.log(currUser?.status, 'status');
@@ -42,17 +46,63 @@ const AddNewProduct = () => {
     if (isLoading) return <Loader></Loader>
     if (prods?.counts > 0 && currUser?.status == 'Unverified') {
         toast.error("To add more than 1 product, please subscribe (To Subscribe Goto Profile).")
-        return <Navigate to="/dashboard/manage-products"  replace />
+        return <Navigate to="/dashboard/manage-products" replace />
     }
 
-
-
-
     const handleAddProduct = async () => {
-        console.log('handle add prod clicked');
-        const imageData = await imageUpload(imageFile);
-        const photoURL = imageData?.data?.display_url;
-        console.log(photoURL);
+
+
+        console.log(errorMsg, 'message');
+        setErrorMsg(null)
+        if (!/^[a-zA-Z0-9_\-\. ]{10,50}$/.test(productName)) {
+            setErrorMsg("Product name can contain only a-zA-Z0-9_.- and space, and must be between 10 and 50 characters.");
+            return;
+        }
+
+
+        if (!imageFile) {
+            setErrorMsg("Please select an image file");
+            return;
+        }
+        if (imageFile) {
+            const allowedExtensions = ['jpg', 'jpeg', 'png'];
+            const fileNameParts = imageFile.name.split('.');
+            const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+            if (!allowedExtensions.includes(fileExtension)) {
+                setErrorMsg("Please select an PNG or JPG/JPEG image.");
+                return;
+            }
+        }
+
+        if (!/^.{250,}$/.test(prodDesc)) {
+            setErrorMsg("Product description must contains 250 chars.");
+            return;
+        }
+
+        if (selected.length < 3) {
+            setErrorMsg("Select minimum 3 tags to create a product.");
+            return;
+        }
+
+        const urlRegex = /^(?:(?:https?|ftp):\/\/)?(?:www\.)?(?:[a-zA-Z0-9-]+\.){1,}(?:[a-zA-Z]{2,})+(?:\/[^\/]*)*$/;
+        if (!urlRegex.test(externalLink)) {
+            setErrorMsg("Invalid external link/url, provide valid url please.");
+            return;
+        }
+
+
+        setSubmitting(true)
+        // console.log('handle add prod clicked');
+        let photoURL = ''
+        // console.log(photoURL);
+        try {
+            const imageData = await imageUpload(imageFile);
+            photoURL = imageData?.data?.display_url;
+        } catch(e) {
+            setErrorMsg("Photo can't be uploaded, try later and check internet.");
+            setSubmitting(false)
+            return;
+        }
         // console.log(imageData);
         // productName, externalLink, imageURL, tags, ownerInfo
         // upvotes, downvotes, status, productDesc
@@ -80,39 +130,29 @@ const AddNewProduct = () => {
                 if (res.data.insertedId) {
                     toast.success("Product added succesfully");
                     navigate('/dashboard/manage-products');
+                    setSubmitting(false)
                 }
             })
             .catch(err => {
                 console.log(err, 'inside add product handler');
                 toast.error(err.message);
+                setSubmitting(false)
             })
     }
 
     return (
-        <div>
+        <div className="my-5">
             <Helmet>
                 <title>Add New Product | Dashboard</title>
             </Helmet>
             <h2 className="text-xl font-bold mb-4">Add New Product</h2>
-            {/* input: product name
-            input: image
-            input: Description
-            
-            product owner info: (readonly)
-            owername, owner image, owner email
 
-            tags
-            external links
-            submit button
-
-            on click submit save data on mongodb, show toast,
-            redirect to my prods page */}
             <div className="flex flex-col gap-y-6">
                 <Input
-                    onChange={e => setProductName(e.target.value)}
+                    onChange={e => setProductName(e.target.value.trim())}
                     sx={{ padding: '10px' }}
                     startDecorator={<DriveFileRenameOutlineIcon />}
-                    placeholder="Product name"
+                    placeholder="Product name (min 10 chars upto 50)"
                     type="text"
                 ></Input>
                 <div className="border-2 rounded-md p-2">
@@ -139,9 +179,9 @@ const AddNewProduct = () => {
                     type="text"
                 ></Input>
                 {/* owner image */}
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                     <img className="w-[300px] object-cover" src={user?.photoURL} alt="iamge" />
-                </div>
+                </div> */}
                 <Input
                     sx={{ padding: '10px' }}
                     startDecorator={<MailIcon />}
@@ -151,9 +191,9 @@ const AddNewProduct = () => {
                     type="email"
                 ></Input>
                 <Textarea
-                    onChange={e => setProdDesc(e.target.value)}
+                    onChange={e => setProdDesc(e.target.value.trim())}
                     sx={{ padding: '10px', marginY: '14px' }}
-                    placeholder="Product description" minRows={4} />
+                    placeholder="Product description (min 250 chars)" minRows={4} />
 
                 {/* tags */}
 
@@ -161,9 +201,8 @@ const AddNewProduct = () => {
                     value={selected}
                     onChange={setSelected}
                     name="fruits"
-                    placeHolder="Tags (write tag name and hit enter)"
+                    placeHolder="Tags (write tag name and hit enter, min 3 tags)"
                 />
-
 
                 <Input
                     onChange={e => setExternalLink(e.target.value)}
@@ -172,10 +211,52 @@ const AddNewProduct = () => {
                     placeholder="External Link"
                     type="text"
                 ></Input>
-                <Button onClick={handleAddProduct} variant="contained" size="large" sx={{ width: '100%' }}>
-                    <AppRegistrationIcon></AppRegistrationIcon>
-                    <span className="ml-1 font-bold">Submit Now</span>
-                </Button>
+
+
+                {
+                    submitting
+                        ?
+                        <Button disabled variant="contained" size="large" sx={{ width: '100%' }}>
+                            <span className="loading loading-bars loading-md text-acent"></span>
+                            <span className="ml-1 font-bold">Creating</span>
+                        </Button>
+                        :
+                        <Button onClick={handleAddProduct} variant="contained" size="large" sx={{ width: '100%' }}>
+                            <AppRegistrationIcon></AppRegistrationIcon>
+                            <span className="ml-1 font-bold">Submit Now</span>
+                        </Button>
+                }
+
+                {/* {
+                        submitting
+                            ?
+                            <Button disabled variant="contained" size="large" sx={{ width: '100%' }}>
+                                <span className="loading loading-bars loading-md text-acent"></span>
+                                <span className="ml-1 font-bold">Creating</span>
+                            </Button>
+                            :
+                            <Button onClick={handleRegister} variant="contained" size="large" sx={{ width: '100%' }}>
+                                <AppRegistrationIcon></AppRegistrationIcon>
+                                <span className="ml-1 font-bold">Register Now</span>
+                            </Button>
+                    } */}
+
+
+
+
+                {/* error message */}
+                <>
+                    {
+                        errorMsg ?
+                            <div className="text-center">
+                                <InvalidFormMsg>
+                                    {errorMsg}
+                                </InvalidFormMsg>
+                            </div>
+                            :
+                            ""
+                    }
+                </>
             </div>
         </div>
     );

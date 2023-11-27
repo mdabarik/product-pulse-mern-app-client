@@ -6,7 +6,7 @@ import useAxiosPublic from './useAxiosPublic';
 const useProdsOfCurUser = () => {
     const {user, loading} = useAuth();
     const axiosPublic = useAxiosPublic();
-    const { data: prods, isLoading, refetch } = useQuery({
+    const { data: prods, isLoading:isLoading2, refetch:refetch2 } = useQuery({
         queryKey: ['my-prods', loading, user],
         queryFn: async () => {
             const { data } = await axiosPublic.get(`/get-prods-me/?email=${user?.email}`);
@@ -14,7 +14,7 @@ const useProdsOfCurUser = () => {
             return data;
         }
     })
-    return [prods, isLoading, refetch];
+    return [prods, isLoading2, refetch2];
 };
 
 export default useProdsOfCurUser;

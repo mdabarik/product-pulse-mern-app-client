@@ -12,7 +12,6 @@ import { toast } from 'react-hot-toast';
 import { useState } from "react";
 import InvalidFormMsg from "../../components/Shared/InvalidFormMsg/InvalidFormMsg";
 
-
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -33,6 +32,7 @@ const Login = () => {
 
     const handleLogin = () => {
 
+        setErrorMsg(null)
         if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(userEmail)) {
             setErrorMsg("Please enter a valid email address");
             return;
@@ -41,7 +41,6 @@ const Login = () => {
             setErrorMsg("Password must contains 1 lowercase, 1 uppercase, 1 special chars, range 6-64");
             return;
         }
-
 
         setSubmitting(true)
         loginUser(userEmail, userPassword)
