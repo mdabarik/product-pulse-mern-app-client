@@ -18,6 +18,13 @@ import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useProducts from "../../../hooks/useProducts";
 import { Helmet } from "react-helmet-async";
+import ViewBtn from "../../../components/Shared/ViewBtn/ViewBtn";
+import CheckBtn from "../../../components/Shared/CheckBtn/CheckBtn";
+import RejectBtn from "../../../components/Shared/RejectBtn/RejectBtn";
+import DisableBtn from "../../../components/Shared/DisableBtn/DisableBtn";
+import FeaturedBtn from "../../../components/Button/FeaturedBtn";
+import UnFeaturedBtn from "../../../components/Button/UnFeaturedBtn";
+import AcceptedBtn from "../../../components/Button/AcceptedBtn";
 
 const ReviewProducts = () => {
     const navigate = useNavigate();
@@ -132,36 +139,68 @@ const ReviewProducts = () => {
                                     <TableCell align="left">{product?.prodIsFeatured || 'no'}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <Button onClick={() => handleViewClick(product?._id)} variant="outlined" size="small">
-                                            View
-                                        </Button>
+                                        <button onClick={() => handleViewClick(product?._id)} >
+                                            <ViewBtn></ViewBtn>
+                                        </button>
                                     </TableCell>
                                     <TableCell align="left">
                                         {
                                             product?.prodStatus == 'accepted' ?
-                                            product?.prodIsFeatured == 'no' ?
-                                                <Button onClick={() => handleFeature('yes', product?._id)} variant="outlined" size="small">
-                                                    Make Featured
-                                                </Button>
+                                                product?.prodIsFeatured == 'no' ?
+                                                    <button onClick={() => handleFeature('yes', product?._id)} >
+                                                        <UnFeaturedBtn></UnFeaturedBtn>
+                                                    </button>
+                                                    :
+                                                    <button onClick={() => handleFeature('no', product?._id)} >
+                                                        <FeaturedBtn></FeaturedBtn>
+                                                    </button>
                                                 :
-                                                <Button onClick={() => handleFeature('no', product?._id)} variant="outlined" size="small">
-                                                    Make Unfeatured
-                                                </Button>
-                                            : <p title="must be accepted to set it as featured">Disabled</p>
+                                                <button disabled>
+                                                    <DisableBtn></DisableBtn>
+                                                </button>
                                         }
 
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Button onClick={() => handleStatus('accepted', product?._id)} variant="outlined" size="small">
-                                            Accept
-                                        </Button>
+                                        {
+                                            product?.prodStatus == 'accepted'
+                                                ?
+                                                <button disabled >
+                                                    <AcceptedBtn />
+                                                </button>
+                                                :
+                                                <button onClick={() => handleStatus('accepted', product?._id)} >
+                                                    <CheckBtn></CheckBtn>
+                                                </button>
+
+                                        }
+
                                     </TableCell>
                                     <TableCell align="left">
                                         {
-                                            product?.prodIsFeatured == 'no' ? <Button onClick={() => handleStatus('Rejected', product?._id)} variant="outlined" size="small">
-                                            Reject
-                                        </Button> :
-                                        <p title="remove from featured to reject">Disabled</p>
+                                            product?.prodIsFeatured == 'no'
+
+                                                ?
+
+                                                <>
+                                                    {
+                                                        product?.prodStatus == 'accepted' ?
+                                                            <button onClick={() => handleStatus('Rejected', product?._id)} >
+                                                                <RejectBtn />
+                                                            </button>
+                                                            :
+                                                            <button disabled>
+                                                                <DisableBtn></DisableBtn>
+                                                            </button>
+                                                    }
+
+                                                </>
+
+
+                                                :
+                                                <button disabled >
+                                                    <DisableBtn></DisableBtn>
+                                                </button>
                                         }
                                     </TableCell>
 

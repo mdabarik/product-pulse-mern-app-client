@@ -20,6 +20,9 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import useProdsOfCurUser from "../../../hooks/useProdsOfCurUser";
 import useSingleUser from "../../../hooks/useSingleUser";
+import ViewBtn from "../../../components/Shared/ViewBtn/ViewBtn";
+import EditBtn from "../../../components/Button/EditBtn";
+import DeleteIcon from "../../../components/Shared/DeleteIcon/DeleteIcon";
 
 const ManageProducts = () => {
     const navigate = useNavigate();
@@ -130,19 +133,19 @@ const ManageProducts = () => {
                                     <TableCell component="th" scope="row">{product?.prodStatus}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <Button onClick={() => handleViewClick(product?._id)} variant="outlined" size="small">
-                                            View
-                                        </Button>
+                                        <button onClick={() => handleViewClick(product?._id)} >
+                                            <ViewBtn></ViewBtn>
+                                        </button>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Button onClick={() => navigate(`/dashboard/edit-product/${product?._id}`)} variant="outlined" size="small">
-                                            Edit
-                                        </Button>
+                                        <button onClick={() => navigate(`/dashboard/edit-product/${product?._id}`)} >
+                                            <EditBtn></EditBtn>
+                                        </button>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Button onClick={() => handleOpen(product?._id)} variant="outlined" size="small">
-                                            Delete
-                                        </Button>
+                                        <button onClick={() => handleOpen(product?._id)} >
+                                            <DeleteIcon></DeleteIcon>
+                                        </button>
                                     </TableCell>
 
                                 </TableRow>)
@@ -168,7 +171,7 @@ const ManageProducts = () => {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Do you want to delete the selected coupon?
+                            Do you want to delete the selected product?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

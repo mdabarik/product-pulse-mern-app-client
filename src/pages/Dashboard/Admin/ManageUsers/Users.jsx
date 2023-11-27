@@ -183,6 +183,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import AdminBtn from '../../../../components/Button/AdminBtn';
+import DisableBtn from '../../../../components/Shared/DisableBtn/DisableBtn';
+import NotAdminBtn from '../../../../components/Button/NotAdminBtn';
+import ModeratorBtn from '../../../../components/Button/ModeratorBtn';
+import NotModeratorBtn from '../../../../components/Button/NotModeratorBtn';
 
 const Users = () => {
   const [users, isLoading, refetch] = useAllUsers()
@@ -255,8 +260,8 @@ const Users = () => {
               <TableCell align="left">Email</TableCell>
               <TableCell align="left">Status</TableCell>
               <TableCell align="left">Role</TableCell>
-              <TableCell align="left">Action</TableCell>
-              <TableCell align="left">Action</TableCell>
+              <TableCell align="left">Make Moderator</TableCell>
+              <TableCell align="left">Make Admin</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -277,23 +282,31 @@ const Users = () => {
                   <TableCell align="left">{user?.userRole}</TableCell>
                   <TableCell align="left">
                     {
-                      user?.userEmail == loggedUser?.email ? "It is you" :
-                        <Button onClick={() => {
+                      user?.userEmail == loggedUser?.email || user?.userRole == 'moderator' ? 
+                        <button disabled>
+                          <ModeratorBtn></ModeratorBtn>
+                        </button>
+                       :
+                        <button onClick={() => {
                           handleModOpen(user?.userEmail, user?.userName)
-                        }} variant="outlined" size="small">
-                          Make Moderator
-                        </Button>
+                        }} >
+                          <NotModeratorBtn></NotModeratorBtn>
+                        </button>
                     }
 
                   </TableCell>
                   <TableCell align="left">
                     {
-                      user?.userEmail == loggedUser?.email ? "It is you" :
-                        <Button onClick={() => {
+                      user?.userEmail == loggedUser?.email || user?.userRole == 'admin' ?
+                        <button disabled>
+                          <AdminBtn></AdminBtn>
+                        </button>
+                        :
+                        <button onClick={() => {
                           handleAdminOpen(user?.userEmail, user?.userName)
-                        }} variant="outlined" size="small">
-                          Make Admin
-                        </Button>
+                        }} >
+                          <NotAdminBtn></NotAdminBtn>
+                        </button>
                     }
 
                   </TableCell>

@@ -20,6 +20,8 @@ import useReportedProducts from "../../../hooks/useReportedProducts";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
+import DeleteIcon from "../../../components/Shared/DeleteIcon/DeleteIcon";
+import ViewBtn from "../../../components/Shared/ViewBtn/ViewBtn";
 
 const ReportedProducts = () => {
     const navigate = useNavigate();
@@ -144,14 +146,14 @@ const ReportedProducts = () => {
                                     <TableCell align="left">{product?.prodOwnerInfo?.name}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <Button onClick={() => handleViewClick(product?._id)} variant="outlined" size="small">
-                                            View
-                                        </Button>
+                                        <button onClick={() => handleViewClick(product?._id)}>
+                                            <ViewBtn></ViewBtn>
+                                        </button>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Button onClick={() => handleOpenModal(product?._id)} variant="outlined" size="small">
-                                            Delete
-                                        </Button>
+                                        <button onClick={() => handleOpenModal(product?._id)}>
+                                            <DeleteIcon />
+                                        </button>
                                     </TableCell>
 
                                 </TableRow>)

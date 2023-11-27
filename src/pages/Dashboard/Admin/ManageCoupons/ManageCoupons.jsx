@@ -22,6 +22,9 @@ import useAuth from '../../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
+import DeleteIcon from '../../../../components/Shared/DeleteIcon/DeleteIcon';
+import EditBtn from '../../../../components/Button/EditBtn';
+import ViewBtn from '../../../../components/Shared/ViewBtn/ViewBtn';
 // function isDateExpired(inputDate) {
 //     // Convert the input date string to a Moment.js object
 //     var inputMoment = moment(inputDate, 'YYYY-MM-DD');
@@ -145,21 +148,21 @@ const ManageCoupons = () => {
                                     <TableCell align="left">{isDateExpired(coupon?.expireDate) ? 'expired' : 'active'}</TableCell>
                                     <TableCell
                                         align="left">
-                                        <Button onClick={() => navigate(`/dashboard/manage-coupons/view/${coupon._id}`)} variant="outlined" size="small">
-                                            View
-                                        </Button>
+                                        <button onClick={() => navigate(`/dashboard/manage-coupons/view/${coupon._id}`)} >
+                                            <ViewBtn></ViewBtn>
+                                        </button>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Button onClick={() => navigate(`/dashboard/manage-coupons/edit/${coupon._id}`)} variant="outlined" size="small">
-                                            Edit
-                                        </Button>
+                                        <button onClick={() => navigate(`/dashboard/manage-coupons/edit/${coupon._id}`)} >
+                                            <EditBtn></EditBtn>
+                                        </button>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Button onClick={() => {
+                                        <button onClick={() => {
                                             handleClickOpen1(coupon._id)
-                                        }} variant="outlined" size="small">
-                                            Delete
-                                        </Button>
+                                        }} >
+                                            <DeleteIcon></DeleteIcon>
+                                        </button>
                                     </TableCell>
 
                                 </TableRow>)
