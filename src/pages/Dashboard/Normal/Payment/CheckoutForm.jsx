@@ -58,12 +58,10 @@ const CheckoutForm = ({ price, setOpen }) => {
         })
 
         if (error) {
-            setClicked(false);
             console.log('payment error', error);
             setError(error.message);
         }
         else {
-            setClicked(false);
             console.log('payment method', paymentMethod)
             setError('');
         }
@@ -84,8 +82,9 @@ const CheckoutForm = ({ price, setOpen }) => {
             console.log('confirm error')
         }
         else {
-            setClicked(true)
+            // setClicked(true)
             console.log('payment intent', paymentIntent)
+            setOpen(false);
             if (paymentIntent.status === 'succeeded') {
                 setOpen(false);
                 setClicked(false)
@@ -168,7 +167,6 @@ const CheckoutForm = ({ price, setOpen }) => {
                     {
                         clicked ?
                             <span className="loading loading-bars loading-lg"></span>
-
                             :
                             <button className="bg-[orangered] hover:bg-[#b34720] text-white px-4 py-2 flex gap-2" type="submit" disabled={!stripe || !clientSecret}>
                                 <MdOutlinePayment className="text-xl text-white" />
