@@ -23,6 +23,7 @@ import { Helmet } from "react-helmet-async";
 import DeleteIcon from "../../../components/Shared/DeleteIcon/DeleteIcon";
 import ViewBtn from "../../../components/Shared/ViewBtn/ViewBtn";
 import DisableBtn from "../../../components/Shared/DisableBtn/DisableBtn";
+import DraftModeBtn from "../../../components/Button/DraftModeBtn";
 
 const ReportedProducts = () => {
     const navigate = useNavigate();
@@ -72,6 +73,13 @@ const ReportedProducts = () => {
         const url = `/all-products/${id}`;
         window.open(url, '_blank');
     };
+
+    const handleDraftView = (id) => {
+        // navigate()
+        const url = `/draft/${id}`;
+        window.open(url, '_blank');
+    }
+
 
 
     if (isLoading) return <Loader></Loader>
@@ -152,17 +160,18 @@ const ReportedProducts = () => {
                                             product?.prodStatus != 'accepted'
                                                 ?
                                                 <button onClick={() => {
-                                                    toast.error(`${product?.prodStatus} product can't view on product deatails page`)
+                                                    toast.error(`${product?.prodStatus} product, view on draft mode.`)
+                                                    handleDraftView(product?._id)
                                                 }}>
                                                     {/* <ViewBtn></ViewBtn> */}
-                                                    <DisableBtn></DisableBtn>
+                                                    {/* <DisableBtn></DisableBtn> */}
+                                                    <DraftModeBtn></DraftModeBtn>
                                                 </button>
                                                 :
                                                 <button onClick={() => handleViewClick(product?._id)}>
                                                     <ViewBtn></ViewBtn>
                                                 </button>
                                         }
-
 
                                     </TableCell>
                                     <TableCell align="left">

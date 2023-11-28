@@ -25,6 +25,7 @@ import DisableBtn from "../../../components/Shared/DisableBtn/DisableBtn";
 import FeaturedBtn from "../../../components/Button/FeaturedBtn";
 import UnFeaturedBtn from "../../../components/Button/UnFeaturedBtn";
 import AcceptedBtn from "../../../components/Button/AcceptedBtn";
+import DraftModeBtn from "../../../components/Button/DraftModeBtn";
 
 const ReviewProducts = () => {
     const navigate = useNavigate();
@@ -159,7 +160,8 @@ const ReviewProducts = () => {
                                                     handleDraftView(product?._id)
                                                 }}>
                                                     {/* <ViewBtn></ViewBtn> */}
-                                                    <DisableBtn></DisableBtn>
+                                                    {/* <DisableBtn></DisableBtn> */}
+                                                    <DraftModeBtn></DraftModeBtn>
                                                 </button>
                                                 :
                                                 <button onClick={() => handleViewClick(product?._id)}>

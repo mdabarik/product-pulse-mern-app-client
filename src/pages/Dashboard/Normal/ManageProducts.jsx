@@ -23,6 +23,7 @@ import useSingleUser from "../../../hooks/useSingleUser";
 import ViewBtn from "../../../components/Shared/ViewBtn/ViewBtn";
 import EditBtn from "../../../components/Button/EditBtn";
 import DeleteIcon from "../../../components/Shared/DeleteIcon/DeleteIcon";
+import DraftModeBtn from "../../../components/Button/DraftModeBtn";
 
 const ManageProducts = () => {
     const navigate = useNavigate();
@@ -74,6 +75,12 @@ const ManageProducts = () => {
 
     const cantAddMoreThanOne = () => {
         toast.error("To add more than 1 product, please subscribe (To Subscribe Goto Profile).")
+    }
+
+    const handleDraftView = (id) => {
+        // navigate()
+        const url = `/draft/${id}`;
+        window.open(url, '_blank');
     }
 
 
@@ -140,10 +147,12 @@ const ManageProducts = () => {
                                         {
                                             product?.prodStatus == 'pending' || product?.prodStatus == 'Rejected' ?
                                                 <button onClick={() => {
-                                                    toast.error(`You can't open ${product?.prodStatus} on page details, see details in edit page. keep patience until reviewed by moderator`)
-                                                    navigate(`/dashboard/edit-product/${product?._id}`)
+                                                    toast.error(`${product?.prodStatus} product, view on draft mode.`)
+                                                    // navigate(`/dashboard/edit-product/${product?._id}`)
+                                                    handleDraftView(product?._id)
                                                 }} >
-                                                    <ViewBtn></ViewBtn>
+                                                    {/* <ViewBtn></ViewBtn> */}
+                                                    <DraftModeBtn></DraftModeBtn>
                                                 </button>
                                                 :
                                                 <button onClick={() => handleViewClick(product?._id)} >
