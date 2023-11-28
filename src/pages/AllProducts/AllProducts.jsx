@@ -57,7 +57,7 @@ const AllProducts = () => {
     // if (isLoading) return <Loader></Loader>
 
     return (
-    <div>
+    <div className="w-[90%] mx-auto lg:w-[95%]">
         <Helmet>
             <title>All Products | Product Pulse</title>
         </Helmet>
