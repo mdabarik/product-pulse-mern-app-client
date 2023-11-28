@@ -6,6 +6,10 @@ import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import AOS from 'aos';
 import { useEffect } from "react";
+import ViewCompactIcon from '@mui/icons-material/ViewCompact';
+import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
+
 
 const TrendingProducts = () => {
     useEffect(() => {
@@ -14,16 +18,13 @@ const TrendingProducts = () => {
 
     const axiosPublic = useAxiosPublic();
     const { user, loading, resolver } = useAuth();
+    const navigate = useNavigate();
 
     const { data: products, isLoading, refetch } = useQuery({
         queryKey: ['trending-products', resolver],
         queryFn: async () => {
             const res = await axiosPublic.get(`/get-trending-products`);
-            console.log(res, 'aggregated challenge');
-            // const filteredId = res.data.map(prod => prod._id);
-            // console.log(filteredId, 'filtered ids');
-            // const sortedInDescIso = res.data.sort((a, b) => new Date(b.prodAddedAt) - new Date(a.prodAddedAt));
-            // console.log('sorted based on isostring inside usequery', sortedInDescIso);
+            // console.log(res, 'aggregated challenge');
             return res.data;
         }
     })
@@ -82,6 +83,12 @@ const TrendingProducts = () => {
                     }
                 </div>
             }
+
+            <div className="my-4 flex items-center justify-center text-[14px] w-[70%] md:w-[60%] lg:w-1/3 mx-auto">
+                <Button onClick={() => navigate('/all-products')} variant="contained" size="sm" startIcon={<ViewCompactIcon />} sx={{ width: '100%', borderRadius: '20px' }}> 
+                    View All Products
+                </Button>
+            </div>
         </div>
     );
 };
