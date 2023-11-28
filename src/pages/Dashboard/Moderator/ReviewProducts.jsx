@@ -98,6 +98,12 @@ const ReviewProducts = () => {
             })
     }
 
+    const handleDraftView = (id) => {
+        // navigate()
+        const url = `/draft/${id}`;
+        window.open(url, '_blank');
+    }
+
     return (
         <div>
             <Helmet>
@@ -149,7 +155,8 @@ const ReviewProducts = () => {
                                             product?.prodStatus != 'accepted'
                                                 ?
                                                 <button onClick={() => {
-                                                    toast.error(`${product?.prodStatus} product can't view on product deatails page`)
+                                                    toast.error(`${product?.prodStatus} product, view on draft mode.`)
+                                                    handleDraftView(product?._id)
                                                 }}>
                                                     {/* <ViewBtn></ViewBtn> */}
                                                     <DisableBtn></DisableBtn>

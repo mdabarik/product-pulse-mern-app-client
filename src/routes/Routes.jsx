@@ -30,6 +30,7 @@ import ModeratorStatistics from "../pages/Dashboard/Moderator/Statistics/Moderat
 import NormalStatistics from "../pages/Dashboard/Normal/Statistics/NormalStatistics";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import DraftPage from "../pages/DraftPage/DraftPage";
 
 const routes = createBrowserRouter([
     {
@@ -60,6 +61,12 @@ const routes = createBrowserRouter([
             {
                 path: '/about-us',
                 element: <AboutUs></AboutUs>
+            },
+            {
+                path: '/draft/:id',
+                element: <PrivateRoute>
+                    <DraftPage></DraftPage>
+                </PrivateRoute>
             }
 
         ],
