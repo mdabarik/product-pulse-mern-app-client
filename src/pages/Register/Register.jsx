@@ -8,7 +8,7 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import Person2Icon from '@mui/icons-material/Person2';
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import GoogleSignIn from "../../components/Shared/GoogleSignIn/GoogleSignIn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { toast } from 'react-hot-toast';
 import { updateProfile } from "firebase/auth";
@@ -16,9 +16,14 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import InvalidFormMsg from "../../components/Shared/InvalidFormMsg/InvalidFormMsg";
 import { imageUpload } from "../../api/utils";
+import AOS from 'aos';
+
 
 
 const Register = () => {
+    useEffect(() => {
+        AOS.init()
+    }, [])
     const { registerUser, user, setLoading } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
@@ -114,7 +119,7 @@ const Register = () => {
     }
 
     return (
-        <div className="w-[90%] md:w-full mx-auto">
+        <div className="w-[90%] md:w-full mx-auto" data-aos="zoom-in">
             <Helmet>
                 <title>Register | Product Pulse</title>
             </Helmet>
