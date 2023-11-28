@@ -164,12 +164,10 @@ const AddNewProduct = () => {
                         accept='image/*'
                     />
                 </div>
-                {/* <Input
-                        sx={{ padding: '10px' }}
-                        startDecorator={<CloudUploadIcon />}
-                        type="file"
-                        accept='image/*'
-                    /> */}
+                {/* owner image */}
+                <div className="flex items-center w-[50px] h-[50px]">
+                    <img className="w-[50px] h-[50px] rounded-full object-cover" src={user?.photoURL} alt="iamge" />
+                </div>
                 <Input
                     sx={{ padding: '10px' }}
                     startDecorator={<Person2Icon />}
@@ -178,10 +176,7 @@ const AddNewProduct = () => {
                     disabled
                     type="text"
                 ></Input>
-                {/* owner image */}
-                {/* <div className="flex items-center">
-                    <img className="w-[300px] object-cover" src={user?.photoURL} alt="iamge" />
-                </div> */}
+                
                 <Input
                     sx={{ padding: '10px' }}
                     startDecorator={<MailIcon />}

@@ -1,7 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
 import useSingleUser from "../../../../hooks/useSingleUser";
@@ -19,7 +17,6 @@ const CheckoutForm = ({ price, setOpen }) => {
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    // const [cart, refetch] = useCart();
     const [currUser, isLoding, refetch] = useSingleUser();
 
     console.log('price to pay', price);
@@ -81,7 +78,6 @@ const CheckoutForm = ({ price, setOpen }) => {
             console.log('confirm error')
         }
         else {
-            // setClicked(true)
             console.log('payment intent', paymentIntent)
             setOpen(false);
             if (paymentIntent.status === 'succeeded') {
@@ -90,20 +86,15 @@ const CheckoutForm = ({ price, setOpen }) => {
                 console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
 
-                toast.success("Payment successfull. All featured unlocked.")
+                toast.success("Payment successfull, all featured unlocked.")
 
-                // now save the payment in the database
                 const payment = {
                     email: user?.email,
                     price: price,
                     transactionId: paymentIntent.id,
-                    date: new Date(), // utc date convert. use moment js to 
-                    // cartIds: cart.?map(item => item._id),
-                    // menuItemIds: cart.map(item => item.menuId),
+                    date: new Date(),
                     status: 'pending'
                 }
-
-                // update isSubscribed: 'yes' and status: 'verified'
 
                 axiosSecure.patch(`/user-subscription/${user?.email}`, { isSubscribed: 'yes', status: 'Verified' })
                     .then(res => {
@@ -120,15 +111,7 @@ const CheckoutForm = ({ price, setOpen }) => {
                 console.log('payment saved', res.data);
                 // refetch();
                 if (res.data?.paymentResult?.insertedId) {
-                    // Swal.fire({
-                    //     position: "top-end",
-                    //     icon: "success",
-                    //     title: "Thank you for the taka paisa",
-                    //     showConfirmButton: false,
-                    //     timer: 1500
-                    // });
-                    // toast.success("Payment successfull");
-                    // navigate('/dashboard/paymentHistory')
+                    //
                 }
 
             }
@@ -169,10 +152,9 @@ const CheckoutForm = ({ price, setOpen }) => {
                             :
                             <button className="bg-[orangered] hover:bg-[#b34720] text-white text-sm px-2 md:px-4 py-1 md:py-2 flex gap-2" type="submit" disabled={!stripe || !clientSecret}>
                                 <MdOutlinePayment className="text-xl text-white" />
-                                <span>Confrim Payment</span>
+                                <span>Confrim Payment ${price}</span>
                             </button>
                     }
-
 
                     <div className="mt-2">
                         <p className="text-red-600">{error}</p>
@@ -182,30 +164,6 @@ const CheckoutForm = ({ price, setOpen }) => {
             </form>
 
         </div>
-
-        // <form onSubmit={handleSubmit}>
-        //     <CardElement
-        //         options={{
-        //             style: {
-        //                 base: {
-        //                     fontSize: '16px',
-        //                     color: '#424770',
-        //                     '::placeholder': {
-        //                         color: '#aab7c4',
-        //                     },
-        //                 },
-        //                 invalid: {
-        //                     color: '#9e2146',
-        //                 },
-        //             },
-        //         }}
-        //     />
-        //     <button className="btn btn-sm btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
-        //         Pay
-        //     </button> 
-        //     <p className="text-red-600">{error}</p>
-        //     {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
-        // </form>
     );
 };
 

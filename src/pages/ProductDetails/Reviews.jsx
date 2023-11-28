@@ -35,7 +35,7 @@ function getLabelText(value) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
 
-const Reviews = ({product}) => {
+const Reviews = ({ product }) => {
     const [value, setValue] = useState(0);
     const [hover, setHover] = useState(-1);
     const { user, loading, observeAddReview, setObserveAddReview } = useAuth();
@@ -132,39 +132,44 @@ const Reviews = ({product}) => {
                         defaultValue={user?.email}
                         disabled
                     ></Input>
+                    <div>
+                        <img className='w-[50px] h-[50px] rounded-full object-cover' src={user?.photoURL} alt="profile" />
+                    </div>
                     <div className='flex gap-x-4'>
                         <p className='font-bold'>Select rating:</p>
                         {
                             isLoading ?
-                            <span className="loading loading-ring text-warning loading-md"></span>
-                            :
-                            <Box
-                            sx={{
-                                width: 200,
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Rating
-                                defaultValue={0}
-                                name="hover-feedback"
-                                value={value || review?.userRating}
-                                precision={0.5}
-                                getLabelText={getLabelText}
-                                onChange={(event, newValue) => {
-                                    setValue(newValue);
-                                }}
-                                onChangeActive={(event, newHover) => {
-                                    setHover(newHover);
-                                }}
-                                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                            />
-                            {value !== null && (
-                                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                            )}
-                        </Box>
+                                <span className="loading loading-ring text-warning loading-md"></span>
+                                :
+                                <Box
+                                    sx={{
+                                        width: 200,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Rating
+                                        defaultValue={0}
+                                        name="hover-feedback"
+                                        value={value || review?.userRating}
+                                        precision={0.5}
+                                        getLabelText={getLabelText}
+                                        onChange={(event, newValue) => {
+                                            setValue(newValue);
+                                        }}
+                                        onChangeActive={(event, newHover) => {
+                                            setHover(newHover);
+                                        }}
+                                        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                                    />
+                                    {value !== null && (
+                                        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+                                    )}
+                                </Box>
                         }
                     </div>
+
+
 
                     <Textarea
                         onChange={e => setComment(e.target.value)}

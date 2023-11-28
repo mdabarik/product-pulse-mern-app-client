@@ -52,14 +52,8 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
         }
     }
 
-
-
-
     return (
         <React.Fragment>
-            {/* <Button variant="outlined" onClick={handleClickOpen}>
-                Open dialog
-            </Button> */}
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"

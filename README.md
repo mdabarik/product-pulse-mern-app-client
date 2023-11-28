@@ -19,3 +19,7 @@
 - Products page has animation
 - On product details page user can add review or edit review of products
 - User can report products
+- Normal user/admin/moderator can upvote or downvote 
+- Product owner can't upvote downvote to his own product
+- Normal user/admin/moderator can post review & edit review on product details page
+- QR Code on footer - on scan it will shows the url of website
