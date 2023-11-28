@@ -9,7 +9,7 @@ const useRole = () => {
 
     // if (loading) return "loading..."
 
-    console.log(user?.email);
+    // console.log(user?.email);
 
     const { data: role, isLoading, refetch } = useQuery({
         queryKey: ['role', loading],

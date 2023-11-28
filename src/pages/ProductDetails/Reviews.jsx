@@ -15,6 +15,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../../components/Shared/Loader/Loader';
 import ReviewDetails from './ReviewDetails';
+import InvalidFormMsg from '../../components/Shared/InvalidFormMsg/InvalidFormMsg';
 
 const labels = {
     0.5: 'Useless',
@@ -38,19 +39,40 @@ const Reviews = () => {
     const [value, setValue] = useState(0);
     const [hover, setHover] = useState(-1);
     const { user, loading, observeAddReview, setObserveAddReview } = useAuth();
-    const [comment, setComment] = useState(null);
+    const [comment, setComment] = useState('');
     const [submitting, setSubmitting] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
+
+
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
     const { data: review, isLoading, refetch } = useQuery({
-        queryKey: ['reviewsa', loading],
+        queryKey: ['reviewsa', setObserveAddReview],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/review?email=${user?.email}&id=${id}`);
+            setValue(data?.userRating || 0);
+            setComment(data?.userComment || '');
             return data;
         }
     })
 
     const handleReview = () => {
+        setErrorMsg(null)
+        if (value <= 0) {
+            setErrorMsg("Please Select Rating");
+            return;
+        }
+        if (!/^.{30,80}$/.test(comment)) {
+            setErrorMsg("Please add comment and must be at least 30 chars and max 80 chars");
+            return;
+        }
+
+        // if () {
+        //     setErrorMsg("Password must contains 1 lowercase, 1 uppercase, 1 special chars, range 6-64");
+        //     return;
+        // }
+
+
         setSubmitting(true);
         const updatedReview = {
             userName: user?.displayName,
@@ -77,7 +99,7 @@ const Reviews = () => {
             })
     }
 
-    if (isLoading) return <Loader></Loader>
+    // if (isLoading) return <Loader></Loader>
 
     return (
         <div>
@@ -105,7 +127,11 @@ const Reviews = () => {
                     ></Input>
                     <div className='flex gap-x-4'>
                         <p className='font-bold'>Select rating:</p>
-                        <Box
+                        {
+                            isLoading ?
+                            <span className="loading loading-ring text-warning loading-md"></span>
+                            :
+                            <Box
                             sx={{
                                 width: 200,
                                 display: 'flex',
@@ -113,7 +139,7 @@ const Reviews = () => {
                             }}
                         >
                             <Rating
-                                defaultValue={2}
+                                defaultValue={0}
                                 name="hover-feedback"
                                 value={value || review?.userRating}
                                 precision={0.5}
@@ -130,6 +156,7 @@ const Reviews = () => {
                                 <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
                             )}
                         </Box>
+                        }
                     </div>
 
                     <Textarea
@@ -146,11 +173,25 @@ const Reviews = () => {
                                 <span className="ml-1 font-bold">Submitting</span>
                             </Button>
                             :
-                            <Button onClick={handleReview} variant="contained" size="large" sx={{ width: '100%' }}>
-                                <AppRegistrationIcon></AppRegistrationIcon>
-                                <span className="ml-1 font-bold">{review?.userEmail ? 'Update' : 'Submit'} Now</span>
-                            </Button>
+                            <>
+                                {isLoading ?
+                                    <Button disabled variant="contained" size="large" sx={{ width: '100%' }}>
+                                        <span className="loading loading-bars loading-md text-acent"></span>
+                                        <span className="ml-1 font-bold">LOADING</span>
+                                    </Button>
+                                    :
+                                    <Button onClick={handleReview} variant="contained" size="large" sx={{ width: '100%' }}>
+                                        <AppRegistrationIcon></AppRegistrationIcon>
+                                        <span className="ml-1 font-bold">{review?.userEmail ? 'Update' : 'Submit'} Now</span>
+                                    </Button>
+                                }
+                            </>
                     }
+
+                    <div className='text-center'>
+                        {errorMsg && <InvalidFormMsg>{errorMsg}</InvalidFormMsg>}
+                    </div>
+
                 </div>
 
 

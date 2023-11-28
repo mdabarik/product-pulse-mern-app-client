@@ -77,8 +77,8 @@ const ReviewDetails = () => {
                             </Swiper>
                         </div>
                 }
-                <div className="swiper-button-next active-color swiper-button-next-custom"></div>
-                <div className="swiper-button-prev active-color swiper-button-prev-custom"></div>
+                {/* <div className="swiper-button-next active-color swiper-button-next-custom"></div> */}
+                {/* <div className="swiper-button-prev active-color swiper-button-prev-custom"></div> */}
             </div>
         </div>
     );

@@ -19,7 +19,7 @@ const ReviewSlide = ({ review }) => {
                         {userName}
                     </h1>
                     <div className=' w-4/6'>
-                        <p className="text-center text-[10px] md:text-sm">{userComment.substring(0,80)}</p>
+                        <p className="text-center text-[10px] md:text-sm">{userComment?.substring(0,80)}</p>
                     </div>
                     <div className="mt-4">
                         <Stack spacing={1}>

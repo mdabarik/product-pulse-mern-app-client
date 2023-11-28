@@ -9,9 +9,11 @@ import Stack from '@mui/material/Stack';
 
 const ProductRating = ({ _id }) => {
     const axiosPublic = useAxiosPublic();
-    const { loading } = useAuth();
+    const { loading, observeAddReview } = useAuth();
+
+
     const { data: rating, isLoading } = useQuery({
-        queryKey: ['reviewsallsingle', loading, _id],
+        queryKey: ['reviewsallsingle', loading, _id, observeAddReview],
         queryFn: async () => {
             const res = await axiosPublic.get(`/all-reviews/${_id}`);
             // console.log(res.data, 'all reviews');
