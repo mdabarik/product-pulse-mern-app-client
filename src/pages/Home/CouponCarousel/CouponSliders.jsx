@@ -181,13 +181,14 @@ const CouponSliders = () => {
                         }}
                         pagination={{
                             clickable: true,
-                            el: '.swiper-pagination',
                         }}
+                        // navigation={true}
+                        modules={[Autoplay, Pagination, Navigation]}
+                        className="mySwiper"
                         navigation={{
-                            nextEl: '.swiper-button-next-custom',
-                            prevEl: '.swiper-button-prev-custom',
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
                         }}
-                        className="w-full"
                     >
                         {coupons?.map((coupon, index) => (
                             <SwiperSlide key={index}>

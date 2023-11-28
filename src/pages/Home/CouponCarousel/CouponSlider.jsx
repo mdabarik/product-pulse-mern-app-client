@@ -37,8 +37,8 @@ const CouponSlider = ({ coupon }) => {
         //         </div>
         //     </div>
         // </div>
-        <div className="text-white h-[300px] md:h-[400px] lg:h-[450px] xl:h-[500px] flex flex-col items-center justify-center rounded-lg relative bg-blue-600">
-            <img className="object-cover w-full h-[300px] md:h-[400px] lg:h-[450px] xl:h-[500px] rounded-lg" src={couponBannerImg} alt="banner bg" />
+        <div className="text-white h-[320px] md:h-[400px] lg:h-[450px] xl:h-[500px] flex flex-col items-center justify-center rounded-lg relative bg-blue-600">
+            <img className="object-cover w-full h-[320px] md:h-[400px] lg:h-[450px] xl:h-[500px] rounded-lg" src={couponBannerImg} alt="banner bg" />
             <div className="absolute top-0 left-0 bg-black bg-opacity-50 w-full h-full rounded-lg"></div>
             <div className="absolute top-0 left-0 h-full flex flex-col items-center justify-center px-4 md:px-8 w-full space-y-4 md:space-y-6">
                 <h1 className="coupon-discount text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold">
