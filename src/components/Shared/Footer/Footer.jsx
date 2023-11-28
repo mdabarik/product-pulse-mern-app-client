@@ -67,9 +67,14 @@ const Footer = () => {
                 </div> */}
             </div>
             <div className="text-center text-xs lg:text-sm mt-4">
+                <p>Call us: +8801750837498 (10AM-10PM)</p>
+                <p>Email: mdabarik19@gmail.com</p>
+            </div>
+            <div className="text-center text-xs lg:text-sm mt-4">
                 <p>Location: 123 Main Street, Cityville, State 12345</p>
                 <p>USA, United States of America</p>
             </div>
+
             <div className="text-center border-t-2 mt-6">
                 <p className="mt-6 text-xs lg:text-sm">All Rights Reserved &copy; 2023-2029</p>
             </div>
