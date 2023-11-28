@@ -63,11 +63,11 @@ const Voting = ({ product, refetch: refetch2 }) => {
             navigate('/login');
             return;
         }
-        /*admin or moderator user can't upvote*/
-        if (role == 'admin' || role == 'moderator') {
-            toast.error(`${role} can't ${vote}`);
-            return;
-        }
+        // /*admin or moderator user can't upvote*/
+        // if (role == 'admin' || role == 'moderator') {
+        //     toast.error(`${role} can't ${vote}`);
+        //     return;
+        // }
 
         /**---if curr user already upvoted---**/
         if (currUserVotes?.upvotes == 1 && vote == 'upvote') {
