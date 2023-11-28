@@ -15,15 +15,15 @@ const Home = () => {
                 {/* banner/sliders section */}
                 <Sliders></Sliders>
             </div>
-            <div>
+            <div className="w-[90%] mx-auto lg:w-[95%] xl:w-full">
                 {/* featured products */}
                 <FeaturedProducts></FeaturedProducts>
             </div>
-            <div>
+            <div className="w-[90%] mx-auto lg:w-[95%] xl:w-full">
                 {/* trending products */}
                 <TrendingProducts></TrendingProducts>
             </div>
-            <div>
+            <div className="w-[90%] mx-auto lg:w-[95%] xl:w-full">
                 {/* coupon codes sliders/carousel */}
                 <CouponSliders></CouponSliders>
             </div>
