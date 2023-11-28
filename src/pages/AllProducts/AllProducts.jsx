@@ -17,7 +17,7 @@ const AllProducts = () => {
     const [products] = useVerifiedProds();
     // console.log(products, 'allprod');
     /*-----pagination-----*/
-    const [perPage, setPerPage] = useState(4);
+    const [perPage, setPerPage] = useState(20);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
     const handleChange = (event, value) => {
