@@ -35,7 +35,7 @@ function getLabelText(value) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
 
-const Reviews = () => {
+const Reviews = ({product}) => {
     const [value, setValue] = useState(0);
     const [hover, setHover] = useState(-1);
     const { user, loading, observeAddReview, setObserveAddReview } = useAuth();
@@ -57,6 +57,13 @@ const Reviews = () => {
     })
 
     const handleReview = () => {
+
+        if (product?.prodOwnerInfo?.email == user?.email) {
+            toast.error("You can not write a review for your own product");
+            return;
+        }
+
+
         setErrorMsg(null)
         if (value <= 0) {
             setErrorMsg("Please Select Rating");

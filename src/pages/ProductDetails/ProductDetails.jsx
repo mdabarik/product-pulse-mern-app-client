@@ -170,12 +170,12 @@ const ProductDetails = () => {
                     
                     {/* Report button */}
                     <button style={{ marginTop: "-3px" }} className="absolute top-0 right-0">
-                        <Report></Report>
+                        <Report product={product}></Report>
                     </button>
                 </div>
             </div>
             <div className="py-14">
-                <Reviews />
+                <Reviews product={product} />
             </div>
         </div>
     );

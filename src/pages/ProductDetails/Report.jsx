@@ -13,7 +13,7 @@ import useAuth from '../../hooks/useAuth';
 import {toast} from 'react-hot-toast';
 
 
-const Report = () => {
+const Report = ({product}) => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
     const { user, loading } = useAuth();
@@ -26,12 +26,19 @@ const Report = () => {
         queryKey: ['report-data', id, loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get(`/is-reported?email=${user?.email}&id=${id}`)
-            console.log('is reported', res.data);
+            console.log('report data', res);
             return res.data;
         }
     })
 
     const handleReport = () => {
+        
+        if (product?.prodOwnerInfo?.email == user?.email) {
+            toast.error("You can't report your own product.");
+            handleClose();
+            return;
+        }
+
         const reportDoc = {
             userEmail: user?.email,
             prodId: id,
