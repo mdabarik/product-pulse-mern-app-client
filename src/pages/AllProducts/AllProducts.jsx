@@ -1,5 +1,4 @@
 import ProductCard from "./ProductCard";
-import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -9,13 +8,14 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Skeleton from '@mui/material/Skeleton';
 import useVerifiedProds from "../../hooks/useVerifiedProds";
 import { Helmet } from "react-helmet-async";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-
+import AOS from 'aos';
 
 const AllProducts = () => {
+    useEffect(() => {
+        AOS.init()
+    }, [])
+
     const [products] = useVerifiedProds();
-    // console.log(products, 'allprod');
     /*-----pagination-----*/
     const [perPage, setPerPage] = useState(20);
     const [page, setPage] = useState(1);
@@ -23,13 +23,9 @@ const AllProducts = () => {
     const handleChange = (event, value) => {
         setPage(value);
     };
-    // console.log(page);
-
 
     const axiosPublic = useAxiosPublic();
     const [search, setSearch] = useState('');
-    const [tmpSearch, setTmpSearch] = useState();
-    // console.log(search);
 
     const { data: count } = useQuery({
         queryKey: ['count search', search],
@@ -40,8 +36,6 @@ const AllProducts = () => {
             return data;
         }
     })
-
-    
 
     // /all-products-public?page=${page}&limit=${perPage}
     const { data: prods, isLoading, refetch } = useQuery({
@@ -56,17 +50,8 @@ const AllProducts = () => {
         setTotalPage(Math.ceil(count?.count / perPage))
     }, [count])
 
-    // if isloading show loader
-    // if (isLoading) return <Loader></Loader>
-
-
-    const handleSearchText = () => {
-        console.log(tmpSearch, 'clicked');
-        setSearch(tmpSearch);
-    }
-
     return (
-        <div className="w-[90%] mx-auto lg:w-[95%]">
+        <div className="w-[90%] mx-auto lg:w-[95%]" data-aos="zoom-in">
             <Helmet>
                 <title>All Products | Product Pulse</title>
             </Helmet>

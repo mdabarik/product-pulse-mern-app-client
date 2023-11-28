@@ -4,9 +4,14 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import ProductCard from "../AllProducts/ProductCard";
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
-
+import AOS from 'aos';
+import { useEffect } from "react";
 
 const TrendingProducts = () => {
+    useEffect(() => {
+        AOS.init()
+    }, [])
+
     const axiosPublic = useAxiosPublic();
     const { user, loading, resolver } = useAuth();
 
@@ -24,7 +29,7 @@ const TrendingProducts = () => {
     })
 
     return (
-        <div className="mt-8">
+        <div className="mt-8" data-aos="zoom-in">
             <div className="flex flex-col items-center justify-center mt-4 space-x-4">
                 <h2 className="text-2xl font-bold text-center">Trending Products</h2>
                 <p className="text-center mt-2">Stay Ahead of the Curve: Explore Our Trending Products</p>

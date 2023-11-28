@@ -3,7 +3,7 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 /*** AOS Animation ***/
 import 'aos/dist/aos.css';
@@ -14,30 +14,16 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import moment from 'moment';
 import Skeleton from '@mui/material/Skeleton';
-import Stack from '@mui/material/Stack';
 
-// function isDateExpired(inputDate) {
-//     // Convert the input date string to a Moment.js object
-//     var inputMoment = moment(inputDate, 'YYYY-MM-DD');
 
-//     // Get the current date with Moment.js
-//     var currentMoment = moment();
-
-//     // Compare the input date with the current date
-//     return inputMoment.isBefore(currentMoment);
-//   }
 function isDateExpired(inputDate) {
-    // Convert the input date string to a Moment.js object
     var inputMoment = moment(inputDate, 'YYYY-MM-DD');
-    // Get the current date with Moment.js
     var currentMoment = moment().subtract(1, 'days');
-    // Compare the input date with the current date
     return inputMoment.isBefore(currentMoment);
 }
 
 
 const CouponSliders = () => {
-
     useEffect(() => {
         AOS.init()
     }, [])
@@ -49,9 +35,6 @@ const CouponSliders = () => {
         queryKey: ['coupons-active'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/get-active-token`);
-            // console.log(res, 'inside usequery prod details');
-            // console.log(moment(new Date() ,'YYYY-MM-DD'), 'now');
-            // console.log(moment(res?.data[8].expireDate, 'YYYY-MM-DD'), 'expie');
             const activeCoupon = res?.data?.filter(coupon => {
                 // console.log(isDateExpired(coupon?.expireDate), moment(coupon?.expireDate).format('ll'), 'inside filter');
                 return !isDateExpired(coupon?.expireDate)

@@ -4,9 +4,15 @@ import { FaTwitter } from "react-icons/fa";
 import { BsYoutube } from "react-icons/bs";
 import { BsFacebook } from "react-icons/bs";
 import useAuth from "../../../hooks/useAuth";
+import AOS from 'aos';
+import { useEffect } from "react";
 
 const Footer = () => {
     const { user } = useAuth();
+
+    useEffect(() => {
+        AOS.init()
+    }, [])
 
     const footerLinks = (
         <>
@@ -37,7 +43,7 @@ const Footer = () => {
     );
 
     return (
-        <footer className="p-6 drop-shadow bg-base-100">
+        <footer className="p-6 drop-shadow bg-base-100" data-aos="zoom-in">
             <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-y-6 lg:gap-y-0">
                 <div className="flex flex-col items-center lg:items-start justify-center text-center lg:text-left">
                     <div className="flex items-center justify-center mx-auto">

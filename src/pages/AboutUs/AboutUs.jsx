@@ -1,7 +1,13 @@
+import AOS from 'aos';
+import { useEffect } from 'react';
 
 const AboutUs = () => {
+    useEffect(() => {
+        AOS.init()
+    }, [])
+
     return (
-        <div className="py-10 w-[90%] mx-auto">
+        <div className="py-10 w-[90%] mx-auto" data-aos="zoom-in">
             <div className="flex items-center justify-center flex-col">
                 <h1 className="text-2xl text-center font-extrabold uppercase">About   <span className="text-[#4d4dbe]">us</span></h1>
                 <p className="text-center uppercase text-sm mt-4 text-gray-600">Crafting Digital Experiences, One Query at a Time</p>
