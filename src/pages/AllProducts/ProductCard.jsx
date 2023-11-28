@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +6,8 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import Voting from "./Voting";
 import ProductRating from "./ProductRating";
+import { IoMdLink } from "react-icons/io";
+
 
 
 
@@ -47,6 +49,10 @@ const ProductCard = ({ product, refetch }) => {
                 {/* dynamic voting system */}
                 <div>
                     <Voting refetch={refetch} key={`${product?._id}+'abcd'`} product={product}></Voting>
+                </div>
+
+                <div className="flex items-center justify-center">
+                    <Link to={prodExtLink}><IoMdLink className="text-xl" /></Link>
                 </div>
 
                 <div className="flex items-center justify-center mt-4">
