@@ -261,6 +261,8 @@ import { updateProfile } from "firebase/auth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import InvalidFormMsg from "../../components/Shared/InvalidFormMsg/InvalidFormMsg";
+import { imageUpload } from "../../api/utils";
+
 
 const Register = () => {
     const { registerUser, user, setLoading } = useAuth();
@@ -281,9 +283,9 @@ const Register = () => {
     }
 
     const handleRegister = async () => {
-        setErrorMsg(null);
-
-        // Input validation
+        // ^[a-zA-Z ]{3,50}$
+        /*-------- input validation -----------*/
+        setErrorMsg(null)
         if (!/^[a-zA-Z ]{3,50}$/.test(userName)) {
             setErrorMsg("Name: only a-zA-Z and space allowed and contains 3-50 chars");
             return;
@@ -293,43 +295,41 @@ const Register = () => {
             return;
         }
         if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,64}$/.test(userPassword)) {
-            setErrorMsg("Password must contain 1 lowercase, 1 uppercase, 1 special char, and be 6-64 characters long");
+            setErrorMsg("Password must contains 1 lowercase, 1 uppercase, 1 special chars, range 6-64");
             return;
         }
         if (!imageFile) {
             setErrorMsg("Please select an image file");
             return;
         }
-        const allowedExtensions = ['jpg', 'jpeg', 'png'];
-        const fileNameParts = imageFile.name.split('.');
-        const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
-        if (!allowedExtensions.includes(fileExtension)) {
-            setErrorMsg("Please select a PNG or JPG/JPEG image.");
-            return;
+        if (imageFile) {
+            const allowedExtensions = ['jpg', 'jpeg', 'png'];
+            const fileNameParts = imageFile.name.split('.');
+            const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+            if (!allowedExtensions.includes(fileExtension)) {
+                setErrorMsg("Please select an PNG or JPG/JPEG image.");
+                return;
+            }
         }
 
-        setSubmitting(true);
 
-        let photoURL = '';
+        setSubmitting(true);
+        let photoURL = ''
         try {
             const imageData = await imageUpload(imageFile);
             photoURL = imageData?.data?.display_url;
         } catch (err) {
-            setSubmitting(false);
+            setSubmitting(false)
         }
+        console.log(photoURL);
 
         const userData = {
-            userName,
-            userEmail,
-            userPassword,
-            photoURL,
-            userRole: 'normal',
-            status: 'Unverified',
-            isSubscribed: 'no'
+            userName, userEmail, userPassword, photoURL, userRole: 'normal',
+            status: 'Unverified', isSubscribed: 'no'
         };
-
         registerUser(userEmail, userPassword)
             .then(res => {
+                console.log('inside register.jsx inside handeRegister', res);
                 toast.success("Registration successful");
                 updateProfile(res.user, {
                     displayName: userName,
@@ -337,23 +337,27 @@ const Register = () => {
                     reloadUserInfo: {
                         photoUrl: photoURL
                     }
-                });
+                })
                 axiosPublic.post('/users', userData)
                     .then(() => {
+                        // console.log(res, 'inside handle register, /users put req');
                         setSubmitting(false);
                     })
                     .catch(() => {
+                        // console.log(err, 'inside handle register, /users put req');
                         setSubmitting(false);
-                    });
+                    })
                 navigate(from, { replace: true });
                 setSubmitting(false);
+
             })
             .catch(err => {
+                // console.log('inside register.jsx inside handeRegister', err.message);
                 toast.error(err.message);
-                setLoading(false);
-                setSubmitting(false);
-            });
-    };
+                setLoading(false)
+                setSubmitting(false)
+            })
+    }
 
     return (
         <div className="w-[90%] md:w-full mx-auto">

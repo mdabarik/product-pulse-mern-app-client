@@ -5,7 +5,7 @@ import DisableBtn from "../../components/Shared/DisableBtn/DisableBtn";
 import Loader from "../../components/Shared/Loader/Loader";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import ProductRating from "../AllProducts/ProductRating";
-import Reviews from "../ProductDetails/Reviews";
+import Reviews from "./Reviews";
 import Voting from "./Voting";
 
 const DraftPage = () => {

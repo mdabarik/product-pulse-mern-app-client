@@ -18,7 +18,7 @@ const Navbar = () => {
                     </div>
                     <div className="flex-1 flex items-center justify-start">
                         <Link to="/"><img className="w-[32px] mr-4" src={brandLogo} alt="Logo"/></Link>
-                        <Link to="/"><h2 className="text-2xl font-bold">Product <span className="text-blue-600 font-extrabold">Pulse</span></h2></Link>
+                        <Link to="/"><h2 className="text-2xl font-bold">Product <span className="text-[#3498db] font-extrabold">Pulse</span></h2></Link>
                     </div>
                     <div className="flex-none hidden mx-0 px-0 lg:block">
                         <ul className="menu menu-horizontal text-lg">

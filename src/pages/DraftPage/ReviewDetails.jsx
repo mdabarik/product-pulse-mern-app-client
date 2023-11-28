@@ -2,12 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { Swiper, SwiperSlide } from "swiper/react";
-import CouponSlider from '../Home/CouponCarousel/CouponSlider';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import ReviewSlide from './ReviewSlide';
-import "./ProductDetails";
 import Skeleton from '@mui/material/Skeleton';
 import useAuth from '../../hooks/useAuth';
+import ReviewSlide from '../ProductDetails/ReviewSlide';
 
 
 

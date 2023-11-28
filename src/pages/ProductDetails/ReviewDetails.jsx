@@ -10,8 +10,6 @@ import Skeleton from '@mui/material/Skeleton';
 import useAuth from '../../hooks/useAuth';
 
 
-
-
 const ReviewDetails = () => {
     const axiosPublic = useAxiosPublic();
     const { id } = useParams();
