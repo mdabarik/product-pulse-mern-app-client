@@ -1,20 +1,22 @@
 import { Chart } from "react-google-charts";
 
-const ModeratorCharts = ({accepted, pending, rejected}) => {
-   
+const ModeratorCharts = ({ products, accepted, pending, rejected, reported }) => {
+
 
     const data = [
         ["Task", "Hours per Day"],
-        ["Accepted", accepted],
+        ["Total Products", products],
         ["Pending", pending],
+        ["Accepted", accepted],
         ["Rejected", rejected],
+        ["Reported", reported],
     ];
 
     const options = {
         title: "",
         legend: {
-            position: 'bottom', // Place legend below the chart
-            alignment: 'center', // Align legend items to the start (left) of the container
+            position: 'bottom',
+            alignment: 'center',
         },
     };
 

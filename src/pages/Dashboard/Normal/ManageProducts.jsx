@@ -289,9 +289,6 @@ const ManageProducts = () => {
             })
     }
 
-    
-
-
 
     // console.log(currUser?.status, 'status');
     // console.log(prods, 'prods');

@@ -1,24 +1,23 @@
 import { Chart } from "react-google-charts";
 
-const NormalCharts = ({reported, rejected, pending, products, reviews}) => {
+const NormalCharts = ({accepted, rejected, pending, products}) => { // accepted, rejected, pending, products
 
     console.log(rejected, pending);
    
     // reported, rejected, pending, products, reviews,
     const data = [
         ["Task", "Hours per Day"],
-        ["Products", products],
-        ["Reviews", reviews],
-        ["Reported", reported],
+        ["Total Products", products],
         ["Rejected", rejected],
         ["Pending", pending],
+        ["Accepted", accepted],
     ];
 
     const options = {
         title: "",
         legend: {
-            position: 'bottom', // Place legend below the chart
-            alignment: 'center', // Align legend items to the start (left) of the container
+            position: 'bottom',
+            alignment: 'center'
         },
     };
 

@@ -8,6 +8,8 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Loader from "../../../../components/Shared/Loader/Loader";
 import NormalCharts from "./NormalCharts";
 import { Helmet } from "react-helmet-async";
+import { MdRemoveModerator } from "react-icons/md";
+
 
 
 const NormalStatistics = () => {
@@ -18,7 +20,7 @@ const NormalStatistics = () => {
         queryKey: ['user-stats', loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get(`/user-stats?email=${user?.email}`);
-            console.log(res.data, 'admin-stats');
+            console.log(res.data, 'users-stats');
             return res.data;
         }
     })
@@ -47,28 +49,32 @@ const NormalStatistics = () => {
                 <div className="w-full rounded-lg h-[180px] bg-[#1e88e5] flex flex-col gap-1 items-center justify-center">
                     <FaUsers className="text-white text-5xl"></FaUsers>
                     <p className="text-[white]">Total Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.products}</h2>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.userTotalProds}</h2>
                 </div>
                 <div className="w-full rounded-lg h-[180px] bg-[#5e35b1] flex flex-col gap-1 items-center justify-center">
                     <MdOutlinePublishedWithChanges className="text-white text-5xl"></MdOutlinePublishedWithChanges>
                     <p className="text-[white]">Accepted Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.acceptedProd}</h2>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.userAcceptedProds}</h2>
                 </div>
                 <div className="w-full rounded-lg h-[180px] bg-[#fa952e] flex flex-col gap-1 items-center justify-center">
                     <FaArrowsSpin className="text-white text-5xl"></FaArrowsSpin>
                     <p className="text-[white]">Pending Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.pendingProd}</h2>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.userPendingProds}</h2>
                 </div>
                 <div className="w-full rounded-lg h-[180px] bg-[#e63f3e] flex flex-col gap-1 items-center justify-center">
-                    <MdReportOff className="text-white text-5xl"></MdReportOff>
-                    <p className="text-[white]">Reported Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.reportedProd}</h2>
+                    <MdRemoveModerator className="text-white text-5xl"></MdRemoveModerator>
+                    <p className="text-[white]">Rejected Products</p>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.userRejectedProds}</h2>
                 </div>
             </div>
 
             {/* pie chart with {numProds, totalReviews, totalUser} */}
+            {/* userTotalProds,
+                userAcceptedProds,
+                userPendingProds,
+                userRejectedProds, */}
             <div>
-                <NormalCharts reported={stats?.reportedProd} rejected={stats?.rejectedProd} pending={stats?.pendingProd} products={stats?.products} reviews={stats?.reviews} ></NormalCharts>
+                <NormalCharts accepted={stats?.userAcceptedProds} rejected={stats?.userRejectedProds} pending={stats?.userPendingProds} products={stats?.userTotalProds} ></NormalCharts>
             </div>
 
 

@@ -7,6 +7,9 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Loader from "../../../../components/Shared/Loader/Loader";
 import ModeratorCharts from "./ModeratorCharts";
 import { Helmet } from "react-helmet-async";
+import { FaUsers } from "react-icons/fa";
+import { MdRemoveModerator } from "react-icons/md";
+
 
 
 
@@ -23,46 +26,59 @@ const ModeratorStatistics = () => {
         }
     })
 
+
+    const { data: products } = useQuery({
+        queryKey: ['report-reported-contente-statist', loading, user],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/reported-products`)
+            console.log('is reported', res.data);
+            return res.data;
+        }
+    })
+
+
     if (isLoading) {
         return <Loader></Loader>
     }
 
-    // {
-    //     "users": 9,
-    //     "products": 15,
-    //     "reviews": 5,
-    //     "pendingProd": 1,
-    //     "rejectedProd": 1,
-    //     "acceptedProd": 13,
-    //     "reportedProd": 4
-    // }
 
+    // totalProducts, acceptedProds, pendingProds, rejectedProds
     return (
         <div>
             <Helmet>
                 <title>Moderator Statistics | Dashboard</title>
             </Helmet>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 drop-shadow-xl">
-                <div className="w-full rounded-lg h-[180px] bg-[#5e35b1] flex flex-col gap-1 items-center justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 drop-shadow-xl text-center">
+                <div className="w-full rounded-lg h-[180px] bg-[#1e88e5] flex flex-col gap-1 items-center justify-center">
+                    <FaUsers className="text-white text-5xl"></FaUsers>
+                    <p className="text-[white]">Total Products</p>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.totalProducts}</h2>
+                </div>
+                {/* <div className="w-full rounded-lg h-[180px] bg-[#5e35b1] flex flex-col gap-1 items-center justify-center">
                     <MdOutlinePublishedWithChanges className="text-white text-5xl"></MdOutlinePublishedWithChanges>
                     <p className="text-[white]">Accepted Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.acceptedProd}</h2>
-                </div>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.acceptedProds}</h2>
+                </div> */}
                 <div className="w-full rounded-lg h-[180px] bg-[#fa952e] flex flex-col gap-1 items-center justify-center">
                     <FaArrowsSpin className="text-white text-5xl"></FaArrowsSpin>
                     <p className="text-[white]">Pending Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.pendingProd}</h2>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.pendingProds}</h2>
                 </div>
                 <div className="w-full rounded-lg h-[180px] bg-[#e63f3e] flex flex-col gap-1 items-center justify-center">
+                    <MdRemoveModerator className="text-white text-5xl"></MdRemoveModerator>
+                    <p className="text-[white]">Rejected Products</p>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.rejectedProds}</h2>
+                </div>
+                <div className="w-full rounded-lg h-[180px] bg-[#b71e1e] flex flex-col gap-1 items-center justify-center">
                     <MdReportOff className="text-white text-5xl"></MdReportOff>
                     <p className="text-[white]">Reported Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.reportedProd}</h2>
+                    <h2 className="text-[white] text-2xl font-bold">{products?.length || 0}</h2>
                 </div>
             </div>
 
             {/* pie chart with {numProds, totalReviews, totalUser} */}
             <div>
-                <ModeratorCharts pending={stats?.pendingProd} accepted={stats?.acceptedProd} rejected={stats?.reportedProd} ></ModeratorCharts>
+                <ModeratorCharts reported={products?.length || 0} products={stats?.totalProducts} pending={stats?.pendingProds} accepted={stats?.acceptedProds} rejected={stats?.rejectedProds} ></ModeratorCharts>
             </div>
 
         </div>

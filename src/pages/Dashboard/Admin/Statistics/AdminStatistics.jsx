@@ -8,6 +8,10 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Loader from "../../../../components/Shared/Loader/Loader";
 import AdminCharts from "./AdminCharts";
 import { Helmet } from "react-helmet-async";
+import { MdRemoveModerator } from "react-icons/md";
+import { MdReviews } from "react-icons/md";
+
+
 
 
 
@@ -55,14 +59,14 @@ const AdminStatistics = () => {
                     <h2 className="text-[white] text-2xl font-bold">{stats?.acceptedProd}</h2>
                 </div>
                 <div className="w-full rounded-lg h-[180px] bg-[#fa952e] flex flex-col gap-1 items-center justify-center">
-                    <FaArrowsSpin className="text-white text-5xl"></FaArrowsSpin>
-                    <p className="text-[white]">Pending Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.pendingProd}</h2>
+                    <MdReviews className="text-white text-5xl"></MdReviews>
+                    <p className="text-[white]">Total Reviews</p>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.reviews}</h2>
                 </div>
                 <div className="w-full rounded-lg h-[180px] bg-[#e63f3e] flex flex-col gap-1 items-center justify-center">
-                    <MdReportOff className="text-white text-5xl"></MdReportOff>
-                    <p className="text-[white]">Reported Products</p>
-                    <h2 className="text-[white] text-2xl font-bold">{stats?.reportedProd}</h2>
+                    <MdRemoveModerator className="text-white text-5xl"></MdRemoveModerator>
+                    <p className="text-[white]">Rejected Products</p>
+                    <h2 className="text-[white] text-2xl font-bold">{stats?.rejectedProd}</h2>
                 </div>
             </div>
 

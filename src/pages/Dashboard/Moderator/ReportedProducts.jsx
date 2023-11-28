@@ -57,7 +57,7 @@ const ReportedProducts = () => {
         // console.log(prodId);
         axiosSecure.delete(`/products/${prodId}`)
             .then(res => {
-                // console.log(res, 'handle delete');
+                console.log(res, 'handle delete');
                 if (res.data.deletedCount > 0) {
                     toast.success('Product deleted successfully.');
                     refetch();
@@ -75,48 +75,11 @@ const ReportedProducts = () => {
     };
 
     const handleDraftView = (id) => {
-        // navigate()
         const url = `/draft/${id}`;
         window.open(url, '_blank');
     }
 
-
-
     if (isLoading) return <Loader></Loader>
-
-    const handleStatus = (status, id) => {
-        // /products/update-status/:id
-        axiosSecure.patch(`/products/update-status/${id}`, { prodStatus: status })
-            .then(res => {
-                console.log(res);
-                if (res?.data?.modifiedCount > 0) {
-                    toast.success('Status updated');
-                    refetch();
-                } else {
-                    toast.error('Already has this status');
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
-
-    // /products/update-feature/:id
-    const handleFeature = (feature, id) => {
-        axiosSecure.patch(`/products/update-feature/${id}`, { prodIsFeatured: feature })
-            .then(res => {
-                console.log(res);
-                if (res?.data?.modifiedCount > 0) {
-                    toast.success('Feature updated');
-                    refetch();
-                } else {
-                    toast.error('Already has this feature');
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
 
     return (
         <div>

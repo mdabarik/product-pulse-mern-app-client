@@ -2,12 +2,12 @@ import { Chart } from "react-google-charts";
 
 const AdminCharts = ({users, products, reviews}) => {
    
-
+    console.log(users, products, reviews, 'users products reviews');
     const data = [
         ["Task", "Hours per Day"],
-        ["Users", reviews],
-        ["Products", products],
-        ["Reviews", users],
+        ["Users", users],
+        ["Total Products", products],
+        ["Reviews", reviews],
     ];
 
     const options = {
