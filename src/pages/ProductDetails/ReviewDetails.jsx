@@ -44,7 +44,18 @@ const ReviewDetails = () => {
                         :
                         <div className="pb-8">
                             <Swiper
-                                slidesPerView={2}
+                                slidesPerView={1}
+                                breakpoints={{
+                                    640: {
+                                        slidesPerView: 2,
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                    },
+                                    1024: {
+                                        slidesPerView: 3,
+                                    },
+                                }}
                                 loop={true}
                                 spaceBetween={16}
                                 centeredSlides={true}
