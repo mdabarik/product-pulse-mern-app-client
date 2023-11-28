@@ -36,7 +36,7 @@ const DraftPage = () => {
                 <h2 className="text-lg md:text-xl lg:text-2xl font-bold uppercase text-center py-8">This Product is on Draft Mode</h2>
             </div>
             <div className="flex flex-col lg:flex-row gap-6">
-                <div className="lg:w-1/2 relative">
+                <div className="lg:w-1/2 relative  mt-10 lg:mt-0">
                     {/* Image */}
                     <img className="w-full lg:h-[550px] object-cover" src={product?.prodImg} alt="image" />
                 </div>
@@ -60,7 +60,7 @@ const DraftPage = () => {
                     </div>
 
                     {/* Report button */}
-                    <button disabled style={{ marginTop: "-3px" }} className="absolute flex text-white bg-blue-500 px-3 py-1 gap-2 top-0 right-0 rounded">
+                    <button disabled style={{ marginTop: "-3px" }} className="absolute flex text-white bg-blue-500 px-3 py-1 gap-2 rounded absolute top-0 right-0">
                         <span>report</span> <DisableBtn></DisableBtn>
                     </button>
                 </div>

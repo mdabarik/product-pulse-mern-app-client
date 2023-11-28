@@ -43,7 +43,7 @@ const AdminStatistics = () => {
             <Helmet>
                 <title>Admin Statistics | Dashboard</title>
             </Helmet>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 drop-shadow-xl">
                 <div className="w-full rounded-lg h-[180px] bg-[#1e88e5] flex flex-col gap-1 items-center justify-center">
                     <FaUsers className="text-white text-5xl"></FaUsers>
                     <p className="text-[white]">Total Users</p>

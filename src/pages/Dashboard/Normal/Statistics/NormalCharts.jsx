@@ -23,7 +23,7 @@ const NormalCharts = ({reported, rejected, pending, products, reviews}) => {
     };
 
     return (
-        <div className="border-2 flex items-center justify-center">
+        <div className="drop-shadow-lg mt-3 flex items-center justify-center">
             <Chart
                 chartType="PieChart"
                 data={data}

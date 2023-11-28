@@ -69,47 +69,49 @@ const Menus = () => {
                     }
 
                 </div> :
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open Options">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Profile" src={user?.photoURL} />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px', textAlign: 'center' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {/* <MenuItem onClick={handleCloseUserMenu}> */}
-                            <Typography textAlign="center" sx={{ backgroundColor: '#edf7ed', padding: '5px', fontSize: '14px', color: '#1d4620', fontWeight: 'bold', paddingX: '16px', textTransform: 'uppercase' }}>
-                                {user?.displayName}
-                            </Typography>
-                            {/* </MenuItem> */}
-                            <MenuItem onClick={() => {
-                                handleCloseUserMenu()
-                                navigate('/dashboard')
-                            }}>
-                                <Typography textAlign="center">Dashboard</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={() => {
-                                handleCloseUserMenu()
-                                handleLogout()
-                            }}>
-                                <Typography textAlign="center">Logout</Typography>
-                            </MenuItem>
-                        </Menu>
-                    </Box>
+                    <div className="ml-3">
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Open Options">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt="Profile" src={user?.photoURL} />
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{ mt: '45px', textAlign: 'center' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                {/* <MenuItem onClick={handleCloseUserMenu}> */}
+                                <Typography textAlign="center" sx={{ backgroundColor: '#edf7ed', padding: '5px', fontSize: '14px', color: '#1d4620', fontWeight: 'bold', paddingX: '16px', textTransform: 'uppercase' }}>
+                                    {user?.displayName}
+                                </Typography>
+                                {/* </MenuItem> */}
+                                <MenuItem onClick={() => {
+                                    handleCloseUserMenu()
+                                    navigate('/dashboard')
+                                }}>
+                                    <Typography textAlign="center">Dashboard</Typography>
+                                </MenuItem>
+                                <MenuItem onClick={() => {
+                                    handleCloseUserMenu()
+                                    handleLogout()
+                                }}>
+                                    <Typography textAlign="center">Logout</Typography>
+                                </MenuItem>
+                            </Menu>
+                        </Box>
+                    </div>
             }
         </>
     );

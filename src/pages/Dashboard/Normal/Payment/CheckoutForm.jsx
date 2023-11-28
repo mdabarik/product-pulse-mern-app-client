@@ -20,7 +20,6 @@ const CheckoutForm = ({ price, setOpen }) => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     // const [cart, refetch] = useCart();
-    const navigate = useNavigate();
     const [currUser, isLoding, refetch] = useSingleUser();
 
     console.log('price to pay', price);
@@ -168,7 +167,7 @@ const CheckoutForm = ({ price, setOpen }) => {
                         clicked ?
                             <span className="loading loading-bars loading-lg"></span>
                             :
-                            <button className="bg-[orangered] hover:bg-[#b34720] text-white px-4 py-2 flex gap-2" type="submit" disabled={!stripe || !clientSecret}>
+                            <button className="bg-[orangered] hover:bg-[#b34720] text-white text-sm px-2 md:px-4 py-1 md:py-2 flex gap-2" type="submit" disabled={!stripe || !clientSecret}>
                                 <MdOutlinePayment className="text-xl text-white" />
                                 <span>Confrim Payment</span>
                             </button>

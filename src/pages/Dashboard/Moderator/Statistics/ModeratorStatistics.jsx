@@ -42,8 +42,8 @@ const ModeratorStatistics = () => {
             <Helmet>
                 <title>Moderator Statistics | Dashboard</title>
             </Helmet>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="w-full rounded-lg h-[180px] bg-[#5e35b1] flex flex-col gap-1 items-center justify-center">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 drop-shadow-xl">
+                <div className="w-full rounded-lg h-[180px] bg-[#5e35b1] flex flex-col gap-1 items-center justify-center">
                     <MdOutlinePublishedWithChanges className="text-white text-5xl"></MdOutlinePublishedWithChanges>
                     <p className="text-[white]">Accepted Products</p>
                     <h2 className="text-[white] text-2xl font-bold">{stats?.acceptedProd}</h2>

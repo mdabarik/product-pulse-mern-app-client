@@ -74,39 +74,12 @@ const AllProducts = () => {
                     All Products: {products?.length}
                 </h3>
             </div>
+
             {/* Search Functionality */}
             <div>
                 <p className="font-normal my-2">Search products by tag name</p>
-                {/* <h2>{count}</h2> */}
-                {/* <Box
-                    sx={{
-                        width: '100%',
-                        display: 'flex',
-                        flexDirection: 'column', // Stack the components vertically on small screens
-                        alignItems: 'center',    // Center the components horizontally
-                        marginBottom: 2,         // Add margin at the bottom
-                    }}
-                >
-                    <TextField
-                        fullWidth
-                        placeholder="Search by tags"
-                        onChange={(e) => setSearch(e.target.value.trim())}
-                    />
-                    <Button
-                        sx={{
-                            borderRadius: '0px',
-                            padding: '8px',
-                            paddingX: '20px',
-                            marginTop: 2,           // Add margin at the top
-                        }}
-                        startIcon={<SearchIcon />}
-                        variant="contained"
-                    ></Button>
-                </Box> */}
-
-
                 <div className="flex items-start justify-start">
-                    <div className="flex items-center justify-center h-[50px] w-1/2">
+                    <div className="flex items-center justify-center h-[50px] w-full lg:w-1/2">
                         <input
                             onChange={(e) => setSearch(e.target.value.trim())}
                             className="py-2 w-full px-4 border-r-0 border-[#bfbfc3] text-lg bg-[#f8f8ff] h-full outline-none border-2 focus:border-blue-500"
@@ -118,13 +91,8 @@ const AllProducts = () => {
                         </button>
                     </div>
                 </div>
-
-                {/* <h2>{
-                    search ?
-                    <>{`${count?.count} products found`}</> : ""
-                }</h2> */}
-
             </div>
+
             {/* all products card */}
             {
 

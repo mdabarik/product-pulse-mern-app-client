@@ -34,7 +34,7 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
     const axiosSecure = useAxiosSecure();
     const [coupon, setCoupon] = useState('')
     const [price, setPrice] = useState(500);
-    const {user, loading} = useAuth();
+    const { user, loading } = useAuth();
 
     const { data, isLoading } = useQuery({
         queryKey: ['coupon', coupon, loading, user],
@@ -67,7 +67,7 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
                     <div className='flex items-center justify-center'>
-                        <h2 className='text-2xl font-bold mr-4 text-center'>Subscribe to Unlock Limit</h2>
+                        <h2 className='text-sm lg:text-2xl font-bold mr-4 text-center'>Subscribe to Unlock Limit</h2>
                     </div>
                 </DialogTitle>
                 <IconButton
@@ -85,7 +85,7 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
                 <DialogContent dividers>
 
                     <div>
-                        <div className='flex gap-x-3 text-center items-center font-bold justify-center text-xl'>
+                        <div className='flex gap-x-1 md:gap-x-2 lg:gap-x-3 text-center items-center font-extrabold justify-center text-[12px] md:text-lg  lg:text-xl'>
                             <h2>Total Amount:</h2>
                             <strike>${500}</strike>
                             <h2>${price}</h2>
@@ -93,10 +93,12 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
                         </div>
                     </div>
 
-                    <Typography gutterBottom sx={{ textAlign: 'center', fontSize: '14px', padding: '10px' }}>
-                        Unlock a lifetime of benefits with our exclusive subscription for just
-                        ${price} - a one-time payment that guarantees you access to add product indefinitely!
-                        Enjoy the freedom to share your thoughts, updates, and experiences with our community.
+                    <Typography gutterBottom sx={{ textAlign: 'center', padding: '10px' }}>
+                        <p className='text-[12px]'>
+                            Unlock a lifetime of benefits with our exclusive subscription for just
+                            ${price} - a one-time payment that guarantees you access to add product indefinitely!
+                            Enjoy the freedom to share your thoughts, updates, and experiences with our community.
+                        </p>
                     </Typography>
 
                     {/* stripe payment start */}
@@ -107,26 +109,6 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
 
                     {/* apply coupon */}
                     <div>
-                        {/* <Box
-                            sx={{
-                                width: 500,
-                                maxWidth: '100%',
-                                display: 'flex'
-                            }}
-                        >
-                            <TextField
-                                fullWidth
-                                placeholder="Enter your cuopon code"
-                                onChange={(e) => setCoupon(e.target.value.trim())}
-                                id="fullWidth" />
-
-                            {/* <Button
-                                onClick={() => handleCoupon(coupon)}
-                                sx={{ borderRadius: '0px', padding: '8px', paddingX: '20px', width: '40px', marginLeft: '-60px' }}
-                                // startIcon={<SearchIcon />} 
-                                variant="contained">Apply Coupon</Button> 
-                        </Box> */}
-
                         <div className='flex flex-col justify-center items-center gap-2 mt-4'>
                             <p className="font-normal text-center">Enter your valid coupon code</p>
 
@@ -134,10 +116,9 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
                             {
                                 price == 500
                                     ?
-                                    <input onChange={(e) => setCoupon(e.target.value.trim())} className='px-8 py-2 text-center rounded-lg border-2 border-blue-400 w-1/2' type="text" placeholder='Enter coupon' />
+                                    <input onChange={(e) => setCoupon(e.target.value.trim())} className='px-2 py-[4px] outline-none text-center rounded-lg border-2 border-grey-400 w-1/2' type="text" placeholder='Enter coupon' />
                                     :
-                                    <input disabled value={coupon} className='px-8 py-2 text-center rounded-lg border-2 border-blue-400 w-1/2' type="text" placeholder='Enter coupon' />
-
+                                    <input disabled value={coupon} className='px-2 py-[4px] text-center rounded-lg border-2 outline-none border-grey-400 w-1/2' type="text" placeholder='Enter coupon' />
                             }
 
 

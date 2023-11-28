@@ -151,7 +151,7 @@ const ProductDetails = () => {
                 </div>
                 <div className="lg:w-1/2 space-y-6 relative">
                     {/* Product information */}
-                    <h2 className="font-bold text-xl">Product Name: {product?.prodName}</h2>
+                    <h2 className="font-bold text-xl mt-10 lg:mt-0">Product Name: {product?.prodName}</h2>
                     <p>Description: {product?.prodDesc}</p>
                     <div className="flex gap-2">
                         <p>Tags: </p>
@@ -169,7 +169,7 @@ const ProductDetails = () => {
                     </div>
                     
                     {/* Report button */}
-                    <button style={{ marginTop: "-3px" }} className="absolute top-0 right-0 rounded">
+                    <button style={{ marginTop: "-3px" }} className="absolute top-0 right-0">
                         <Report></Report>
                     </button>
                 </div>
