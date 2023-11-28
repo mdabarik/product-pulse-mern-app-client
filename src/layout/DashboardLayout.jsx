@@ -53,7 +53,11 @@ const DashboardLayout = () => {
             <div>
                 <div className='px-4 py-[10px] bg-[#1876d2] text-white'>
                     <DashboardIcon></DashboardIcon>
-                    <Button sx={{ fontSize: '16px', color: 'white', fontWeight: 'bold', padding: '8px' }} size="large">Dashboard</Button>
+                    <Button sx={{ fontSize: '16px', color: 'white', fontWeight: 'bold', padding: '8px' }} size="large">
+                        {
+                            role ? role : 'Dashboard'
+                        }
+                    </Button>
                 </div>
                 {/* <Divider /> */}
                 <List>
