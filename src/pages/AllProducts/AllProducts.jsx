@@ -16,6 +16,14 @@ import TextField from '@mui/material/TextField';
 const AllProducts = () => {
     const [products] = useVerifiedProds();
     // console.log(products, 'allprod');
+    /*-----pagination-----*/
+    const [perPage, setPerPage] = useState(4);
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
+    // console.log(page);
 
 
     const axiosPublic = useAxiosPublic();
@@ -28,18 +36,12 @@ const AllProducts = () => {
         queryFn: async () => {
             const { data } = await axiosPublic.get(`/count-accepted-prods?search=${search}`);
             console.log(data, 'isearch result');
+            setPage(1);
             return data;
         }
     })
 
-    /*-----pagination-----*/
-    const [perPage, setPerPage] = useState(4);
-    const [page, setPage] = useState(1);
-    const [totalPage, setTotalPage] = useState(1);
-    const handleChange = (event, value) => {
-        setPage(value);
-    };
-    // console.log(page);
+    
 
     // /all-products-public?page=${page}&limit=${perPage}
     const { data: prods, isLoading, refetch } = useQuery({
