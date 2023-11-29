@@ -5,7 +5,6 @@ import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-/*** AOS Animation ***/
 import 'aos/dist/aos.css';
 import AOS from "aos";
 import CouponSlider from './CouponSlider';
@@ -36,10 +35,8 @@ const CouponSliders = () => {
         queryFn: async () => {
             const res = await axiosPublic.get(`/get-active-token`);
             const activeCoupon = res?.data?.filter(coupon => {
-                // console.log(isDateExpired(coupon?.expireDate), moment(coupon?.expireDate).format('ll'), 'inside filter');
                 return !isDateExpired(coupon?.expireDate)
             })
-            // console.log(activeCoupon);
             return activeCoupon;
         }
     })

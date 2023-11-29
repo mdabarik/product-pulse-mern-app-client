@@ -27,20 +27,10 @@ import EditBtn from '../../../../components/Button/EditBtn';
 import ViewBtn from '../../../../components/Shared/ViewBtn/ViewBtn';
 import InvalidFormMsg from '../../../../components/Shared/InvalidFormMsg/InvalidFormMsg';
 import { Helmet } from 'react-helmet-async';
-// function isDateExpired(inputDate) {
-//     // Convert the input date string to a Moment.js object
-//     var inputMoment = moment(inputDate, 'YYYY-MM-DD');
-//     // Get the current date with Moment.js
-//     var currentMoment = moment().subtract(1, 'days');
-//     // Compare the input date with the current date
-//     return inputMoment.isBefore(currentMoment);
-// }
+
 function isDateExpired(inputDate) {
-    // Convert the input date string to a Moment.js object
     var inputMoment = moment(inputDate, 'YYYY-MM-DD');
-    // Get the current date with Moment.js
     var currentMoment = moment().subtract(1, 'days');
-    // Compare the input date with the current date
     return inputMoment.isBefore(currentMoment);
 }
 
