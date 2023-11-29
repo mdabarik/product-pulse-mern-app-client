@@ -13,7 +13,7 @@ const Slider = ({ slider }) => {
                 <p className="text-sm md:text-lg text-center text-white">{subtitle}</p>
                 {/* <Link to="/rooms" className="btn btn-secondary text-center" >Book Now</Link> */}
                 <Button size="big" sx={{padding: '10px', paddingX: '30px', borderRadius: '50px'}} variant="contained" endIcon={<ShoppingBasketIcon />}>
-                    Book Now
+                    <Link to="/all-products">Order Now</Link>
                 </Button>
             </div>
         </div>

@@ -3,7 +3,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Slider from "./Slider";
 import "./Sliders.css";
 import { useQuery } from '@tanstack/react-query';
@@ -30,10 +30,7 @@ const Sliders = () => {
 
     const { data: sliders, isLoading, refetch } = useQuery({
         queryKey: ['sliders'],
-        // enabled: !loading || !!user?.email,
-        // enabled: !loading && !!user?.email,
         queryFn: async () => {
-            // console.log(user?.email);
             const { data } = await axiosPublic.get(`/sliders`)
             console.log(data, 'sliders');
             return data;
@@ -43,16 +40,6 @@ const Sliders = () => {
     if (isLoading) {
         return <Loader></Loader>
     }
-
-    // useEffect(() => {
-    //     fetch("/sliders", { credentials: 'include' })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setSliders(data);
-    //         })
-    //         .catch(() => {
-    //         })
-    // }, []);
 
     return (
         <div className='w-[100%] lg:w-full h-[500px] relative z-0' data-aos="zoom-in">
@@ -74,7 +61,6 @@ const Sliders = () => {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 }}
-            // navigation={false} 
             >
                 {sliders?.map(slider => (
                     <SwiperSlide key={slider._id}>
