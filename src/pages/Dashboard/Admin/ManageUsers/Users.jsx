@@ -49,10 +49,10 @@ const Users = () => {
           toast.error("This user already admin")
         }
         refetch();
-        console.log(res, 'inside handle make admin');
+        // console.log(res, 'inside handle make admin');
       })
       .catch(err => {
-        console.log(err, 'inside handle make admin');
+        // console.log(err, 'inside handle make admin');
         toast.success(err.message);
       })
   }
@@ -75,10 +75,10 @@ const Users = () => {
           toast.error("This user already moderator")
         }
         refetch();
-        console.log(res, 'inside handle make moderator');
+        // console.log(res, 'inside handle make moderator');
       })
       .catch(err => {
-        console.log(err, 'inside handle make moderator');
+        // console.log(err, 'inside handle make moderator');
         toast.success(err.message);
       })
   }

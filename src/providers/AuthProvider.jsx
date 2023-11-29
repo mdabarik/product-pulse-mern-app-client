@@ -55,15 +55,15 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(firebaseAuth, currUser => {
             setUser(currUser);
-            console.log("inside onauthstatechanged", currUser);
+            // console.log("inside onauthstatechanged", currUser);
             /*---------JWT TOKEN----------*/
             if (currUser) {
-                console.log(import.meta.env.VITE_SERVER_URL, 'url');
+                // console.log(import.meta.env.VITE_SERVER_URL, 'url');
                 // get token and store client
                 const userInfo = { email: currUser.email };
                 axiosPublic.post('/jwt', userInfo)
                     .then(res => {
-                        console.log(res);
+                        // console.log(res);
                         if (res?.data?.token) {
                             localStorage.setItem('access-token', res?.data?.token);
                             setLoading(false);

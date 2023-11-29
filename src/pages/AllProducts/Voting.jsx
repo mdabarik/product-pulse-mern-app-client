@@ -12,6 +12,7 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useRole from '../../hooks/useRole';
 import Skeleton from '@mui/material/Skeleton';
 import Loader from '../../components/Shared/Loader/Loader';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 
 
@@ -20,10 +21,7 @@ const Voting = ({ product, refetch: refetch2 }) => {
     const { user, loading, setResolver, resolver } = useAuth();
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
-
-    // console.log(resolver, 'relsover observe');
-
-    // console.log(product);
+    const axiosSecure = useAxiosSecure();
 
     /*--- get total downvote & upvote of curr product---*/
     const { data: votes, isLoading, refetch } = useQuery({
@@ -45,13 +43,10 @@ const Voting = ({ product, refetch: refetch2 }) => {
             return res.data;
         }
     })
-    // console.log(currUserVotes, 'votes ucr user');
 
     // if (loading) return <Loader></Loader>
 
     const handleVote = (vote) => {
-        // console.log(product.prodOwnerInfo);
-        // console.log(product?.prodOwnerInfo?.email, user?.email);
         /*product user can't upvote*/
         if (product?.prodOwnerInfo?.email == user?.email) {
             toast.error(`You can't ${vote} your own product.`);
@@ -68,7 +63,6 @@ const Voting = ({ product, refetch: refetch2 }) => {
         //     toast.error(`${role} can't ${vote}`);
         //     return;
         // }
-
         /**---if curr user already upvoted---**/
         if (currUserVotes?.upvotes == 1 && vote == 'upvote') {
             toast.error(`You can't upvote one product twice`);
@@ -89,7 +83,7 @@ const Voting = ({ product, refetch: refetch2 }) => {
         }
 
         if (user) {
-            axiosPublic.put('/add-or-update', updatedDoc)
+            axiosSecure.put('/add-or-update', updatedDoc)
                 .then(res => {
                     // console.log(res);
                     if (res.data.modifiedCount > 0 || res.data.upsertedId) {
@@ -103,7 +97,7 @@ const Voting = ({ product, refetch: refetch2 }) => {
                     }
                 })
                 .catch(err => {
-                    console.log(err, 'inside handle vote');
+                    // console.log(err, 'inside handle vote');
                 })
         }
 

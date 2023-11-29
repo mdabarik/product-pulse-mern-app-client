@@ -3,7 +3,7 @@ import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
 const useCoupon = ({ coupon}) => {
-    console.log(coupon, 'colakdfjladkfj');
+    // console.log(coupon, 'colakdfjladkfj');
 
     const { user, loading } = useAuth();
     const axiosSecure = useAxiosSecure();

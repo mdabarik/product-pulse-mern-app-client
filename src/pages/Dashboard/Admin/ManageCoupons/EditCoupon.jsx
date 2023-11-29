@@ -54,14 +54,14 @@ const EditCoupon = () => {
         }
 
         setSubmitting(true);
-        console.log('clicked hndledtcoupon');
+        // console.log('clicked hndledtcoupon');
         const updatedCoupon = {
             couponCode: code || couponCode, expireDate: date?.format('YYYY-MM-DD') || expireDate, couponDesc: desc || couponDesc, discAmount: disc || discAmount
         }
         // console.log(updatedCoupon);
         axiosSecure.patch(`/coupons/${id}`, updatedCoupon)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res?.data?.modifiedCount > 0) {
                     toast.success("Coupon updated successfully");
                     setSubmitting(false);
@@ -72,7 +72,7 @@ const EditCoupon = () => {
                 refetch();
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 toast.error(err.message);
                 setSubmitting(false);
             })

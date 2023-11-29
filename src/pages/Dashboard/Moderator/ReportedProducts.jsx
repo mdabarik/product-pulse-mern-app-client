@@ -36,7 +36,7 @@ const ReportedProducts = () => {
         queryKey: ['report-reported-contente', loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get(`/reported-products`)
-            console.log('is reported', res.data);
+            // console.log('is reported', res.data);
             return res.data;
         }
     })
@@ -57,7 +57,7 @@ const ReportedProducts = () => {
         // console.log(prodId);
         axiosSecure.delete(`/products/${prodId}`)
             .then(res => {
-                console.log(res, 'handle delete');
+                // console.log(res, 'handle delete');
                 if (res.data.deletedCount > 0) {
                     toast.success('Product deleted successfully.');
                     refetch();

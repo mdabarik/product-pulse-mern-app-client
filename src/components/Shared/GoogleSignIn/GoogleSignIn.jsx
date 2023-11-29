@@ -15,7 +15,7 @@ const GoogleSignIn = () => {
     const handleGoogleSignIn = () => {
         googleSignIn(auth)
             .then(res => {
-                console.log('inside handleGoogleSignin', res);
+                // console.log('inside handleGoogleSignin', res);
                 // save user data on database if data does not exist
                 const user = res.user;
                 const userData = {
@@ -26,21 +26,21 @@ const GoogleSignIn = () => {
                     status: 'Unverified',
                     isSubscribed: 'no'
                 };
-                console.log(userData, 'userdata googlesignin.jsx', user);
+                // console.log(userData, 'userdata googlesignin.jsx', user);
                 // saveUserData on database if user created on firebase successfully
                 axiosPublic.post('/users', userData)
                     .then(res => {
-                        console.log(res, 'inside handle register, /users put req');
+                        // console.log(res, 'inside handle register, /users put req');
                     })
                     .catch(err => {
-                        console.log(err, 'inside handle register, /users put req');
+                        // console.log(err, 'inside handle register, /users put req');
                     })
                 navigate('/')
                 toast.success("Google Sign In Successful")
 
             })
             .catch(err => {
-                console.log('inside handleGoogleSignin', err);
+                // console.log('inside handleGoogleSignin', err);
                 toast.success(err.message)
             })
             setLoading(false)

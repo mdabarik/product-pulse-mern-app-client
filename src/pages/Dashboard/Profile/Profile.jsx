@@ -23,11 +23,11 @@ const Profile = () => {
     };
 
     const handlePayment = (email) => {
-        console.log(email, 'email email emial');
+        // console.log(email, 'email email emial');
         setOpen(true)
     }
 
-    console.log(currUser);
+    // console.log(currUser);
 
     return (
         <div>

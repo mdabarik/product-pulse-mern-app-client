@@ -16,7 +16,7 @@ const useSingleUser = () => {
         queryFn: async () => {
             // console.log(user?.email);
             const { data } = await axiosSecure.get(`/users/${user?.email}`)
-            console.log(data, 'data inside usse single user');
+            // console.log(data, 'data inside usse single user');
             return data;
         },
     })

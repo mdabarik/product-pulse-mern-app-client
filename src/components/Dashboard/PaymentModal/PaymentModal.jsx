@@ -40,7 +40,7 @@ const PaymentModal = ({ open, setOpen, handleClickOpen, handleClose }) => {
         queryKey: ['coupon', coupon, loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get(`/get-coupon?code=${coupon}`);
-            console.log(res.data);
+            // console.log(res.data);
             return res.data;
         }
     })

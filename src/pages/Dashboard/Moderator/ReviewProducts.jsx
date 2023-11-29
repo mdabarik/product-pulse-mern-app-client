@@ -69,7 +69,7 @@ const ReviewProducts = () => {
         // /products/update-status/:id
         axiosSecure.patch(`/products/update-status/${id}`, { prodStatus: status })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res?.data?.modifiedCount > 0) {
                     toast.success('Status updated');
                     refetch();
@@ -86,7 +86,7 @@ const ReviewProducts = () => {
     const handleFeature = (feature, id) => {
         axiosSecure.patch(`/products/update-feature/${id}`, { prodIsFeatured: feature })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res?.data?.modifiedCount > 0) {
                     toast.success('Feature updated');
                     refetch();

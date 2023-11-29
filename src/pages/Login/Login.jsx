@@ -27,7 +27,7 @@ const Login = () => {
     const [submitting, setSubmitting] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
     const from = location?.state?.from?.pathname || '/';
-    console.log(location, 'location', from);
+    // console.log(location, 'location', from);
 
     if (user) {
         if (from == '/dashboard') {
@@ -52,7 +52,7 @@ const Login = () => {
         loginUser(userEmail, userPassword)
             .then(res => {
                 setSubmitting(false)
-                console.log('inside handle login', res);
+                // console.log('inside handle login', res);
                 toast.success('Login successful')
                 if (from == '/dashboard') {
                     return navigate('/')
@@ -60,7 +60,7 @@ const Login = () => {
                 navigate(from);
             })
             .catch(err => {
-                console.log('inside handle login', err);
+                // console.log('inside handle login', err);
                 toast.error('Wrong email/password')
                 setLoading(false);
                 setSubmitting(false)

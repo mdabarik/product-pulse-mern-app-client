@@ -18,7 +18,7 @@ const DraftPage = () => {
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/get-rejected-prod/${id}`);
             if (!data?.prodStatus) navigate('/');
-            console.log(data, 'Inside Draft page');
+            // console.log(data, 'Inside Draft page');
             return data;
         }
     })

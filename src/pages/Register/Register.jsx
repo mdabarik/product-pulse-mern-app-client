@@ -80,7 +80,7 @@ const Register = () => {
         } catch (err) {
             setSubmitting(false)
         }
-        console.log(photoURL);
+        // console.log(photoURL);
 
         const userData = {
             userName, userEmail, userPassword, photoURL, userRole: 'normal',
@@ -88,7 +88,7 @@ const Register = () => {
         };
         registerUser(userEmail, userPassword)
             .then(res => {
-                console.log('inside register.jsx inside handeRegister', res);
+                // console.log('inside register.jsx inside handeRegister', res);
                 toast.success("Registration successful");
                 updateProfile(res.user, {
                     displayName: userName,

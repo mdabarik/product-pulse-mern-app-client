@@ -4,7 +4,7 @@ import useRole from "../../../hooks/useRole";
 
 const DashboardHome = () => {
     const [role, isLoading] = useRole();
-    console.log(role, 'dashboardhome');
+    // console.log(role, 'dashboardhome');
 
     if (isLoading) return <Loader />; // Return the Loader component
 

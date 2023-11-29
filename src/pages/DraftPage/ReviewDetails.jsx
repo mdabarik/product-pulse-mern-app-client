@@ -23,7 +23,7 @@ const ReviewDetails = () => {
         }
     })
 
-    console.log(reviews, 'review ...');
+    // console.log(reviews, 'review ...');
     return (
         <div>
             <div>

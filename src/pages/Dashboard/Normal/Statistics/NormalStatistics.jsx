@@ -20,7 +20,7 @@ const NormalStatistics = () => {
         queryKey: ['user-stats', loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get(`/user-stats?email=${user?.email}`);
-            console.log(res.data, 'users-stats');
+            // console.log(res.data, 'users-stats');
             return res.data;
         }
     })

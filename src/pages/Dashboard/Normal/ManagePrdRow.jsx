@@ -38,7 +38,7 @@ const ManagePrdRow = ({product, index, handleOpen}) => {
         queryKey: ['voting-up-down', product?._id],
         queryFn: async() => {
             const {data} = await axiosPublic.get(`/get-votes/?id=${product?._id}`);
-            console.log(data, 'hello');
+            // console.log(data, 'hello');
             return data;
         }
     })

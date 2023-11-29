@@ -21,7 +21,7 @@ const ModeratorStatistics = () => {
         queryKey: ['moderator-stats', loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get(`/moderator-stats`);
-            console.log(res.data, 'admin-stats');
+            // console.log(res.data, 'admin-stats');
             return res.data;
         }
     })
@@ -31,7 +31,7 @@ const ModeratorStatistics = () => {
         queryKey: ['report-reported-contente-statist', loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get(`/reported-products`)
-            console.log('is reported', res.data);
+            // console.log('is reported', res.data);
             return res.data;
         }
     })

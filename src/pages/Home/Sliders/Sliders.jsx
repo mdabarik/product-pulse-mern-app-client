@@ -32,7 +32,7 @@ const Sliders = () => {
         queryKey: ['sliders'],
         queryFn: async () => {
             const { data } = await axiosPublic.get(`/sliders`)
-            console.log(data, 'sliders');
+            // console.log(data, 'sliders');
             return data;
         },
     })

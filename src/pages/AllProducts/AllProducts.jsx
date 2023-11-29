@@ -31,7 +31,7 @@ const AllProducts = () => {
         queryKey: ['count search', search],
         queryFn: async () => {
             const { data } = await axiosPublic.get(`/count-accepted-prods?search=${search}`);
-            console.log(data, 'isearch result');
+            // console.log(data, 'isearch result');
             setPage(1);
             return data;
         }
@@ -42,7 +42,7 @@ const AllProducts = () => {
         queryKey: ['all-prods-public', page, search],
         queryFn: async () => {
             const res = await axiosPublic.get(`/all-products-public?page=${page}&limit=${perPage}&search=${search}`);
-            console.log(res.data, 'inside search limit pageer');
+            // console.log(res.data, 'inside search limit pageer');
             return res.data;
         }
     })

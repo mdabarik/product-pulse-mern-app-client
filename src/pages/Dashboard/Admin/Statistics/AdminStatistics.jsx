@@ -23,7 +23,7 @@ const AdminStatistics = () => {
         queryKey: ['admin-stats', loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get('/admin-stats');
-            console.log(res.data, 'admin-stats');
+            // console.log(res.data, 'admin-stats');
             return res.data;
         }
     })

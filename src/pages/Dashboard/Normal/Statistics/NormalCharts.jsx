@@ -2,7 +2,7 @@ import { Chart } from "react-google-charts";
 
 const NormalCharts = ({accepted, rejected, pending, products}) => { // accepted, rejected, pending, products
 
-    console.log(rejected, pending);
+    // console.log(rejected, pending);
    
     // reported, rejected, pending, products, reviews,
     const data = [

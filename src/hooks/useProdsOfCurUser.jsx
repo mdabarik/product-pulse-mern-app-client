@@ -10,7 +10,7 @@ const useProdsOfCurUser = () => {
         queryKey: ['my-prods', loading, user],
         queryFn: async () => {
             const { data } = await axiosPublic.get(`/get-prods-me/?email=${user?.email}`);
-            console.log(data, ' useproduct');
+            // console.log(data, ' useproduct');
             return data;
         }
     })

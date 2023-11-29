@@ -26,7 +26,7 @@ const Report = ({product}) => {
         queryKey: ['report-data', id, loading, user],
         queryFn: async () => {
             const res = await axiosSecure.get(`/is-reported?email=${user?.email}&id=${id}`)
-            console.log('report data', res);
+            // console.log('report data', res);
             return res.data;
         }
     })
@@ -46,7 +46,7 @@ const Report = ({product}) => {
         }
         axiosSecure.post('/report-prod', reportDoc)
         .then(res => {
-            console.log(res);
+            // console.log(res);
             if (res.data.insertedId) {
                 refetch();
                 toast.success('Reported successfully');
@@ -54,7 +54,7 @@ const Report = ({product}) => {
             }
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             toast.error("Something went wrong, try again later")
         })
     }

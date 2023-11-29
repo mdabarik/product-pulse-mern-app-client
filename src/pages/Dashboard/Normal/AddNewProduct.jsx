@@ -50,15 +50,12 @@ const AddNewProduct = () => {
     }
 
     const handleAddProduct = async () => {
-
-
-        console.log(errorMsg, 'message');
+        // console.log(errorMsg, 'message');
         setErrorMsg(null)
         if (!/^[a-zA-Z0-9_\-\. ]{10,50}$/.test(productName)) {
             setErrorMsg("Product name can contain only a-zA-Z0-9_.- and space, and must be between 10 and 50 characters.");
             return;
         }
-
 
         if (!imageFile) {
             setErrorMsg("Please select an image file");
@@ -123,10 +120,10 @@ const AddNewProduct = () => {
             prodIsFeatured: 'no',
             prodAddedAt: new Date()
         }
-        console.log(newProduct);
+        // console.log(newProduct);
         axiosSecure.post('/products', newProduct)
             .then(res => {
-                console.log(res, 'inside add product handler');
+                // console.log(res, 'inside add product handler');
                 if (res.data.insertedId) {
                     toast.success("Product added succesfully");
                     navigate('/dashboard/manage-products');
@@ -134,7 +131,7 @@ const AddNewProduct = () => {
                 }
             })
             .catch(err => {
-                console.log(err, 'inside add product handler');
+                // console.log(err, 'inside add product handler');
                 toast.error(err.message);
                 setSubmitting(false)
             })

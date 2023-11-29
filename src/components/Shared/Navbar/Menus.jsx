@@ -29,13 +29,13 @@ const Menus = () => {
         setAnchorElUser(null);
     };
     const handleLogout = () => {
-        console.log('logout clicked');
+        // console.log('logout clicked');
         logOut()
             .then(res => {
-                console.log(res);
+                // console.log(res);
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
             })
     }
     return (

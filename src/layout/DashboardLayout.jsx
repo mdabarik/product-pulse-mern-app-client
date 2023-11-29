@@ -38,11 +38,11 @@ const DashboardLayout = () => {
     const handleLogout = () => {
         logOut()
             .then(res => {
-                console.log('handle logout, dashbaord', res);
+                // console.log('handle logout, dashbaord', res);
                 toast.success("Logout successful");
             })
             .catch(err => {
-                console.log('handle logout, dashbaord', err);
+                // console.log('handle logout, dashbaord', err);
                 toast.error("Something went wrong");
             })
     }

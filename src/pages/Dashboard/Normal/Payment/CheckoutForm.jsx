@@ -19,13 +19,13 @@ const CheckoutForm = ({ price, setOpen }) => {
     const { user } = useAuth();
     const [currUser, isLoding, refetch] = useSingleUser();
 
-    console.log('price to pay', price);
+    // console.log('price to pay', price);
 
     useEffect(() => {
         if (price > 0) {
             axiosSecure.post('/create-payment-intent', { price: price })
                 .then(res => {
-                    console.log(res.data.clientSecret);
+                    // console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
@@ -54,11 +54,11 @@ const CheckoutForm = ({ price, setOpen }) => {
         })
 
         if (error) {
-            console.log('payment error', error);
+            // console.log('payment error', error);
             setError(error.message);
         }
         else {
-            console.log('payment method', paymentMethod)
+            // console.log('payment method', paymentMethod)
             setError('');
         }
 
@@ -75,15 +75,15 @@ const CheckoutForm = ({ price, setOpen }) => {
 
         if (confirmError) {
             setClicked(false);
-            console.log('confirm error')
+            // console.log('confirm error')
         }
         else {
-            console.log('payment intent', paymentIntent)
+            // console.log('payment intent', paymentIntent)
             setOpen(false);
             if (paymentIntent.status === 'succeeded') {
                 setOpen(false);
                 setClicked(false)
-                console.log('transaction id', paymentIntent.id);
+                // console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
 
                 toast.success("Payment successfull, all featured unlocked.")
@@ -98,7 +98,7 @@ const CheckoutForm = ({ price, setOpen }) => {
 
                 axiosSecure.patch(`/user-subscription/${user?.email}`, { isSubscribed: 'yes', status: 'Verified' })
                     .then(res => {
-                        console.log('user subscribed status updated', res);
+                        // console.log('user subscribed status updated', res);
                         if (res.data.modifiedCount > 0) {
                             refetch();
                         }
@@ -108,7 +108,7 @@ const CheckoutForm = ({ price, setOpen }) => {
                     })
 
                 const res = await axiosSecure.post('/payments', payment);
-                console.log('payment saved', res.data);
+                // console.log('payment saved', res.data);
                 // refetch();
                 if (res.data?.paymentResult?.insertedId) {
                     //

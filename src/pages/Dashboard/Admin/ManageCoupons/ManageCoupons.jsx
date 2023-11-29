@@ -81,13 +81,13 @@ const ManageCoupons = () => {
                 if (res.data.insertedId) {
                     toast.success('Coupn created successfully');
                     refetch();
-                    console.log(res, 'handle create copn');
+                    // console.log(res, 'handle create copn');
                     setSubmitting(false)
                     setOpen(false)
                 }
             })
             .catch(err => {
-                console.log(err, 'handle create copn');
+                // console.log(err, 'handle create copn');
                 toast.success(err.message);
                 setSubmitting(false)
             })
@@ -107,13 +107,13 @@ const ManageCoupons = () => {
     const handleDelete = (id) => {
         axiosSecure.delete(`/coupons/${id}`, { userEmail: user?.email })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 toast.success("Coupon Deleted");
                 refetch();
             })
             .catch(err => {
                 toast.error(err.message);
-                console.log(err);
+                // console.log(err);
             })
     }
     /*----- second modal for deletion coupon--------*/

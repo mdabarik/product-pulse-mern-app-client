@@ -111,11 +111,11 @@ const EditProduct = () => {
             prodExtLink: externalLink || product?.prodExtLink,
             prodTags: selected || product?.prodTags,
         }
-        console.log(updatedProduct, 'udpated or not check it');
+        // console.log(updatedProduct, 'udpated or not check it');
         // console.log(newProduct);
         axiosSecure.patch(`/products/${id}`, updatedProduct)
             .then(res => {
-                console.log(res, 'inside add product handler');
+                // console.log(res, 'inside add product handler');
                 refetch();
                 if (res.data.modifiedCount) {
                     toast.success("Product added succesfully");
@@ -127,7 +127,7 @@ const EditProduct = () => {
                 }
             })
             .catch(err => {
-                console.log(err, 'inside add product handler');
+                // console.log(err, 'inside add product handler');
                 toast.error(err.message);
                 setSubmitting(false)
             })

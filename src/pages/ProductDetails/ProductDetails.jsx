@@ -21,7 +21,7 @@ const ProductDetails = () => {
         queryKey: ['singleproddetails', loading, observeAddReview],
         queryFn: async () => {
             const res = await axiosSecure.get(`/single-prod/${id}`);
-            console.log(res, 'inside usequery prod details');
+            // console.log(res, 'inside usequery prod details');
             return res.data;
         }
     })
