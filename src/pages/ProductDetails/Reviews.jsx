@@ -47,7 +47,7 @@ const Reviews = ({ product }) => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
     const { data: review, isLoading, refetch } = useQuery({
-        queryKey: ['reviewsa', setObserveAddReview],
+        queryKey: ['reviewsa', setObserveAddReview, id],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/review?email=${user?.email}&id=${id}`);
             setValue(data?.userRating || 0);
@@ -63,7 +63,6 @@ const Reviews = ({ product }) => {
             return;
         }
 
-
         setErrorMsg(null)
         if (value <= 0) {
             setErrorMsg("Please Select Rating");
@@ -73,12 +72,6 @@ const Reviews = ({ product }) => {
             setErrorMsg("Please add comment and must be at least 30 chars and max 80 chars");
             return;
         }
-
-        // if () {
-        //     setErrorMsg("Password must contains 1 lowercase, 1 uppercase, 1 special chars, range 6-64");
-        //     return;
-        // }
-
 
         setSubmitting(true);
         const updatedReview = {
@@ -106,7 +99,7 @@ const Reviews = ({ product }) => {
             })
     }
 
-    // if (isLoading) return <Loader></Loader>
+    if (isLoading) return <Loader></Loader>
 
     return (
         <div>
