@@ -282,11 +282,17 @@ const Users = () => {
                   <TableCell align="left">{user?.userRole}</TableCell>
                   <TableCell align="left">
                     {
-                      user?.userEmail == loggedUser?.email || user?.userRole == 'moderator' ? 
-                        <button disabled>
-                          <ModeratorBtn></ModeratorBtn>
-                        </button>
-                       :
+                      user?.userEmail == loggedUser?.email || user?.userRole == 'moderator' ?
+                        <>
+                          <button disabled>
+                            {
+                              user?.userRole == 'moderator' ?
+                              <ModeratorBtn></ModeratorBtn> :
+                              <NotModeratorBtn></NotModeratorBtn>
+                            }
+                          </button>
+                        </>
+                        :
                         <button onClick={() => {
                           handleModOpen(user?.userEmail, user?.userName)
                         }} >
