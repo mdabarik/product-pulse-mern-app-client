@@ -162,8 +162,6 @@ const Reviews = ({ product }) => {
                         }
                     </div>
 
-
-
                     <Textarea
                         onChange={e => setComment(e.target.value)}
                         sx={{ padding: '10px' }}
