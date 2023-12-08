@@ -13,7 +13,7 @@ const ErrorPage = () => {
     return (
         <div data-aos="zoom-in" className="flex items-center justify-center w-[100vw] h-[100vh] flex-col space-y-8">
             <Helmet>
-                <title>404 Page Not Found | Product Pulse</title>
+                <title>Opps! 404 Page Not Found || Product Pulse</title>
             </Helmet>
             <div className="w-[280px] py-6">
                 <img className="w-full h-[200px] object-cover" src={ErrorBanner} alt="error png" />
