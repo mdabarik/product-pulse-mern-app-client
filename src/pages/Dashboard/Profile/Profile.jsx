@@ -13,7 +13,7 @@ const Profile = () => {
     const [open, setOpen] = React.useState(false);
     const [role] = useRole();
 
-    const [currUser, isLoding, refetch] = useSingleUser();
+    const [currUser, isLoding] = useSingleUser();
 
     const handleClickOpen = () => {
         setOpen(true);

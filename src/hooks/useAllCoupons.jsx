@@ -2,7 +2,6 @@ import useAuth from "./useAuth";
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from "./useAxiosSecure";
 
-
 const useAllCoupons = () => {
     const { user, loading } = useAuth();
     const axiosSecure = useAxiosSecure();
@@ -11,7 +10,6 @@ const useAllCoupons = () => {
         queryFn: async () => {
             const res = await axiosSecure.get(`/all-coupons/${user?.email}`);
             const sortedInDescIso = res?.data?.sort((a, b) => new Date(b.expireDate) - new Date(a.expireDate));
-            // console.log(res);
             return sortedInDescIso;
         }
     })

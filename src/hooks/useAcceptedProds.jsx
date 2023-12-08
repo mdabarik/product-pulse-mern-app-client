@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from './useAuth';
 import useAxiosPublic from './useAxiosPublic';
 
-
 const useAcceptedProds = () => {
     const {user, loading} = useAuth();
     const axiosPublic = useAxiosPublic();
@@ -10,7 +9,6 @@ const useAcceptedProds = () => {
         queryKey: ['productsall', loading, user],
         queryFn: async () => {
             const { data } = await axiosPublic.get(`/get-all-accpeted-products`);
-            // console.log(data, 'inside useproduct');
             return data;
         }
     })

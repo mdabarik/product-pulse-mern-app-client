@@ -2,7 +2,6 @@ import useAuth from "./useAuth";
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from "./useAxiosSecure";
 
-
 const useAllProducts = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
@@ -10,7 +9,6 @@ const useAllProducts = () => {
         queryKey: ['products'],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/all-products/${user?.email}`);
-            // console.log(data, 'inside use all product');
             return data;
         }
     })
