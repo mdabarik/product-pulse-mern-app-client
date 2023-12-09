@@ -1,10 +1,5 @@
 # Product Pulse - Web App
-A system for managing tech gadgets and products with distinct user roles: Admin, Moderator, and Normal User.
-
-
-
-
-
+<!-- A system for managing tech gadgets and products with distinct user roles: Admin, Moderator, and Normal User. -->
 
 
 - [Live Link](https://product-pulse-web-app.web.app/)
