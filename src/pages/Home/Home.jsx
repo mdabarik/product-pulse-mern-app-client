@@ -1,3 +1,4 @@
+import TrustedBrands from "../../components/TrustedBrands/TrustedBrands";
 import FeaturedProducts from "../FeaturedProducts/FeaturedProducts";
 import TrendingProducts from "../TrendingProducts/TrendingProducts";
 import CouponSliders from "./CouponCarousel/CouponSliders";
@@ -22,6 +23,10 @@ const Home = () => {
             <div className="w-[90%] mx-auto lg:w-[95%] xl:w-full">
                 {/* trending products */}
                 <TrendingProducts></TrendingProducts>
+            </div>
+            <div className="w-[90%] mx-auto lg:w-[95%] xl:w-full">
+                {/* trending products */}
+                <TrustedBrands></TrustedBrands>
             </div>
             <div className="w-[90%] mx-auto lg:w-[95%] xl:w-full">
                 {/* coupon codes sliders/carousel */}
