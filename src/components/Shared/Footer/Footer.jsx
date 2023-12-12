@@ -77,16 +77,7 @@ const Footer = () => {
                 <p>USA, United States of America</p>
             </div>
 
-            {/* <div className="mt-4">
-                <div style={{ height: "auto", margin: "0 auto", maxWidth: 64, width: "100%" }}>
-                    <QRCode
-                        size={256}
-                        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                        value={"https://product-pulse-web-app.web.app"}
-                        viewBox={`0 0 256 256`}
-                    />
-                </div>
-            </div> */}
+            
 
             <div className="text-center border-t-2 mt-6">
                 <p className="mt-6 text-xs lg:text-sm">All Rights Reserved &copy; 2023-2029</p>
