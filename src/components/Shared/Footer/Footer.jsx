@@ -82,7 +82,7 @@ const Footer = () => {
                     <QRCode
                         size={256}
                         style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                        value={"email: mdabarik19@gmail.com phone: +8801330759741"}
+                        value={"email: mdabarik19@gmail.com, phone: +8801330759741, portfolio:https://mdabarik-portfolio.web.app"}
                         viewBox={`0 0 256 256`}
                     />
                 </div>
