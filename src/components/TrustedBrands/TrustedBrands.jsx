@@ -10,7 +10,7 @@ const TrustedBrands = () => {
     return (
         <div className="my-14">
             <div className="flex items-center justify-center flex-col">
-                <h1 className="text-2xl text-center font-extrabold uppercase">Our Trusted   <span className="text-[#4d4dbe]">Brands</span></h1>
+                <h1 className="text-2xl text-center font-extrabold uppercase">Our Trusted   <span className="text-[#4d4dbe]">Partners</span></h1>
                 <p className="text-center uppercase text-sm mt-4 text-gray-600">Our companion working with us for a long period of time.</p>
             </div>
             <div className="my-4 flex items-center justify-center flex-wrap gap-6">
